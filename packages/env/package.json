@@ -1,0 +1,23 @@
+{
+  "name": "@in-learning/env",
+  "version": "0.0.0",
+  "private": "true",
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "@in-learning/eslint-config": "workspace:*",
+    "@in-learning/prettier": "workspace:*",
+    "@in-learning/tsconfig": "workspace:*",
+    "@types/node": "^22.14.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@in-learning/eslint-config"
+    ]
+  },
+  "prettier": "@in-learning/prettier",
+  "dependencies": {
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "zod": "^3.24.2"
+  }
+}
