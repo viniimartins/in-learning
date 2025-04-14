@@ -1,0 +1,32 @@
+{
+  "name": "@in-learning/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@in-learning/env": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "next": "15.3.0"
+  },
+  "devDependencies": {
+    "@in-learning/eslint-config": "workspace:*",
+    "@in-learning/tsconfig": "workspace:*",
+    "@in-learning/prettier": "workspace:*",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@tailwindcss/postcss": "^4",
+    "tailwindcss": "^4"
+  },
+  "prettier": "@in-learning/prettier",
+  "eslintConfig": {
+    "extends": "@in-learning/eslint-config/next"
+  }
+}
