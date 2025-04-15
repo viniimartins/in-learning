@@ -24,7 +24,7 @@ export function Header() {
   return (
     <header
       className={cn(
-        'fixed left-0 top-0 z-50 flex h-20 items-center border-b transition-[width,left] duration-300 ease-in-out',
+        'bg-background fixed z-50 flex h-20 w-full items-center border-b transition-[width,left] duration-300 ease-in-out',
         open
           ? 'left-[var(--sidebar-width)] w-[calc(100vw-var(--sidebar-width))]'
           : 'left-[var(--sidebar-width-icon)] w-[calc(100vw-var(--sidebar-width-icon))]',

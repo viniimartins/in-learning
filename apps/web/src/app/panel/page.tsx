@@ -3,6 +3,12 @@ export default function PanelPage() {
     <>
       <div>Panel</div>
       <div>Panel</div> <div>Panel</div> <div>Panel</div> <div>Panel</div>
+      <div>Panel</div>
+      <div>Panel</div> <div>Panel</div> <div>Panel</div> <div>Panel</div>
+      <div>Panel</div>
+      <div>Panel</div> <div>Panel</div> <div>Panel</div> <div>Panel</div>
+      <div>Panel</div>
+      <div>Panel</div> <div>Panel</div> <div>Panel</div> <div>Panel</div>
     </>
   )
 }
