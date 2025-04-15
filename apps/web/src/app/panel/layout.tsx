@@ -7,7 +7,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 
 export const metadata: Metadata = {
   title: {
-    template: 'Admin | %s',
+    template: 'In Learning | %s',
     default: 'Painel',
   },
 }

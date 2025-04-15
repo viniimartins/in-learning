@@ -5,6 +5,7 @@ import {
   ChevronsRight,
   Search,
 } from 'lucide-react'
+import type { Metadata } from 'next'
 
 import {
   Breadcrumb,
@@ -27,7 +28,11 @@ import {
 
 import Course from './course'
 
-export default function CoursesPage() {
+export const metadata: Metadata = {
+  title: 'Cursos',
+}
+
+export default function CourseCatalogPage() {
   return (
     <>
       <Breadcrumb>

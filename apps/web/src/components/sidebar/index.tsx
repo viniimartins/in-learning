@@ -30,14 +30,12 @@ import {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
 
-  console.log(pathname)
-
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="items-center">
-        <Link href="/">
+      <SidebarHeader className="mt-4 items-center">
+        <Link href="/panel">
           <span className="text-2xl font-bold transition-transform duration-200 ease-in-out group-data-[collapsible=icon]:scale-0 group-data-[collapsible=icon]:opacity-0">
-            UNIVINTE
+            In Learning
           </span>
         </Link>
       </SidebarHeader>

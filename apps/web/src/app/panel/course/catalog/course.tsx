@@ -1,5 +1,6 @@
 import { User } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -32,7 +33,9 @@ export default function Course() {
       </CardContent>
       <CardFooter className="justify-between border-t">
         <div className="flex items-center gap-2">
-          <Button variant="link">Ver Detalhes</Button>
+          <Link href="/panel/course/1">
+            <Button variant="link">Ver Detalhes</Button>
+          </Link>
         </div>
 
         <Button variant="outline">

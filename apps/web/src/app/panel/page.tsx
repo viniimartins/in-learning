@@ -1,4 +1,5 @@
 import { BookCheck, Check, Play, Trophy } from 'lucide-react'
+import type { Metadata } from 'next'
 
 import {
   Breadcrumb,
@@ -22,6 +23,10 @@ import {
 } from '@/components/ui/carousel'
 
 import Course from './course'
+
+export const metadata: Metadata = {
+  title: 'Painel',
+}
 
 export default function PanelPage() {
   return (

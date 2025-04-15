@@ -11,8 +11,10 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'In Learning',
-  description: 'In Learning',
+  title: {
+    template: 'In Learning | %s',
+    default: 'Painel',
+  },
 }
 
 export default function RootLayout({
