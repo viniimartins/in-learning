@@ -24,7 +24,7 @@ export default async function PanelLayout({
       <SidebarInset className="flex min-h-screen">
         <Header />
 
-        <section className="mx-auto mt-20 flex h-auto w-full max-w-[73.125rem] flex-1 flex-col gap-6 px-4 py-6">
+        <section className="mt-20 flex h-auto w-full flex-1 flex-col gap-6 p-12">
           {children}
         </section>
       </SidebarInset>
