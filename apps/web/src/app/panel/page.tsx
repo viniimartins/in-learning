@@ -21,7 +21,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 
-import Course from './components/course'
+import Course from './course'
 
 export default function PanelPage() {
   return (

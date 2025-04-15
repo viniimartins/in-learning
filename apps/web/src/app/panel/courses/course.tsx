@@ -1,5 +1,7 @@
+import { User } from 'lucide-react'
 import Image from 'next/image'
 
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -8,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 
 export default function Course() {
   return (
@@ -24,23 +25,21 @@ export default function Course() {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-2">
+        <Badge variant="outline">Desenvolvimento</Badge>
+
         <CardTitle className="text-lg">Curso React Native</CardTitle>
       </CardContent>
-      <CardFooter className="flex flex-col gap-4 border-t">
-        <div className="flex w-full items-center justify-between">
-          <Button size="sm" className="w-1/2">
-            Assistir
-          </Button>
-
-          <div className="flex w-1/2 items-center justify-center gap-2">
-            <span className="text-muted-foreground text-sm font-semibold">
-              71% Completo
-            </span>
-          </div>
+      <CardFooter className="justify-between border-t">
+        <div className="flex items-center gap-2">
+          <Button variant="link">Ver Detalhes</Button>
         </div>
 
-        <Progress value={71} />
+        <Button variant="outline">
+          <User className="size-4" />
+          <span className="text-muted-foreground font-semibold">400</span>
+          Alunos
+        </Button>
       </CardFooter>
     </Card>
   )
