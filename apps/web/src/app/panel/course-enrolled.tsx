@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 
-export default function Course() {
+export default function CourseEnrolled() {
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">

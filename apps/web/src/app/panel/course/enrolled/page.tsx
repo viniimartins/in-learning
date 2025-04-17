@@ -1,5 +1,4 @@
 import { Search } from 'lucide-react'
-import type { Metadata } from 'next'
 
 import Pagination from '@/components/pagination'
 import {
@@ -12,13 +11,9 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Input } from '@/components/ui/input'
 
-import CourseOverview from '../course-overview'
+import CourseEnrolled from '../../course-enrolled'
 
-export const metadata: Metadata = {
-  title: 'Lista de Desejos',
-}
-
-export default function CourseWishlistPage() {
+export default function EnrolledCoursePage() {
   return (
     <>
       <Breadcrumb>
@@ -28,7 +23,7 @@ export default function CourseWishlistPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Lista de Desejos</BreadcrumbPage>
+            <BreadcrumbPage>React Native</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>
@@ -44,7 +39,7 @@ export default function CourseWishlistPage() {
 
         <div className="grid grid-cols-4 gap-4">
           {Array.from({ length: 10 }).map((_, index) => (
-            <CourseOverview key={index} />
+            <CourseEnrolled key={index} />
           ))}
         </div>
 

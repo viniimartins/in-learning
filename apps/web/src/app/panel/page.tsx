@@ -22,7 +22,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 
-import Course from './course'
+import CourseEnrolled from './course-enrolled'
 
 export const metadata: Metadata = {
   title: 'Painel',
@@ -105,19 +105,19 @@ export default function PanelPage() {
         <Carousel>
           <CarouselContent>
             <CarouselItem className="basis-1/4">
-              <Course />
+              <CourseEnrolled />
             </CarouselItem>
             <CarouselItem className="basis-1/4">
-              <Course />
+              <CourseEnrolled />
             </CarouselItem>
             <CarouselItem className="basis-1/4">
-              <Course />
+              <CourseEnrolled />
             </CarouselItem>
             <CarouselItem className="basis-1/4">
-              <Course />
+              <CourseEnrolled />
             </CarouselItem>
             <CarouselItem className="basis-1/4">
-              <Course />
+              <CourseEnrolled />
             </CarouselItem>
           </CarouselContent>
           <CarouselPrevious />
