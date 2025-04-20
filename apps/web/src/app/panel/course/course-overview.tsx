@@ -33,7 +33,7 @@ export default function CourseOverview() {
       </CardContent>
       <CardFooter className="justify-between border-t">
         <div className="flex items-center gap-2">
-          <Link href="/panel/course/1">
+          <Link href="/panel/course/details/1">
             <Button variant="link">Ver Detalhes</Button>
           </Link>
         </div>
