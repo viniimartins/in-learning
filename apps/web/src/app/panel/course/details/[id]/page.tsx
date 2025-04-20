@@ -1,4 +1,6 @@
 import { Heart, Play, Users } from 'lucide-react'
+import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import {
   Accordion,
@@ -20,6 +22,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+
+export const metadata: Metadata = {
+  title: 'Detalhes do Curso',
+}
 
 export default function CourseDetailsPage() {
   return (
@@ -120,7 +126,7 @@ export default function CourseDetailsPage() {
               </TabsContent>
               <TabsContent value="lessons">
                 <Accordion type="single" collapsible>
-                  <AccordionItem value="item-1">
+                  <AccordionItem value="module-1">
                     <AccordionTrigger className="flex items-center justify-between hover:no-underline">
                       <div className="flex flex-1 items-center gap-2">
                         <span className="flex-1 text-lg font-semibold">
@@ -169,7 +175,7 @@ export default function CourseDetailsPage() {
               <p className="text-muted-foreground">10 Alunos</p>
             </div>
 
-            <Badge className="h-8" variant="outline">
+            <Badge className="h-8" variant="secondary">
               Desenvolvimento
             </Badge>
           </CardContent>
@@ -177,10 +183,12 @@ export default function CourseDetailsPage() {
           <Separator />
 
           <CardFooter className="flex flex-col gap-2">
-            <Button className="w-full">
-              <Play className="size-4 fill-current" />
-              Assistir
-            </Button>
+            <Link href="/panel/course/watch/1" className="w-full">
+              <Button className="w-full">
+                <Play className="size-4 fill-current" />
+                Assistir
+              </Button>
+            </Link>
 
             <Button variant="outline" size="sm" className="w-full">
               <Heart className="size-4" />

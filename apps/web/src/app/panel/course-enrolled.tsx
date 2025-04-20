@@ -1,5 +1,6 @@
 import { Play } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -30,14 +31,16 @@ export default function CourseEnrolled() {
       </CardContent>
       <CardFooter className="flex flex-col gap-4 border-t">
         <div className="flex w-full items-center justify-between">
-          <Button variant="outline" className="w-1/2">
-            <Play className="size-4" />
-            Assistir
-          </Button>
+          <Link href="/panel/course/watch/1" className="w-1/2">
+            <Button variant="outline" className="w-full">
+              <Play className="size-4" />
+              Assistir
+            </Button>
+          </Link>
 
           <div className="flex w-1/2 items-center justify-center gap-2">
-            <span className="text-muted-foreground text-sm font-semibold">
-              71% Completo
+            <span className="text-muted-foreground text-sm font-medium">
+              7% Completo
             </span>
           </div>
         </div>
