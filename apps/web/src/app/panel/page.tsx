@@ -74,7 +74,7 @@ export default function PanelPage() {
               <Check className="size-5" />
             </div>
             <CardHeader className="flex-1">
-              <CardTitle>Aulas finalizadas</CardTitle>
+              <CardTitle>Aulas assistidas</CardTitle>
               <CardDescription className="text-2xl font-medium">
                 49
               </CardDescription>
@@ -99,7 +99,7 @@ export default function PanelPage() {
 
       <div className="flex flex-col gap-8">
         <span className="text-2xl font-medium">
-          Vamos começar a aprender, Kevin
+          Vamos começar a aprender, Vinicius
         </span>
 
         <Carousel>

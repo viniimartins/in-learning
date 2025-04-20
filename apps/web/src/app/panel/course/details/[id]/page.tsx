@@ -171,8 +171,8 @@ export default function CourseDetailsPage() {
         <Card className="col-span-1 h-fit">
           <CardContent className="flex justify-between gap-4">
             <div className="flex items-center gap-2">
-              <Users className="size-4" />
-              <p className="text-muted-foreground">10 Alunos</p>
+              <Users className="size-4 fill-current" />
+              <p className="text-sm">10 Alunos</p>
             </div>
 
             <Badge className="h-8" variant="secondary">

@@ -107,7 +107,7 @@ export default function CourseWatchPage() {
           <Separator />
 
           <CardFooter className="flex flex-col items-start gap-1">
-            <span className="text-lg font-medium">Progresso</span>
+            <span className="text-base font-medium">Progresso</span>
             <Progress value={71} />
 
             <div className="ml-auto">

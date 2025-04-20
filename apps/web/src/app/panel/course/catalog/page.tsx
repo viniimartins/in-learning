@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Input } from '@/components/ui/input'
 
-import CourseOverview from '../course-overview'
+import CourseOverview from './course-overview'
 
 export const metadata: Metadata = {
   title: 'Cursos',
@@ -36,13 +36,10 @@ export default function CourseCatalogPage() {
       <div className="flex flex-col gap-8">
         <div className="relative w-full">
           <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
-          <Input
-            placeholder="O que você está procurando?"
-            className="w-80 pl-9"
-          />
+          <Input placeholder="Qual curso você procura?" className="w-80 pl-9" />
         </div>
 
-        <div className="tablet:grid-cols-2 grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {Array.from({ length: 10 }).map((_, index) => (
             <CourseOverview key={index} />
           ))}

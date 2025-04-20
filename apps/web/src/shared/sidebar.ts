@@ -44,8 +44,8 @@ export const panel: SidebarItem[] = [
     ],
   },
   {
-    title: 'Professores',
-    url: '/panel/teachers',
+    title: 'Instrutores',
+    url: '/panel/instructors',
     icon: UserRound,
   },
 ]

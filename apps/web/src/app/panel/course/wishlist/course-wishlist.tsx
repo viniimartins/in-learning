@@ -1,4 +1,4 @@
-import { User } from 'lucide-react'
+import { Trash, User } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-export default function CourseOverview() {
+export default function CourseWishlist() {
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -25,6 +25,16 @@ export default function CourseOverview() {
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+
+        <div className="absolute right-2 top-2">
+          <Button
+            variant="secondary"
+            size="icon"
+            className="size-10 rounded-full"
+          >
+            <Trash className="size-4" />
+          </Button>
+        </div>
       </CardHeader>
       <CardContent className="space-y-2">
         <Badge variant="outline">Desenvolvimento</Badge>
