@@ -35,7 +35,7 @@
   "prettier": "@in-learning/prettier",
   "eslintConfig": {
     "extends": [
-      "@in-learning/eslint-config/next"
+      "@in-learning/eslint-config/api"
     ]
   }
 }

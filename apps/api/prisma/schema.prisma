@@ -22,7 +22,9 @@ model User {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  Account Account[]
+  account          Account[]
+  instructorCourse Course[]
+  studentCourses   StudentCourse[]
 
   @@map("users")
 }
@@ -41,4 +43,54 @@ model Account {
 
   @@unique([provider, userId])
   @@map("accounts")
+}
+
+model Course {
+  id          String @id @default(uuid())
+  title       String
+  slug        String
+  subtitle    String
+  description String
+
+  instructor   User   @relation(fields: [instructorId], references: [id])
+  instructorId String @map("instructor_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  lessons        Lesson[]
+  studentCourses StudentCourse[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id       String @id @default(uuid())
+  title    String
+  videoUrl String @map("video_url")
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String @map("course_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("lessons")
+}
+
+model StudentCourse {
+  progress  Int     @default(0) @map("progress")
+  completed Boolean @default(false) @map("completed")
+
+  course   Course @relation(fields: [courseId], references: [id])
+  courseId String @map("course_id")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([userId, courseId])
+  @@map("course_users")
 }

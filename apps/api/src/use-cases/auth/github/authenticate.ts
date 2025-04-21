@@ -15,15 +15,17 @@ interface AuthenticateWithGithubUseCaseResponse {
 
 export class AuthenticateWithGithubUseCase {
   constructor(
-    private readonly usersRepository: UsersRepository,
-    private readonly accountRepository: AccountRepository,
-    private readonly githubOAuthService: GithubOAuthService,
+    private usersRepository: UsersRepository,
+    private accountRepository: AccountRepository,
+    private githubOAuthService: GithubOAuthService,
   ) { }
 
   async execute({
     code,
+
   }: AuthenticateWithGithubUseCaseRequest): Promise<AuthenticateWithGithubUseCaseResponse> {
     const accessToken = await this.githubOAuthService.fetchAccessToken(code)
+
     const {
       id: githubId,
       name,
