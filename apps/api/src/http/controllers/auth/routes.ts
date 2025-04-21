@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
 
-import { authenticateWithGithub } from './github/authenticate'
+import { authenticateWithGithubController } from './github/authenticate'
 
 export async function authRoutes(app: FastifyInstance) {
-  authenticateWithGithub('/session/github', app)
+  authenticateWithGithubController('/session/github', app)
 }

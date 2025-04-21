@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/jwt": "^9.1.0",
     "@fastify/swagger": "^9.5.0",
     "@fastify/swagger-ui": "^5.2.2",
     "@in-learning/env": "workspace:*",
@@ -28,6 +29,7 @@
     "@in-learning/eslint-config": "workspace:*",
     "@in-learning/prettier": "workspace:*",
     "@in-learning/tsconfig": "workspace:*",
+    "@types/node": "^22.14.1",
     "tsx": "^4.19.3"
   },
   "prettier": "@in-learning/prettier",

@@ -1,5 +1,7 @@
+import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
+import { env } from '@in-learning/env'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
@@ -35,8 +37,12 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 })
 
-app.register(authRoutes)
-
 app.register(fastifySwaggerUI, {
   routePrefix: '/docs',
 })
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
+})
+
+app.register(authRoutes)

@@ -2,7 +2,12 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
-export function authenticateWithGithub(path: string, app: FastifyInstance) {
+import { makeAuthenticateWithGithubUseCase } from '@/use-cases/@factories/make-authenticate-github-use-case'
+
+export function authenticateWithGithubController(
+  path: string,
+  app: FastifyInstance,
+) {
   app.withTypeProvider<ZodTypeProvider>().post(
     path,
     {
@@ -25,9 +30,24 @@ export function authenticateWithGithub(path: string, app: FastifyInstance) {
     async (request, reply) => {
       const { code } = request.body
 
-      console.log(code)
+      const authenticateWithGithubUseCase = makeAuthenticateWithGithubUseCase()
 
-      return reply.status(201).send({ token: 'fake-token' })
+      const { user } = await authenticateWithGithubUseCase.execute({
+        code,
+      })
+
+      const token = await reply.jwtSign(
+        {
+          sub: user.id,
+        },
+        {
+          sign: {
+            expiresIn: '7d',
+          },
+        },
+      )
+
+      return reply.status(201).send({ token })
     },
   )
 }
