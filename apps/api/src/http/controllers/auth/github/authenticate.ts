@@ -1,14 +1,33 @@
-import type { FastifyReply, FastifyRequest } from 'fastify'
+import type { FastifyInstance } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
+import { z } from 'zod'
 
-import type { AuthenticateWithGithubController } from '../../../../../@types/route-controller'
+export function authenticateWithGithub(path: string, app: FastifyInstance) {
+  app.withTypeProvider<ZodTypeProvider>().post(
+    path,
+    {
+      schema: {
+        tags: ['auth'],
+        summary: 'Authenticate with Github',
+        body: z.object({
+          code: z.string(),
+        }),
+        response: {
+          201: z.object({
+            token: z.string(),
+          }),
+          401: z.object({
+            message: z.string(),
+          }),
+        },
+      },
+    },
+    async (request, reply) => {
+      const { code } = request.body
 
-export async function authenticateWithGithubController(
-  request: FastifyRequest<AuthenticateWithGithubController>,
-  reply: FastifyReply<AuthenticateWithGithubController>,
-) {
-  const { code } = request.body
+      console.log(code)
 
-  console.log(code)
-
-  return reply.status(201).send({ token: 'fake-token' })
+      return reply.status(201).send({ token: 'fake-token' })
+    },
+  )
 }

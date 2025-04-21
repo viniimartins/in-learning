@@ -1,10 +1,13 @@
 {
   "name": "@in-learning/api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "pnpm env:load tsx watch src/http/server.ts",
+    "db:migrate": "pnpm env:load prisma migrate dev",
+    "db:studio": "pnpm env:load prisma studio",
+    "env:load": "dotenv -e ../../.env --",
+    "db:reset": "pnpm env:load prisma migrate reset",
     "lint": "eslint src/**/*.ts"
   },
   "keywords": [],
@@ -14,8 +17,11 @@
     "@fastify/swagger": "^9.5.0",
     "@fastify/swagger-ui": "^5.2.2",
     "@in-learning/env": "workspace:*",
+    "@prisma/client": "6.6.0",
+    "dotenv-cli": "^8.0.0",
     "fastify": "^5.3.2",
     "fastify-type-provider-zod": "^4.0.2",
+    "prisma": "^6.6.0",
     "zod": "^3.24.2"
   },
   "devDependencies": {
