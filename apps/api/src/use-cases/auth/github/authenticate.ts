@@ -1,7 +1,7 @@
 import type { AuthenticateWithGithubBody } from '@/http/controllers/auth/github/type'
-import type { User } from '@/http/controllers/auth/type'
-import type { AccountRepository } from '@/repositories/account-repository'
-import type { UsersRepository } from '@/repositories/users-repository'
+import { AccountProvider, type User } from '@/http/controllers/auth/type'
+import type { AccountRepository } from '@/repositories/account/account-repository'
+import type { UsersRepository } from '@/repositories/user/user-repository'
 import type { GithubOAuthService } from '@/service/github-oauth-service'
 import { BadRequestError } from '@/use-cases/@errors/bad-request-error'
 
@@ -53,9 +53,9 @@ export class AuthenticateWithGithubUseCase {
 
     if (!account) {
       account = await this.accountRepository.create({
-        provider: 'GITHUB',
+        provider: AccountProvider.GITHUB,
         providerAccountId: githubId,
-        user: { connect: { id: user.id } },
+        userId: user.id,
       })
     }
 

@@ -6,3 +6,14 @@ export interface User {
   email: string
   avatarUrl: string | null
 }
+
+export enum AccountProvider {
+  GITHUB = 'GITHUB',
+}
+
+export interface Account {
+  id: string
+  provider: AccountProvider
+  providerAccountId: string
+  userId: string
+}

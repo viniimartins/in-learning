@@ -1,5 +1,5 @@
 import type { Course } from '@/http/controllers/course/type'
-import type { CourseRepository } from '@/repositories/course-repository'
+import type { CourseRepository } from '@/repositories/course/course-repository'
 
 import { PermissionDeniedError } from '../@errors/permission-denied-error'
 import { ResourceNotFoundError } from '../@errors/resource-not-found.error'

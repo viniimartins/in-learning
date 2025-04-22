@@ -1,4 +1,4 @@
-import { PrismaCourseRepository } from '@/repositories/prisma/prisma-course-repository'
+import { PrismaCourseRepository } from '@/repositories/@prisma/prisma-course-repository'
 import { DeleteCourseUseCase } from '@/use-cases/course/delete'
 
 export function makeDeleteCourseUseCase() {

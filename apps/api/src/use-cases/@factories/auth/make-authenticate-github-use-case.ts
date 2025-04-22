@@ -1,5 +1,5 @@
-import { PrismaAccountRepository } from '@/repositories/prisma/prisma-account-repository'
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
+import { PrismaAccountRepository } from '@/repositories/@prisma/prisma-account-repository'
+import { PrismaUsersRepository } from '@/repositories/@prisma/prisma-users-repository'
 import { GithubOAuthService } from '@/service/github-oauth-service'
 
 import { AuthenticateWithGithubUseCase } from '../../auth/github/authenticate'

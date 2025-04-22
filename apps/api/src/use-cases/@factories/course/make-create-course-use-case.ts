@@ -1,4 +1,4 @@
-import { PrismaCourseRepository } from '@/repositories/prisma/prisma-course-repository'
+import { PrismaCourseRepository } from '@/repositories/@prisma/prisma-course-repository'
 import { CreateCourseUseCase } from '@/use-cases/course/create'
 
 export function makeCreateCourseUseCase() {
