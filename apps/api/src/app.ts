@@ -11,6 +11,8 @@ import {
 } from 'fastify-type-provider-zod'
 
 import { authRoutes } from './http/controllers/auth/routes'
+import { courseRoutes } from './http/controllers/course/route'
+import { errorHandler } from './http/error-handler'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -20,8 +22,8 @@ app.setValidatorCompiler(validatorCompiler)
 app.register(fastifySwagger, {
   openapi: {
     info: {
-      title: 'In-Learning',
-      description: 'Full-stack e-commerce platform by Univinte.',
+      title: 'In-Learning API',
+      description: 'API for the In-Learning platform.',
       version: '1.0.0',
     },
     components: {
@@ -45,4 +47,7 @@ app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
 })
 
+app.setErrorHandler(errorHandler)
+
 app.register(authRoutes)
+app.register(courseRoutes)

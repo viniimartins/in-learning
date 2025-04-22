@@ -1,6 +1,6 @@
-import type { CourseRepository } from "@/repositories/course-repository";
-import type { Course } from "@prisma/client";
-import type { User } from "@prisma/client";
+import type { Course } from '@prisma/client'
+
+import type { CourseRepository } from '@/repositories/course-repository'
 
 interface CreateCourseUseCaseRequest {
   title: string
@@ -20,9 +20,8 @@ interface CreateCourseUseCaseResponse {
 }
 
 export class CreateCourseUseCase {
-  constructor(
-    private courseRepository: CourseRepository,
-  ) { }
+  // eslint-disable-next-line prettier/prettier
+  constructor(private courseRepository: CourseRepository) { }
 
   async execute({
     title,
@@ -32,7 +31,6 @@ export class CreateCourseUseCase {
     instructorId,
     lessons,
   }: CreateCourseUseCaseRequest): Promise<CreateCourseUseCaseResponse> {
-
     const course = await this.courseRepository.create({
       title,
       subtitle,
@@ -41,10 +39,10 @@ export class CreateCourseUseCase {
       instructor: {
         connect: {
           id: instructorId,
-        }
+        },
       },
       lessons: {
-        create: lessons
+        create: lessons,
       },
     })
 

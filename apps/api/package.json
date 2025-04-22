@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm env:load tsx watch src/http/server.ts",
+    "dev": "pnpm env:load tsx watch src/server.ts",
     "db:migrate": "pnpm env:load prisma migrate dev",
     "db:studio": "pnpm env:load prisma studio",
     "env:load": "dotenv -e ../../.env --",
     "db:reset": "pnpm env:load prisma migrate reset",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts --fix"
   },
   "keywords": [],
   "author": "",
@@ -35,7 +35,7 @@
   "prettier": "@in-learning/prettier",
   "eslintConfig": {
     "extends": [
-      "@in-learning/eslint-config/api"
+      "@in-learning/eslint-config/node"
     ]
   }
 }

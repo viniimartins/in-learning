@@ -4,7 +4,7 @@ import { GithubOAuthService } from '@/service/github-oauth-service'
 
 import { AuthenticateWithGithubUseCase } from '../../auth/github/authenticate'
 
-export function makeAuthenticateWithGithubFactoryUseCase() {
+export function makeAuthenticateWithGithubUseCase() {
   const usersRepository = new PrismaUsersRepository()
   const accountRepository = new PrismaAccountRepository()
   const githubOAuthService = new GithubOAuthService()
