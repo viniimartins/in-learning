@@ -4,6 +4,8 @@ import { z } from 'zod'
 
 import { makeAuthenticateWithGithubUseCase } from '@/use-cases/@factories/auth/make-authenticate-github-use-case'
 
+import { authenticateWithGithubBodySchema } from './schema'
+
 export function authenticateWithGithubController(
   path: string,
   app: FastifyInstance,
@@ -14,9 +16,7 @@ export function authenticateWithGithubController(
       schema: {
         tags: ['auth'],
         summary: 'Authenticate with Github',
-        body: z.object({
-          code: z.string(),
-        }),
+        body: authenticateWithGithubBodySchema,
         response: {
           201: z.object({
             token: z.string(),

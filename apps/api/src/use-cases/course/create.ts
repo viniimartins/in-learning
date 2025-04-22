@@ -1,18 +1,8 @@
-import type { Course } from '@prisma/client'
-
+import type { Course, CreateCourse } from '@/http/controllers/course/type'
 import type { CourseRepository } from '@/repositories/course-repository'
 
-interface CreateCourseUseCaseRequest {
-  title: string
-  subtitle: string
-  description: string
-  slug: string
+interface CreateCourseUseCaseRequest extends CreateCourse {
   instructorId: string
-  lessons: {
-    title: string
-    description: string
-    videoUrl: string
-  }[]
 }
 
 interface CreateCourseUseCaseResponse {

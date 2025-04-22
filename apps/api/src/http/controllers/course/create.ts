@@ -4,6 +4,8 @@ import { z } from 'zod'
 
 import { makeCreateCourseUseCase } from '@/use-cases/@factories/course/make-create-course-use-case'
 
+import { createCourseBodySchema } from './schema'
+
 export function createCourse(path: string, app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
     path,
@@ -12,19 +14,7 @@ export function createCourse(path: string, app: FastifyInstance) {
         tags: ['courses'],
         summary: 'Create a new course',
         security: [{ bearerAuth: [] }],
-        body: z.object({
-          title: z.string(),
-          subtitle: z.string(),
-          description: z.string(),
-          slug: z.string(),
-          lessons: z.array(
-            z.object({
-              title: z.string(),
-              description: z.string(),
-              videoUrl: z.string(),
-            }),
-          ),
-        }),
+        body: createCourseBodySchema,
         response: {
           201: z.object({
             id: z.string(),

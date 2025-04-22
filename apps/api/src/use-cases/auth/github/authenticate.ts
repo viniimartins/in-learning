@@ -1,13 +1,13 @@
-import { User } from '@prisma/client'
-
+import type { AuthenticateWithGithubBody } from '@/http/controllers/auth/github/type'
+import type { User } from '@/http/controllers/auth/type'
 import type { AccountRepository } from '@/repositories/account-repository'
 import type { UsersRepository } from '@/repositories/users-repository'
 import type { GithubOAuthService } from '@/service/github-oauth-service'
 import { BadRequestError } from '@/use-cases/@errors/bad-request-error'
 
-interface AuthenticateWithGithubUseCaseRequest {
-  code: string
-}
+interface AuthenticateWithGithubUseCaseRequest
+  // eslint-disable-next-line prettier/prettier
+  extends AuthenticateWithGithubBody { }
 
 interface AuthenticateWithGithubUseCaseResponse {
   user: User
@@ -18,11 +18,11 @@ export class AuthenticateWithGithubUseCase {
     private usersRepository: UsersRepository,
     private accountRepository: AccountRepository,
     private githubOAuthService: GithubOAuthService,
+    // eslint-disable-next-line prettier/prettier
   ) { }
 
   async execute({
     code,
-
   }: AuthenticateWithGithubUseCaseRequest): Promise<AuthenticateWithGithubUseCaseResponse> {
     const accessToken = await this.githubOAuthService.fetchAccessToken(code)
 

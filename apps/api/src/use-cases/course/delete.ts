@@ -1,5 +1,4 @@
-import type { Course } from '@prisma/client'
-
+import type { Course } from '@/http/controllers/course/type'
 import type { CourseRepository } from '@/repositories/course-repository'
 
 import { PermissionDeniedError } from '../@errors/permission-denied-error'
