@@ -52,6 +52,8 @@ model Course {
   subtitle    String
   description String
 
+  studentCount Int @default(0) @map("student_count")
+
   instructor   User   @relation(fields: [instructorId], references: [id])
   instructorId String @map("instructor_id")
 
@@ -65,9 +67,10 @@ model Course {
 }
 
 model Lesson {
-  id       String @id @default(uuid())
+  id       String  @id @default(uuid())
   title    String
-  videoUrl String @map("video_url")
+  videoUrl String  @map("video_url")
+  assisted Boolean @default(false)
 
   course   Course @relation(fields: [courseId], references: [id])
   courseId String @map("course_id")

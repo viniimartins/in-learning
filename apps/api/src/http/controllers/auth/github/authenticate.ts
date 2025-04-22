@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
-import { makeAuthenticateWithGithubUseCase } from '@/use-cases/@factories/make-authenticate-github-use-case'
+import { makeAuthenticateWithGithubUseCase } from '@/use-cases/@factories/auth/make-authenticate-github-use-case'
 
 export function authenticateWithGithubController(
   path: string,

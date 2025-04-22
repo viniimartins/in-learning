@@ -2,9 +2,9 @@ import { PrismaAccountRepository } from '@/repositories/prisma/prisma-account-re
 import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
 import { GithubOAuthService } from '@/service/github-oauth-service'
 
-import { AuthenticateWithGithubUseCase } from '../auth/github/authenticate'
+import { AuthenticateWithGithubUseCase } from '../../auth/github/authenticate'
 
-export function makeAuthenticateWithGithubUseCase() {
+export function makeAuthenticateWithGithubFactoryUseCase() {
   const usersRepository = new PrismaUsersRepository()
   const accountRepository = new PrismaAccountRepository()
   const githubOAuthService = new GithubOAuthService()
