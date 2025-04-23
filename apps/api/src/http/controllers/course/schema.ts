@@ -13,3 +13,15 @@ export const createCourseBodySchema = z.object({
   slug: z.string(),
   lessons: z.array(lessonSchema),
 })
+
+export const courseSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  slug: z.string(),
+  subtitle: z.string(),
+  description: z.string(),
+  studentCount: z.number(),
+  instructorId: z.string(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+})

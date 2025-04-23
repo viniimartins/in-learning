@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 import { makeCreateCourseUseCase } from '@/use-cases/@factories/course/make-create-course-use-case'
 
-import { createCourseBodySchema } from './schema'
+import { createCourseBodySchema } from '../schema'
 
 export function createCourse(path: string, app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

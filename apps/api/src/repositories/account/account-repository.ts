@@ -7,6 +7,6 @@ import type { CreateAccountRepositoryInput } from './types'
 export interface AccountRepository {
   findByProviderAccountId(
     providerAccountId: Account['id'],
-  ): Promise<Account | null | PrismaAccount>
+  ): Promise<Account | PrismaAccount | null>
   create(data: CreateAccountRepositoryInput): Promise<Account | PrismaAccount>
 }

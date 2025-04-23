@@ -1,3 +1,4 @@
+import type { User } from '@/http/controllers/auth/type'
 import type { Course } from '@/http/controllers/course/type'
 import type { CourseRepository } from '@/repositories/course/course-repository'
 
@@ -5,8 +6,8 @@ import { PermissionDeniedError } from '../@errors/permission-denied-error'
 import { ResourceNotFoundError } from '../@errors/resource-not-found.error'
 
 interface DeleteCourseUseCaseRequest {
-  courseId: string
-  userId: string
+  courseId: Course['id']
+  userId: User['id']
 }
 
 interface DeleteCourseUseCaseResponse {
