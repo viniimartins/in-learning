@@ -7,16 +7,16 @@ import type {
 import type { IFindCourseByIdRepository } from '../../repositories/find-course-by-id-repository'
 
 class FindCourseByIdUseCase implements IFindCourseByIdUseCase {
-  private readonly courseRepository: IFindCourseByIdRepository
+  private readonly findCourseByIdRepository: IFindCourseByIdRepository
 
-  constructor(courseRepository: IFindCourseByIdRepository) {
-    this.courseRepository = courseRepository
+  constructor(findCourseByIdRepository: IFindCourseByIdRepository) {
+    this.findCourseByIdRepository = findCourseByIdRepository
   }
 
   async execute(
     params: IFindCourseById.Request,
   ): Promise<IFindCourseById.Response> {
-    const foundCourse = await this.courseRepository.findById({
+    const foundCourse = await this.findCourseByIdRepository.findById({
       id: params.id,
     })
 

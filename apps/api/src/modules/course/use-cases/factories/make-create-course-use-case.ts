@@ -2,8 +2,8 @@ import { PrismaCourseRepository } from '../../infra/prisma/repositories/prisma-c
 import { CreateCourseUseCase } from '../implementations/create-course-use-case'
 
 function makeCreateCourseUseCase() {
-  const courseRepository = new PrismaCourseRepository()
-  return new CreateCourseUseCase(courseRepository)
+  const createCourseRepository = new PrismaCourseRepository()
+  return new CreateCourseUseCase(createCourseRepository)
 }
 
 export { makeCreateCourseUseCase }

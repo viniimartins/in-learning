@@ -4,6 +4,7 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 
 import { CreateCourseController } from '../controllers/create-course-controller'
+import { DeleteCourseController } from '../controllers/delete-course-controller'
 import { FindCourseByIdController } from '../controllers/find-course-by-id-controller'
 
 const courseRoutes = (app: FastifyInstance) => {
@@ -36,6 +37,21 @@ const courseRoutes = (app: FastifyInstance) => {
       },
     },
     FindCourseByIdController.handle,
+  )
+
+  app.withTypeProvider<ZodTypeProvider>().delete(
+    DeleteCourseController.route,
+    {
+      preHandler: [verifyJWT],
+      schema: {
+        tags: ['Courses'],
+        summary: 'Delete a course by id',
+        security: [{ bearerAuth: [] }],
+        params: DeleteCourseController.validator.request.params,
+        response: DeleteCourseController.validator.response,
+      },
+    },
+    DeleteCourseController.handle,
   )
 }
 

@@ -1,6 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
+import { makeFindCourseByIdUseCase } from '@/modules/course/use-cases/factories/male-find-course-by-id-use-case'
+
 class FindCourseByIdController {
   static route = '/courses/:id'
 
@@ -39,15 +41,10 @@ class FindCourseByIdController {
       typeof this.validator.request.params
     >
 
-    console.log(courseId)
+    const findCourseByIdUseCase = makeFindCourseByIdUseCase()
+    const found = await findCourseByIdUseCase.execute({ id: courseId })
 
-    return reply.status(200).send({
-      data: {
-        id: '1',
-        title: 'Course 1',
-        description: 'Description 1',
-      },
-    })
+    return reply.status(200).send(found)
   }
 }
 

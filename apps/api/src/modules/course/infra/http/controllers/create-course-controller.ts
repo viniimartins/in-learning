@@ -38,12 +38,9 @@ class CreateCourseController {
     const data = request.body as z.infer<typeof this.validator.request.body>
 
     const createCourseUseCase = makeCreateCourseUseCase()
+    const created = await createCourseUseCase.execute(data)
 
-    const createdCourse = await createCourseUseCase.execute(data)
-
-    return reply.status(201).send({
-      id: createdCourse.id,
-    })
+    return reply.status(201).send(created.id)
   }
 }
 
