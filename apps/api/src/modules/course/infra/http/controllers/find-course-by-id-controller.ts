@@ -1,13 +1,12 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import type { Validator } from '@/modules/common/helpers/valitador'
 import { makeFindCourseByIdUseCase } from '@/modules/course/use-cases/factories/male-find-course-by-id-use-case'
 
 class FindCourseByIdController {
   static route = '/:id'
 
-  static validator: Validator = {
+  static validator = {
     request: {
       params: z.object({
         courseId: z.string(),

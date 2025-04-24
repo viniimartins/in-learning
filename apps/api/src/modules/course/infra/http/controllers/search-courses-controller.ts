@@ -1,13 +1,12 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-import type { Validator } from '@/modules/common/helpers/valitador'
 import { makeSearchCoursesUseCase } from '@/modules/course/use-cases/factories/make-search-courses-use-case'
 
 class SearchCoursesController {
   static route = ''
 
-  static validator: Validator = {
+  static validator = {
     request: {
       querystring: z.object({
         pageIndex: z.coerce.number().min(1).default(1),
