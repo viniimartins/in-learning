@@ -12,6 +12,7 @@ export interface GetCourseByIdUseCaseResponse extends Course { }
 
 export class GetCourseByIdUseCase {
   constructor(private courseRepository: CourseRepository) { }
+
   async execute({
     courseId,
   }: GetCourseByIdUseCaseRequest): Promise<GetCourseByIdUseCaseResponse> {

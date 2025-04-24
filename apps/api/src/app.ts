@@ -7,14 +7,12 @@ import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
-  ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 
 import { authRoutes } from './http/controllers/auth/routes'
-import { courseRoutes } from './http/controllers/course/route'
 import { errorHandler } from './http/error-handler'
-
-export const app = fastify().withTypeProvider<ZodTypeProvider>()
+import { courseRoutes } from './modules/course/infra/http/routes/course-routes'
+export const app = fastify()
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)

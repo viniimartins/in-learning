@@ -16,7 +16,6 @@ export class GetCourseUseCase {
     perPage,
     name,
   }: GetCourseUseCaseRequest): Promise<GetCourseUseCaseResponse> {
-
     const paginatedCourses = await this.courseRepository.findAll({
       page,
       perPage,
