@@ -5,24 +5,27 @@ import type {
 import type { ICreateCourseRepository } from '../../repositories/create-course-repository'
 
 class CreateCourseUseCase implements ICreateCourseUseCase {
-  // eslint-disable-next-line prettier/prettier
-  constructor(private readonly courseRepository: ICreateCourseRepository) { }
+  private readonly courseRepository: ICreateCourseRepository
+
+  constructor(courseRepository: ICreateCourseRepository) {
+    this.courseRepository = courseRepository
+  }
 
   async execute(data: ICreateCourse.Request): Promise<ICreateCourse.Response> {
     const { description, title, instructorId, slug, subtitle, studentCount } =
       data
 
-    return {
-      title,
+    const createdCourse = await this.courseRepository.create({
       description,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      id: 'fake-id-123',
+      title,
       instructorId,
       slug,
       subtitle,
       studentCount,
-    }
+      lessons: data.lessons,
+    })
+
+    return createdCourse
   }
 }
 

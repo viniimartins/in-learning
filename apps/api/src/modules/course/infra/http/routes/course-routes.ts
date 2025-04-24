@@ -4,6 +4,7 @@ import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { verifyJWT } from '@/http/middlewares/verify-jwt'
 
 import { CreateCourseController } from '../controllers/create-course-controller'
+import { FindCourseByIdController } from '../controllers/find-course-by-id-controller'
 
 const courseRoutes = (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -20,6 +21,21 @@ const courseRoutes = (app: FastifyInstance) => {
       },
     },
     CreateCourseController.handle,
+  )
+
+  app.withTypeProvider<ZodTypeProvider>().get(
+    FindCourseByIdController.route,
+    {
+      preHandler: [verifyJWT],
+      schema: {
+        tags: ['Courses'],
+        summary: 'Find a course by id',
+        security: [{ bearerAuth: [] }],
+        params: FindCourseByIdController.validator.request.params,
+        response: FindCourseByIdController.validator.response,
+      },
+    },
+    FindCourseByIdController.handle,
   )
 }
 
