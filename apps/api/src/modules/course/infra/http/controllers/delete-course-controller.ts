@@ -1,12 +1,13 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
+import type { Validator } from '@/modules/common/helpers/valitador'
 import { makeDeleteCourseUseCase } from '@/modules/course/use-cases/factories/male-delete-course-use-case'
 
 class DeleteCourseController {
   static route = '/:id'
 
-  static validator = {
+  static validator: Validator = {
     request: {
       params: z.object({
         courseId: z.string(),
@@ -24,7 +25,7 @@ class DeleteCourseController {
     const {
       params: { courseId },
     } = {
-      params: DeleteCourseController.validator.request.params.parse(
+      params: DeleteCourseController.validator.request.params?.parse(
         request.params,
       ),
     }

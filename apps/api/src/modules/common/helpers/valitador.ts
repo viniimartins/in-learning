@@ -3,7 +3,7 @@ import { ZodTypeAny } from 'zod'
 interface ValidatorRequest {
   body?: ZodTypeAny
   params?: ZodTypeAny
-  queryString?: ZodTypeAny
+  querystring?: ZodTypeAny
 }
 
 interface ValidatorResponse {
