@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { makeFindCourseByIdUseCase } from '@/modules/course/use-cases/factories/male-find-course-by-id-use-case'
 
 class FindCourseByIdController {
-  static route = '/courses/:id'
+  static route = '/:id'
 
   static validator = {
     request: {
@@ -30,16 +30,20 @@ class FindCourseByIdController {
           totalPages: z.number(),
         }),
       }),
-      401: z.object({
+      404: z.object({
         message: z.string(),
       }),
     },
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
-    const { courseId } = request.params as z.infer<
-      typeof this.validator.request.params
-    >
+    const {
+      params: { courseId },
+    } = {
+      params: FindCourseByIdController.validator.request.params.parse(
+        request.params,
+      ),
+    }
 
     const findCourseByIdUseCase = makeFindCourseByIdUseCase()
     const found = await findCourseByIdUseCase.execute({ id: courseId })

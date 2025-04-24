@@ -1,22 +1,23 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
-import { verifyJWT } from '@/http/middlewares/verify-jwt'
+import { requiredAuthentication } from '@/middlewares/required-authentication'
 
 import { CreateCourseController } from '../controllers/create-course-controller'
 import { DeleteCourseController } from '../controllers/delete-course-controller'
 import { FindCourseByIdController } from '../controllers/find-course-by-id-controller'
+import { SearchCoursesController } from '../controllers/search-courses-controller'
 
-const courseRoutes = (app: FastifyInstance) => {
+const routes = (app: FastifyInstance) => {
+  app.addHook('onRequest', requiredAuthentication)
+
   app.withTypeProvider<ZodTypeProvider>().post(
     CreateCourseController.route,
     {
-      preHandler: [verifyJWT],
       schema: {
         tags: ['Courses'],
         summary: 'Create a new course',
         security: [{ bearerAuth: [] }],
-
         body: CreateCourseController.validator.request.body,
         response: CreateCourseController.validator.response,
       },
@@ -27,7 +28,6 @@ const courseRoutes = (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().get(
     FindCourseByIdController.route,
     {
-      preHandler: [verifyJWT],
       schema: {
         tags: ['Courses'],
         summary: 'Find a course by id',
@@ -42,7 +42,6 @@ const courseRoutes = (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().delete(
     DeleteCourseController.route,
     {
-      preHandler: [verifyJWT],
       schema: {
         tags: ['Courses'],
         summary: 'Delete a course by id',
@@ -53,6 +52,20 @@ const courseRoutes = (app: FastifyInstance) => {
     },
     DeleteCourseController.handle,
   )
+
+  app.withTypeProvider<ZodTypeProvider>().get(
+    SearchCoursesController.route,
+    {
+      schema: {
+        tags: ['Courses'],
+        summary: 'Search courses',
+        security: [{ bearerAuth: [] }],
+        querystring: SearchCoursesController.validator.request.querystring,
+        response: SearchCoursesController.validator.response,
+      },
+    },
+    SearchCoursesController.handle,
+  )
 }
 
-export { courseRoutes }
+export { routes as coursesRoutes }

@@ -12,12 +12,18 @@ import type {
   IFindCourseById,
   IFindCourseByIdRepository,
 } from '@/modules/course/repositories/find-course-by-id-repository'
+import type {
+  ISearchCourses,
+  ISearchCoursesRepository,
+} from '@/modules/course/repositories/search-courses-repository'
 
 export class PrismaCourseRepository
   implements
   ICreateCourseRepository,
+  IDeleteCourseRepository,
   IFindCourseByIdRepository,
-  IDeleteCourseRepository {
+  ISearchCoursesRepository {
+
   async create({
     instructorId,
     ...data
@@ -54,5 +60,39 @@ export class PrismaCourseRepository
     await prisma.course.delete({
       where: { id },
     })
+  }
+
+  async search({
+    pageIndex,
+    perPage,
+    search,
+  }: ISearchCourses.Params): Promise<ISearchCourses.Response> {
+    const [courses, total] = await Promise.all([
+      prisma.course.findMany({
+        where: {
+          title: {
+            contains: search,
+          },
+        },
+        skip: (pageIndex - 1) * perPage,
+        take: perPage,
+        orderBy: {
+          createdAt: 'desc',
+        },
+      }),
+      prisma.course.count({
+        where: { title: { contains: search } },
+      }),
+    ])
+
+    return {
+      data: courses,
+      meta: {
+        pageIndex,
+        perPage,
+        total,
+        totalPages: Math.ceil(total / perPage),
+      },
+    }
   }
 }

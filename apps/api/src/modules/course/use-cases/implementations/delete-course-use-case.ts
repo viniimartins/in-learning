@@ -1,3 +1,5 @@
+import { NotFoundError } from '@/common/errors/not-found-error'
+
 import type {
   IDeleteCourse,
   IDeleteCourseUseCase,
@@ -25,7 +27,7 @@ export class DeleteCourseUseCase implements IDeleteCourseUseCase {
     })
 
     if (!course) {
-      throw new Error('Course not found')
+      throw new NotFoundError('Course not found')
     }
 
     await this.deleteCourseRepository.delete({

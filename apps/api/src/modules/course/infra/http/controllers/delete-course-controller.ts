@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { makeDeleteCourseUseCase } from '@/modules/course/use-cases/factories/male-delete-course-use-case'
 
 class DeleteCourseController {
-  static route = '/courses/:id'
+  static route = '/:id'
 
   static validator = {
     request: {
@@ -14,16 +14,20 @@ class DeleteCourseController {
     },
     response: {
       204: z.null(),
-      401: z.object({
+      404: z.object({
         message: z.string(),
       }),
     },
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
-    const { courseId } = request.params as z.infer<
-      typeof this.validator.request.params
-    >
+    const {
+      params: { courseId },
+    } = {
+      params: DeleteCourseController.validator.request.params.parse(
+        request.params,
+      ),
+    }
 
     const deleteCourseUseCase = makeDeleteCourseUseCase()
     await deleteCourseUseCase.execute({

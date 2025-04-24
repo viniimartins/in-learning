@@ -9,9 +9,9 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 
-import { authRoutes } from './http/controllers/auth/routes'
-import { errorHandler } from './http/error-handler'
-import { courseRoutes } from './modules/course/infra/http/routes/course-routes'
+import { errorHandler } from '../../middlewares/error-handler'
+import { routes } from './routes'
+
 export const app = fastify()
 
 app.setSerializerCompiler(serializerCompiler)
@@ -47,5 +47,4 @@ app.register(fastifyJwt, {
 
 app.setErrorHandler(errorHandler)
 
-app.register(authRoutes)
-app.register(courseRoutes)
+routes(app)
