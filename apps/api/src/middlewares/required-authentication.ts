@@ -1,13 +1,12 @@
-import { FastifyReply, FastifyRequest } from 'fastify'
+import { FastifyRequest } from 'fastify'
 
-async function requiredAuthentication(
-  request: FastifyRequest,
-  reply: FastifyReply,
-) {
+import { UnauthorizedError } from '@/common/errors'
+
+async function requiredAuthentication(request: FastifyRequest) {
   try {
     await request.jwtVerify()
   } catch (err) {
-    return reply.status(401).send({ message: 'Unauthorized.' })
+    throw new UnauthorizedError()
   }
 }
 

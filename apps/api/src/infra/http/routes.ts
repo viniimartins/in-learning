@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 
-import { authRoutes } from '@/http/controllers/auth/routes'
+import { authenticateRoutes } from '@/modules/auth/infra/http/routes/authenticate-routes'
 import { coursesRoutes } from '@/modules/course/infra/http/routes/course-routes'
 
 const routes = (app: FastifyInstance) => {
@@ -8,7 +8,9 @@ const routes = (app: FastifyInstance) => {
     prefix: '/courses',
   })
 
-  app.register(authRoutes)
+  app.register(authenticateRoutes, {
+    prefix: '/auth',
+  })
 }
 
 export { routes }
