@@ -12,9 +12,9 @@ class CreateUserUseCase implements ICreateUserUseCase {
   }
 
   async execute(params: ICreateUser.Request): Promise<ICreateUser.Response> {
-    const user = await this.createUserRepository.create(params)
+    const createdUser = await this.createUserRepository.create(params)
 
-    return user
+    return createdUser
   }
 }
 

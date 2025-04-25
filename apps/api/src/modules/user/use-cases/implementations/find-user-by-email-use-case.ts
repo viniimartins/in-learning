@@ -14,9 +14,9 @@ class FindUserByEmailUseCase implements IFindUserByEmailUseCase {
   async execute(
     params: IFindUserByEmail.Request,
   ): Promise<IFindUserByEmail.Response> {
-    const user = await this.findUserByEmailRepository.findByEmail(params)
+    const foundUser = await this.findUserByEmailRepository.findByEmail(params)
 
-    return user
+    return foundUser
   }
 }
 

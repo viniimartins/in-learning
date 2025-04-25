@@ -14,9 +14,9 @@ class FindUserByIdUseCase implements IFindUserByIdUseCase {
   async execute(
     params: IFindUserById.Request,
   ): Promise<IFindUserById.Response> {
-    const user = await this.findUserByIdRepository.findById(params)
+    const foundUser = await this.findUserByIdRepository.findById(params)
 
-    return user
+    return foundUser
   }
 }
 

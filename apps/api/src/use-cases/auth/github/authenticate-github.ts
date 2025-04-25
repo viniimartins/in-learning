@@ -1,7 +1,6 @@
 import type { AuthenticateWithGithubBody } from '@/http/controllers/auth/github/type'
 import { AccountProvider, type User } from '@/http/controllers/auth/type'
 import type { AccountRepository } from '@/repositories/account/account-repository'
-import type { UsersRepository } from '@/repositories/user/user-repository'
 import type { GithubOAuthService } from '@/service/github-oauth-service'
 import { BadRequestError } from '@/use-cases/@errors/bad-request-error'
 
