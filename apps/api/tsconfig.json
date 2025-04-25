@@ -3,7 +3,7 @@
   "include": [
     "src/**/*",
     "@types/*.d.ts"
-  ],
+, "src/modules/user/domain/use-cases/.ts"  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

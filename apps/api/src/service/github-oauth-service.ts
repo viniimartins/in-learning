@@ -1,14 +1,14 @@
 import { env } from '@in-learning/env'
 import z from 'zod'
 
-export interface GithubUser {
+interface GithubUser {
   id: string
   name: string | null
   email: string | null
   avatarUrl: string
 }
 
-export class GithubOAuthService {
+class GithubOAuthService {
   async fetchAccessToken(code: string): Promise<string> {
     const params = new URLSearchParams({
       client_id: env.GITHUB_OAUTH_CLIENT_ID,
@@ -70,3 +70,5 @@ export class GithubOAuthService {
     }
   }
 }
+
+export { GithubOAuthService }

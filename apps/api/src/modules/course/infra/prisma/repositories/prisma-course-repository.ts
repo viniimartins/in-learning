@@ -17,7 +17,7 @@ import type {
   ISearchCoursesRepository,
 } from '@/modules/course/repositories/search-courses-repository'
 
-export class PrismaCourseRepository
+class PrismaCourseRepository
   implements
   ICreateCourseRepository,
   IDeleteCourseRepository,
@@ -96,3 +96,5 @@ export class PrismaCourseRepository
     }
   }
 }
+
+export { PrismaCourseRepository }
