@@ -1,4 +1,4 @@
-import type { IBaseEntity } from '@/modules/common/domain/entities/base-entity'
+import type { IBaseEntity } from 'src/modules/common/domain/entities/base-entity'
 
 interface IUserEntity extends IBaseEntity {
   name: string | null

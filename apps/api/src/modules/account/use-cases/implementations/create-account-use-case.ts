@@ -1,8 +1,9 @@
 import type {
   ICreateAccount,
   ICreateAccountUseCase,
-} from '../../domain/use-cases/create-account-use-case'
-import type { ICreateAccountRepository } from '../../repositories/create-account-repository'
+} from '@/modules/account/domain/use-cases/create-account-use-case'
+
+import type { ICreateAccountRepository } from '../../repositories'
 
 class CreateAccountUseCase implements ICreateAccountUseCase {
   private readonly createAccountRepository: ICreateAccountRepository

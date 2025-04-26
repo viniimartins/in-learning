@@ -3,15 +3,11 @@ import { prisma } from '@/lib/prisma'
 import type {
   ICreateUser,
   ICreateUserRepository,
-} from '@/modules/user/repositories/create-user-repository'
-import type {
   IFindUserByEmail,
   IFindUserByEmailRepository,
-} from '@/modules/user/repositories/find-user-by-email-repository'
-import type {
   IFindUserById,
   IFindUserByIdRepository,
-} from '@/modules/user/repositories/find-user-by-id-repository'
+} from '@/modules/user/repositories'
 
 class PrismaUserRepository
   implements

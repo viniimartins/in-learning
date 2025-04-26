@@ -1,14 +1,13 @@
 /* eslint-disable prettier/prettier */
+
 import { prisma } from '@/lib/prisma'
 import { AccountProvider } from '@/modules/account/domain/entities/account-entity'
 import type {
   ICreateAccount,
   ICreateAccountRepository,
-} from '@/modules/account/repositories/create-account-repository'
-import type {
   IFindAccountByProviderId,
   IFindAccountByProviderIdRepository,
-} from '@/modules/account/repositories/find-account-by-provider-id-repository'
+} from '@/modules/account/repositories'
 
 class PrismaAccountRepository
   implements ICreateAccountRepository, IFindAccountByProviderIdRepository {

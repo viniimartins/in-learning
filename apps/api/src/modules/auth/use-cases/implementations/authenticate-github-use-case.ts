@@ -8,7 +8,7 @@ import type { IFindUserByEmailRepository } from '@/modules/user/repositories/fin
 import type {
   IAuthenticateGithub,
   IAuthenticateGithubUseCase,
-} from '../../domain/use-cases/authentication-github-use-case'
+} from '../../domain/use-cases/authenticate-github-use-case'
 
 class AuthenticateGithubUseCase implements IAuthenticateGithubUseCase {
   private readonly githubOAuthService: GithubOAuthService

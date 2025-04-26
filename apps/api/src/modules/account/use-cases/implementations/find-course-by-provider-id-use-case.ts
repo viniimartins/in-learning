@@ -4,8 +4,8 @@ import { NotFoundError } from '@/common/errors/not-found-error'
 import type {
   IFindAccountByProviderId,
   IFindAccountByProviderIdUseCase,
-} from '../../domain/use-cases/find-account-by-provider-id-case'
-import type { IFindAccountByProviderIdRepository } from '../../repositories/find-account-by-provider-id-repository'
+} from '../../domain/use-cases/find-account-by-provider-id-use-case'
+import type { IFindAccountByProviderIdRepository } from '../../repositories'
 
 class FindAccountByProviderIdUseCase
   implements IFindAccountByProviderIdUseCase {

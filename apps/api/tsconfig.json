@@ -2,13 +2,32 @@
   "extends": "@in-learning/tsconfig/node.json",
   "include": [
     "src/**/*",
-    "@types/*.d.ts"
-, "src/modules/user/domain/use-cases/.ts"  ],
+    "@types/*.d.ts",
+    "src/modules/user/domain/use-cases/.ts"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@common/*": [
+        "common/*"
+      ],
+      "@middlewares/*": [
+        "middlewares/*"
+      ],
+      "@infra/*": [
+        "infra/*"
+      ],
+      "@container/*": [
+        "container/*"
+      ],
+      "@repositories/*": [
+        "repositories/*"
       ]
     }
   }

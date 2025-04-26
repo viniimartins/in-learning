@@ -1,4 +1,4 @@
-import type { WithoutEntityBaseProperties } from '@/modules/common/helpers/without-entity-base-properties'
+import type { WithoutEntityBaseProperties } from 'src/modules/common/helpers/without-entity-base-properties'
 
 import type { IUserEntity } from '../entities/user-entity'
 
