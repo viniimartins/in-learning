@@ -4,8 +4,10 @@ import type {
   IDeleteCourse,
   IDeleteCourseUseCase,
 } from '../../domain/use-cases/delete-course-use-case'
-import type { IDeleteCourseRepository } from '../../repositories/delete-course-repository'
-import type { IFindCourseByIdRepository } from '../../repositories/find-course-by-id-repository'
+import type {
+  IDeleteCourseRepository,
+  IFindCourseByIdRepository,
+} from '../../repositories'
 
 export class DeleteCourseUseCase implements IDeleteCourseUseCase {
   private readonly deleteCourseRepository: IDeleteCourseRepository
