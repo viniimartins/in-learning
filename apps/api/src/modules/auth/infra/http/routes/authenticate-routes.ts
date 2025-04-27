@@ -1,7 +1,6 @@
+import { AuthenticateGithubController } from '@modules/auth/infra/http/controllers/authenticate-github-controller'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-
-import { AuthenticateGithubController } from '@/modules/auth/infra/http/controllers/authenticate-github-controller'
 
 const routes = (app: FastifyInstance) => {
   app.withTypeProvider<ZodTypeProvider>().post(

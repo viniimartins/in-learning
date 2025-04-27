@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { NotFoundError } from '@common/errors/not-found-error'
+import { FIND_COURSE_BY_ID_REPOSITORY_TOKEN } from '@modules/course/constants'
 import type {
   IFindCourseById,
   IFindCourseByIdUseCase,
 } from '@modules/course/domain/use-cases/find-course-by-id-use-case'
 import type { IFindCourseByIdRepository } from '@modules/course/repositories/find-course-by-id-repository'
 import { inject, injectable } from 'tsyringe'
-
-import { FIND_COURSE_BY_ID_REPOSITORY_TOKEN } from '@/modules/course/constants'
 
 @injectable()
 class FindCourseByIdUseCase implements IFindCourseByIdUseCase {

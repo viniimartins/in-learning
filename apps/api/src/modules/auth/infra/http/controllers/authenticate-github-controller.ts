@@ -1,8 +1,7 @@
+import { AuthenticateGithubUseCase } from '@modules/auth/use-cases/authenticate-github-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { container } from 'tsyringe'
 import z from 'zod'
-
-import { AuthenticateGithubUseCase } from '@/modules/auth/use-cases/authenticate-github-use-case'
 
 class AuthenticateGithubController {
   static route = '/github'

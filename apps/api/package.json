@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm env:load tsx -r tsconfig-paths/register src/infra/http/server.ts",
+    "dev": "pnpm env:load tsx src/infra/http/server.ts",
     "db:migrate": "pnpm env:load prisma migrate dev",
     "db:studio": "pnpm env:load prisma studio",
     "env:load": "dotenv -e ../../.env --",
@@ -32,7 +32,6 @@
     "@in-learning/prettier": "workspace:*",
     "@in-learning/tsconfig": "workspace:*",
     "@types/node": "^22.14.1",
-    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.19.3"
   },
   "prettier": "@in-learning/prettier",

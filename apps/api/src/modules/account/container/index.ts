@@ -1,3 +1,4 @@
+import { GithubOAuthService } from '@infra/services/github-oauth-service'
 import {
   CREATE_ACCOUNT_REPOSITORY_TOKEN,
   FIND_ACCOUNT_BY_PROVIDER_ID_REPOSITORY_TOKEN,
@@ -9,8 +10,6 @@ import type {
   IFindAccountByProviderIdRepository,
 } from '@modules/account/repositories'
 import { container } from 'tsyringe'
-
-import { GithubOAuthService } from '@/infra/services/github-oauth-service'
 
 container.registerSingleton<ICreateAccountRepository>(
   CREATE_ACCOUNT_REPOSITORY_TOKEN,

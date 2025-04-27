@@ -1,12 +1,11 @@
 /* eslint-disable prettier/prettier */
 import { FIND_USER_BY_ID_REPOSITORY_TOKEN } from '@modules/user/constants'
-import type { IFindUserByIdRepository } from '@modules/user/repositories'
-import { inject, injectable } from 'tsyringe'
-
 import type {
   IFindUserById,
   IFindUserByIdUseCase,
-} from '@/modules/user/domain/use-cases/find-user-by-id-use-case'
+} from '@modules/user/domain/use-cases/find-user-by-id-use-case'
+import type { IFindUserByIdRepository } from '@modules/user/repositories'
+import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class FindUserByIdUseCase implements IFindUserByIdUseCase {

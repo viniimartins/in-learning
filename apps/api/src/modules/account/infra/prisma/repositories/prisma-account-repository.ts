@@ -1,15 +1,13 @@
 /* eslint-disable prettier/prettier */
 
+import { prisma } from '@lib/prisma'
+import { AccountProvider } from '@modules/account/domain/entities/account-entity'
 import type {
   ICreateAccount,
   ICreateAccountRepository,
   IFindAccountByProviderId,
   IFindAccountByProviderIdRepository,
 } from '@modules/account/repositories'
-
-import { prisma } from '@/lib/prisma'
-import { AccountProvider } from '@/modules/account/domain/entities/account-entity'
-
 class PrismaAccountRepository
   implements ICreateAccountRepository, IFindAccountByProviderIdRepository {
   async create(data: ICreateAccount.Params): Promise<ICreateAccount.Response> {

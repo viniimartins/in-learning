@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
 import { prisma } from '@lib/prisma'
-
 import type {
   ICreateUser,
   ICreateUserRepository,
@@ -8,7 +7,7 @@ import type {
   IFindUserByEmailRepository,
   IFindUserById,
   IFindUserByIdRepository,
-} from '@/modules/user/repositories'
+} from '@modules/user/repositories'
 
 class PrismaUserRepository
   implements

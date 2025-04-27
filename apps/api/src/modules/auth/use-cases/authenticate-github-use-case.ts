@@ -1,25 +1,24 @@
 /* eslint-disable prettier/prettier */
-import type {
-  IAuthenticateGithub,
-  IAuthenticateGithubUseCase,
-} from '@modules/auth/domain/use-cases/authenticate-github-use-case'
-import { inject, injectable } from 'tsyringe'
-
-import { BadRequestError } from '@/common/errors/bad-request-error'
-import type { GithubOAuthService } from '@/infra/services/github-oauth-service'
+import { BadRequestError } from '@common/errors'
+import type { GithubOAuthService } from '@infra/services/github-oauth-service'
 import {
   CREATE_ACCOUNT_REPOSITORY_TOKEN,
   FIND_ACCOUNT_BY_PROVIDER_ID_REPOSITORY_TOKEN,
   GITHUB_OAUTH_SERVICE_TOKEN,
-} from '@/modules/account/constants'
-import { AccountProvider } from '@/modules/account/domain/entities/account-entity'
-import type { PrismaAccountRepository } from '@/modules/account/infra/prisma/repositories/prisma-account-repository'
+} from '@modules/account/constants'
+import { AccountProvider } from '@modules/account/domain/entities/account-entity'
+import type { PrismaAccountRepository } from '@modules/account/infra/prisma/repositories/prisma-account-repository'
+import type {
+  IAuthenticateGithub,
+  IAuthenticateGithubUseCase,
+} from '@modules/auth/domain/use-cases/authenticate-github-use-case'
 import {
   CREATE_USER_REPOSITORY_TOKEN,
   FIND_USER_BY_EMAIL_REPOSITORY_TOKEN,
-} from '@/modules/user/constants'
-import type { ICreateUserRepository } from '@/modules/user/repositories/create-user-repository'
-import type { IFindUserByEmailRepository } from '@/modules/user/repositories/find-user-by-email-repository'
+} from '@modules/user/constants'
+import type { ICreateUserRepository } from '@modules/user/repositories/create-user-repository'
+import type { IFindUserByEmailRepository } from '@modules/user/repositories/find-user-by-email-repository'
+import { inject, injectable } from 'tsyringe'
 
 @injectable()
 class AuthenticateGithubUseCase implements IAuthenticateGithubUseCase {

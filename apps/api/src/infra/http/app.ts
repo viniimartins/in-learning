@@ -5,14 +5,13 @@ import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
 import { env } from '@in-learning/env'
+import { errorHandler } from '@middlewares/error-handler'
 import { fastify } from 'fastify'
 import {
   jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
 } from 'fastify-type-provider-zod'
-
-import { errorHandler } from '@/middlewares/error-handler'
 
 import { routes } from './routes'
 
