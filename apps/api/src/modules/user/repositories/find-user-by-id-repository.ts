@@ -1,4 +1,4 @@
-import { IUserEntity } from '../domain/entities/user-entity'
+import { IUserEntity } from '@/modules/user/domain/entities/user-entity'
 
 namespace IFindUserById {
   export type Params = { id: string }
