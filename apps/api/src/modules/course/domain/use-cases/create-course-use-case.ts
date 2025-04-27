@@ -1,6 +1,8 @@
-import type { WithoutEntityBaseProperties } from '@/modules/common/helpers/without-entity-base-properties'
-
-import type { ICourseEntity, ILessonEntity } from '../entities/course-entity'
+import type { WithoutEntityBaseProperties } from '@modules/common/helpers/without-entity-base-properties'
+import type {
+  ICourseEntity,
+  ILessonEntity,
+} from '@modules/course/domain/entities/course-entity'
 
 namespace ICreateCourse {
   export type Request = WithoutEntityBaseProperties<ICourseEntity> & {

@@ -1,12 +1,9 @@
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
-import { requiredAuthentication } from '@/middlewares/required-authentication'
+import { requiredAuthentication } from '@middlewares/required-authentication'
 
 import { CreateCourseController } from '../controllers/create-course-controller'
-import { DeleteCourseController } from '../controllers/delete-course-controller'
-import { FindCourseByIdController } from '../controllers/find-course-by-id-controller'
-import { SearchCoursesController } from '../controllers/search-courses-controller'
 
 const routes = (app: FastifyInstance) => {
   app.addHook('onRequest', requiredAuthentication)
@@ -25,47 +22,47 @@ const routes = (app: FastifyInstance) => {
     CreateCourseController.handle,
   )
 
-  app.withTypeProvider<ZodTypeProvider>().get(
-    FindCourseByIdController.route,
-    {
-      schema: {
-        tags: ['Courses'],
-        summary: 'Find a course by id',
-        security: [{ bearerAuth: [] }],
-        params: FindCourseByIdController.validator.request.params,
-        response: FindCourseByIdController.validator.response,
-      },
-    },
-    FindCourseByIdController.handle,
-  )
+  // app.withTypeProvider<ZodTypeProvider>().get(
+  //   FindCourseByIdController.route,
+  //   {
+  //     schema: {
+  //       tags: ['Courses'],
+  //       summary: 'Find a course by id',
+  //       security: [{ bearerAuth: [] }],
+  //       params: FindCourseByIdController.validator.request.params,
+  //       response: FindCourseByIdController.validator.response,
+  //     },
+  //   },
+  //   FindCourseByIdController.handle,
+  // )
 
-  app.withTypeProvider<ZodTypeProvider>().delete(
-    DeleteCourseController.route,
-    {
-      schema: {
-        tags: ['Courses'],
-        summary: 'Delete a course by id',
-        security: [{ bearerAuth: [] }],
-        params: DeleteCourseController.validator.request.params,
-        response: DeleteCourseController.validator.response,
-      },
-    },
-    DeleteCourseController.handle,
-  )
+  // app.withTypeProvider<ZodTypeProvider>().delete(
+  //   DeleteCourseController.route,
+  //   {
+  //     schema: {
+  //       tags: ['Courses'],
+  //       summary: 'Delete a course by id',
+  //       security: [{ bearerAuth: [] }],
+  //       params: DeleteCourseController.validator.request.params,
+  //       response: DeleteCourseController.validator.response,
+  //     },
+  //   },
+  //   DeleteCourseController.handle,
+  // )
 
-  app.withTypeProvider<ZodTypeProvider>().get(
-    SearchCoursesController.route,
-    {
-      schema: {
-        tags: ['Courses'],
-        summary: 'Search courses',
-        security: [{ bearerAuth: [] }],
-        querystring: SearchCoursesController.validator.request.querystring,
-        response: SearchCoursesController.validator.response,
-      },
-    },
-    SearchCoursesController.handle,
-  )
+  // app.withTypeProvider<ZodTypeProvider>().get(
+  //   SearchCoursesController.route,
+  //   {
+  //     schema: {
+  //       tags: ['Courses'],
+  //       summary: 'Search courses',
+  //       security: [{ bearerAuth: [] }],
+  //       querystring: SearchCoursesController.validator.request.querystring,
+  //       response: SearchCoursesController.validator.response,
+  //     },
+  //   },
+  //   SearchCoursesController.handle,
+  // )
 }
 
 export { routes as coursesRoutes }

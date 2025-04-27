@@ -1,7 +1,7 @@
+import { SearchCoursesUseCase } from '@modules/course/use-cases/search-courses-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { container } from 'tsyringe'
 import { z } from 'zod'
-
-import { makeSearchCoursesUseCase } from '@/modules/course/use-cases/factories/make-search-courses-use-case'
 
 class SearchCoursesController {
   static route = ''
@@ -49,7 +49,7 @@ class SearchCoursesController {
       ),
     }
 
-    const searchCoursesUseCase = makeSearchCoursesUseCase()
+    const searchCoursesUseCase = container.resolve(SearchCoursesUseCase)
     const found = await searchCoursesUseCase.execute({
       pageIndex,
       perPage,

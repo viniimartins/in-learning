@@ -1,38 +1,40 @@
-import { BadRequestError } from '@/common/errors/bad-request-error'
-import type { GithubOAuthService } from '@/infra/services/github-oauth-service'
-import { AccountProvider } from '@/modules/account/domain/entities/account-entity'
-import type { PrismaAccountRepository } from '@/modules/account/infra/prisma/repositories/prisma-account-repository'
-import type { ICreateUserRepository } from '@/modules/user/repositories/create-user-repository'
-import type { IFindUserByEmailRepository } from '@/modules/user/repositories/find-user-by-email-repository'
-
+/* eslint-disable prettier/prettier */
 import type {
   IAuthenticateGithub,
   IAuthenticateGithubUseCase,
-} from '../../domain/use-cases/authenticate-github-use-case'
+} from '@modules/auth/domain/use-cases/authenticate-github-use-case'
+import { inject, injectable } from 'tsyringe'
 
+import { BadRequestError } from '@/common/errors/bad-request-error'
+import type { GithubOAuthService } from '@/infra/services/github-oauth-service'
+import {
+  CREATE_ACCOUNT_REPOSITORY_TOKEN,
+  FIND_ACCOUNT_BY_PROVIDER_ID_REPOSITORY_TOKEN,
+  GITHUB_OAUTH_SERVICE_TOKEN,
+} from '@/modules/account/constants'
+import { AccountProvider } from '@/modules/account/domain/entities/account-entity'
+import type { PrismaAccountRepository } from '@/modules/account/infra/prisma/repositories/prisma-account-repository'
+import {
+  CREATE_USER_REPOSITORY_TOKEN,
+  FIND_USER_BY_EMAIL_REPOSITORY_TOKEN,
+} from '@/modules/user/constants'
+import type { ICreateUserRepository } from '@/modules/user/repositories/create-user-repository'
+import type { IFindUserByEmailRepository } from '@/modules/user/repositories/find-user-by-email-repository'
+
+@injectable()
 class AuthenticateGithubUseCase implements IAuthenticateGithubUseCase {
-  private readonly githubOAuthService: GithubOAuthService
-
-  private readonly findUserByEmailRepository: IFindUserByEmailRepository
-  private readonly createUserRepository: ICreateUserRepository
-
-  private readonly findAccountByProviderAccountIdRepository: PrismaAccountRepository
-  private readonly createAccountRepository: PrismaAccountRepository
-
   constructor(
-    githubOAuthService: GithubOAuthService,
-    findUserByEmailRepository: IFindUserByEmailRepository,
-    createUserRepository: ICreateUserRepository,
-    findAccountByProviderAccountIdRepository: PrismaAccountRepository,
-    createAccountRepository: PrismaAccountRepository,
-  ) {
-    this.githubOAuthService = githubOAuthService
-    this.findUserByEmailRepository = findUserByEmailRepository
-    this.createUserRepository = createUserRepository
-    this.findAccountByProviderAccountIdRepository =
-      findAccountByProviderAccountIdRepository
-    this.createAccountRepository = createAccountRepository
-  }
+    @inject(GITHUB_OAUTH_SERVICE_TOKEN)
+    private readonly githubOAuthService: GithubOAuthService,
+    @inject(FIND_USER_BY_EMAIL_REPOSITORY_TOKEN)
+    private readonly findUserByEmailRepository: IFindUserByEmailRepository,
+    @inject(CREATE_USER_REPOSITORY_TOKEN)
+    private readonly createUserRepository: ICreateUserRepository,
+    @inject(FIND_ACCOUNT_BY_PROVIDER_ID_REPOSITORY_TOKEN)
+    private readonly findAccountByProviderAccountIdRepository: PrismaAccountRepository,
+    @inject(CREATE_ACCOUNT_REPOSITORY_TOKEN)
+    private readonly createAccountRepository: PrismaAccountRepository,
+  ) { }
 
   async execute(
     params: IAuthenticateGithub.Request,

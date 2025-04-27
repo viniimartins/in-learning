@@ -1,7 +1,7 @@
+import { CreateCourseUseCase } from '@modules/course/use-cases/create-course-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { container } from 'tsyringe'
 import { z } from 'zod'
-
-import { makeCreateCourseUseCase } from '@/modules/course/use-cases/factories/make-create-course-use-case'
 
 class CreateCourseController {
   static route = ''
@@ -13,7 +13,6 @@ class CreateCourseController {
         description: z.string(),
         subtitle: z.string(),
         slug: z.string(),
-        instructorId: z.string(),
         studentCount: z.number(),
         lessons: z.array(
           z.object({
@@ -32,12 +31,17 @@ class CreateCourseController {
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
+    const { sub } = request.user
+
     const { body: data } = {
       body: CreateCourseController.validator.request.body?.parse(request.body),
     }
 
-    const createCourseUseCase = makeCreateCourseUseCase()
-    const created = await createCourseUseCase.execute(data)
+    const createCourseUseCase = container.resolve(CreateCourseUseCase)
+    const created = await createCourseUseCase.execute({
+      ...data,
+      instructorId: sub,
+    })
 
     return reply.status(201).send(created.id)
   }

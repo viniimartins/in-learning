@@ -1,4 +1,4 @@
-import type { IBaseEntity } from '@/modules/common/domain/entities/base-entity'
+import type { IBaseEntity } from '@modules/common/domain/entities/base-entity'
 
 interface ILessonEntity {
   title: string

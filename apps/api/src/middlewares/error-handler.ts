@@ -1,7 +1,6 @@
-import type { FastifyInstance } from 'fastify'
+import { InternalServerError } from '@common/errors'
+import { type FastifyInstance } from 'fastify'
 import { ZodError } from 'zod'
-
-import { InternalServerError } from '@/common/errors'
 
 type FastifyErrorHandler = FastifyInstance['errorHandler']
 

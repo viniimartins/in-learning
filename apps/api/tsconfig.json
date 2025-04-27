@@ -2,14 +2,17 @@
   "extends": "@in-learning/tsconfig/node.json",
   "include": [
     "src/**/*",
-    "@types/*.d.ts",
-    "src/modules/user/domain/use-cases/.ts"
+  ],
+  "rootDirs": [
+    "src",
   ],
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@/*": [
-        "./src/*"
+        "*"
       ],
       "@modules/*": [
         "modules/*"
@@ -26,8 +29,11 @@
       "@container/*": [
         "container/*"
       ],
-      "@repositories/*": [
-        "repositories/*"
+      "@lib/*": [
+        "lib/*"
+      ],
+      "@shared/*": [
+        "shared/*"
       ]
     }
   }

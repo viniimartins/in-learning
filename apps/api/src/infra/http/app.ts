@@ -1,3 +1,6 @@
+import 'reflect-metadata'
+import '@container/index'
+
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
@@ -9,7 +12,8 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod'
 
-import { errorHandler } from '../../middlewares/error-handler'
+import { errorHandler } from '@/middlewares/error-handler'
+
 import { routes } from './routes'
 
 export const app = fastify()

@@ -1,6 +1,5 @@
-import { Paginated } from '@/modules/common/helpers/paginated'
-
-import type { ICourseEntity } from '../entities/course-entity'
+import { Paginated } from '@modules/common/helpers/paginated'
+import type { ICourseEntity } from '@modules/course/domain/entities/course-entity'
 
 namespace ISearchCourses {
   export type Request = Paginated.Params

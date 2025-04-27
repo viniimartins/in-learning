@@ -1,7 +1,7 @@
+import { DeleteCourseUseCase } from '@modules/course/use-cases/delete-course-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { container } from 'tsyringe'
 import { z } from 'zod'
-
-import { makeDeleteCourseUseCase } from '@/modules/course/use-cases/factories/male-delete-course-use-case'
 
 class DeleteCourseController {
   static route = '/:id'
@@ -29,7 +29,7 @@ class DeleteCourseController {
       ),
     }
 
-    const deleteCourseUseCase = makeDeleteCourseUseCase()
+    const deleteCourseUseCase = container.resolve(DeleteCourseUseCase)
     await deleteCourseUseCase.execute({
       id: courseId,
     })

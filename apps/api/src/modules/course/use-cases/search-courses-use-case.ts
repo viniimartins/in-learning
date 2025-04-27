@@ -1,15 +1,18 @@
+/* eslint-disable prettier/prettier */
+import { SEARCH_COURSES_REPOSITORY_TOKEN } from '@modules/course/constants'
 import type {
   ISearchCourses,
   ISearchCoursesUseCase,
-} from '../../domain/use-cases/search-courses-use-case'
-import type { ISearchCoursesRepository } from '../../repositories/search-courses-repository'
+} from '@modules/course/domain/use-cases/search-courses-use-case'
+import type { ISearchCoursesRepository } from '@modules/course/repositories/search-courses-repository'
+import { inject, injectable } from 'tsyringe'
 
+@injectable()
 class SearchCoursesUseCase implements ISearchCoursesUseCase {
-  private readonly searchCoursesRepository: ISearchCoursesRepository
-
-  constructor(searchCoursesRepository: ISearchCoursesRepository) {
-    this.searchCoursesRepository = searchCoursesRepository
-  }
+  constructor(
+    @inject(SEARCH_COURSES_REPOSITORY_TOKEN)
+    private readonly searchCoursesRepository: ISearchCoursesRepository,
+  ) { }
 
   async execute(
     params: ISearchCourses.Request,

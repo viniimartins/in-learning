@@ -1,7 +1,8 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { container } from 'tsyringe'
 import z from 'zod'
 
-import { makeAuthenticateWithGithubUseCase } from '@/modules/auth/use-cases/factories/make-authenticate-github-use-case'
+import { AuthenticateGithubUseCase } from '@/modules/auth/use-cases/authenticate-github-use-case'
 
 class AuthenticateGithubController {
   static route = '/github'
@@ -27,7 +28,9 @@ class AuthenticateGithubController {
       request.body,
     )
 
-    const authenticateGithubUseCase = makeAuthenticateWithGithubUseCase()
+    const authenticateGithubUseCase = container.resolve(
+      AuthenticateGithubUseCase,
+    )
 
     const { id } = await authenticateGithubUseCase.execute({
       code,

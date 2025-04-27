@@ -1,4 +1,4 @@
-import type { ICourseEntity } from '../entities/course-entity'
+import type { ICourseEntity } from '@modules/course/domain/entities/course-entity'
 
 namespace IFindCourseById {
   export type Request = {

@@ -1,16 +1,19 @@
+/* eslint-disable prettier/prettier */
+import { CREATE_ACCOUNT_REPOSITORY_TOKEN } from '@modules/account/constants'
+import type { ICreateAccountRepository } from '@modules/account/repositories'
+import { inject, injectable } from 'tsyringe'
+
 import type {
   ICreateAccount,
   ICreateAccountUseCase,
 } from '@/modules/account/domain/use-cases/create-account-use-case'
 
-import type { ICreateAccountRepository } from '../../repositories'
-
+@injectable()
 class CreateAccountUseCase implements ICreateAccountUseCase {
-  private readonly createAccountRepository: ICreateAccountRepository
-
-  constructor(createAccountRepository: ICreateAccountRepository) {
-    this.createAccountRepository = createAccountRepository
-  }
+  constructor(
+    @inject(CREATE_ACCOUNT_REPOSITORY_TOKEN)
+    private readonly createAccountRepository: ICreateAccountRepository,
+  ) { }
 
   async execute(
     params: ICreateAccount.Request,

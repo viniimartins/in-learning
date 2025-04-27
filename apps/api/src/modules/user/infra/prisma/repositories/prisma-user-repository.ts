@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@lib/prisma'
+
 import type {
   ICreateUser,
   ICreateUserRepository,

@@ -1,7 +1,7 @@
+import { FindCourseByIdUseCase } from '@modules/course/use-cases/find-course-by-id-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { container } from 'tsyringe'
 import { z } from 'zod'
-
-import { makeFindCourseByIdUseCase } from '@/modules/course/use-cases/factories/male-find-course-by-id-use-case'
 
 class FindCourseByIdController {
   static route = '/:id'
@@ -45,7 +45,7 @@ class FindCourseByIdController {
       ),
     }
 
-    const findCourseByIdUseCase = makeFindCourseByIdUseCase()
+    const findCourseByIdUseCase = container.resolve(FindCourseByIdUseCase)
     const found = await findCourseByIdUseCase.execute({ id: courseId })
 
     return reply.status(200).send(found)

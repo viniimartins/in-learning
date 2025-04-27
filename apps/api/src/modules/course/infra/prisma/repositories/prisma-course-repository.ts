@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@lib/prisma'
 import type {
   ICreateCourse,
   ICreateCourseRepository,
@@ -10,7 +10,7 @@ import type {
   IFindCourseByIdRepository,
   ISearchCourses,
   ISearchCoursesRepository,
-} from '@/modules/course/repositories'
+} from '@modules/course/repositories'
 
 class PrismaCourseRepository
   implements
