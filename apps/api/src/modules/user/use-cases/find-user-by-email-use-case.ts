@@ -6,7 +6,7 @@ import type {
 import type { IFindUserByEmailRepository } from '@modules/user/repositories'
 import { inject, injectable } from 'tsyringe'
 
-import { FIND_USER_BY_EMAIL_REPOSITORY_TOKEN } from '../constants'
+import { FIND_USER_BY_EMAIL_REPOSITORY_TOKEN } from '@/modules/user/constants'
 
 @injectable()
 class FindUserByEmailUseCase implements IFindUserByEmailUseCase {

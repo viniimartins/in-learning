@@ -7,7 +7,7 @@ import type {
 import type { IFindCourseByIdRepository } from '@modules/course/repositories/find-course-by-id-repository'
 import { inject, injectable } from 'tsyringe'
 
-import { FIND_COURSE_BY_ID_REPOSITORY_TOKEN } from '../constants'
+import { FIND_COURSE_BY_ID_REPOSITORY_TOKEN } from '@/modules/course/constants'
 
 @injectable()
 class FindCourseByIdUseCase implements IFindCourseByIdUseCase {
