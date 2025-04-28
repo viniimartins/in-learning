@@ -26,20 +26,24 @@ export const panel: SidebarItem[] = [
     icon: Book,
     children: [
       {
+        title: 'Cadastrar',
+        url: '/panel/course/register',
+      },
+      {
         title: 'Catálogo',
         url: '/panel/course/catalog',
+      },
+      {
+        title: 'Desejos',
+        url: '/panel/course/wishlist',
       },
       {
         title: 'Inscritos',
         url: '/panel/course/enrolled',
       },
       {
-        title: 'Cadastrar',
-        url: '/panel/course/register',
-      },
-      {
-        title: 'Desejos',
-        url: '/panel/course/wishlist',
+        title: 'Meus Cursos',
+        url: '/panel/course/my-courses',
       },
     ],
   },
