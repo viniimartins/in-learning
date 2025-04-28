@@ -31,13 +31,17 @@ class AuthenticateGithubController {
       AuthenticateGithubUseCase,
     )
 
-    const { id } = await authenticateGithubUseCase.execute({
-      code,
-    })
+    const { id, email, name, avatarUrl } =
+      await authenticateGithubUseCase.execute({
+        code,
+      })
 
     const token = await reply.jwtSign(
       {
         sub: id,
+        name,
+        email,
+        avatarUrl,
       },
       {
         sign: {

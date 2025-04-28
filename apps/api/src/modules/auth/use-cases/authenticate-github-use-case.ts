@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import { BadRequestError } from '@common/errors'
 import type { GithubOAuthService } from '@infra/services/github-oauth-service'
 import {
@@ -7,7 +8,8 @@ import {
   GITHUB_OAUTH_SERVICE_TOKEN,
 } from '@modules/account/constants'
 import { AccountProvider } from '@modules/account/domain/entities/account-entity'
-import type { PrismaAccountRepository } from '@modules/account/infra/prisma/repositories/prisma-account-repository'
+import type { ICreateAccountRepository } from '@modules/account/repositories/create-account-repository'
+import type { IFindAccountByProviderIdRepository } from '@modules/account/repositories/find-account-by-provider-id-repository'
 import type {
   IAuthenticateGithub,
   IAuthenticateGithubUseCase,
@@ -30,9 +32,9 @@ class AuthenticateGithubUseCase implements IAuthenticateGithubUseCase {
     @inject(CREATE_USER_REPOSITORY_TOKEN)
     private readonly createUserRepository: ICreateUserRepository,
     @inject(FIND_ACCOUNT_BY_PROVIDER_ID_REPOSITORY_TOKEN)
-    private readonly findAccountByProviderAccountIdRepository: PrismaAccountRepository,
+    private readonly findAccountByProviderAccountIdRepository: IFindAccountByProviderIdRepository,
     @inject(CREATE_ACCOUNT_REPOSITORY_TOKEN)
-    private readonly createAccountRepository: PrismaAccountRepository,
+    private readonly createAccountRepository: ICreateAccountRepository,
   ) { }
 
   async execute(
@@ -71,7 +73,8 @@ class AuthenticateGithubUseCase implements IAuthenticateGithubUseCase {
     let account =
       await this.findAccountByProviderAccountIdRepository.findByProviderAccountId(
         {
-          providerAccountId: githubId,
+          provider: AccountProvider.GITHUB,
+          userId: user.id,
         },
       )
 
