@@ -6,6 +6,11 @@ import { usePathname } from 'next/navigation'
 import * as React from 'react'
 
 import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible'
+import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
@@ -20,12 +25,6 @@ import {
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { panel } from '@/shared/sidebar'
-
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '../ui/collapsible'
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
