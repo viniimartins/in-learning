@@ -25,33 +25,37 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { useCreateCourse } from '@/modules/course'
 
 const lessonSchema = z.object({
-  name: z.string().min(2, {
+  title: z.string().min(2, {
     message: 'Nome deve conter pelo menos 2 caracteres.',
   }),
-  link: z.string().url({
+  videoUrl: z.string().url({
     message: 'Insira um link válido para a aula.',
   }),
 })
 
 const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'Nome do curso deve conter pelo menos 2 caracteres.',
+  title: z.string().min(2, {
+    message: 'Título do curso deve conter pelo menos 2 caracteres.',
   }),
   description: z.string().min(2, {
     message: 'Descrição do curso deve conter pelo menos 2 caracteres.',
   }),
-  topic: z
+  subTitle: z.string().min(2, {
+    message: 'Subtítulo do curso deve conter pelo menos 2 caracteres.',
+  }),
+  slug: z
     .string()
-    .min(1, {
-      message: 'Tópico do curso deve ser uma palavra.',
+    .min(2, {
+      message: 'Slug do curso deve conter pelo menos 2 caracteres.',
     })
     .refine((value) => value.trim().split(/\s+/).length === 1, {
       message: 'Tópico do curso deve ser apenas uma palavra.',
     }),
+  lessons: z.array(lessonSchema),
   image: z.array(z.instanceof(File)).min(1, 'Envie pelo menos uma imagem'),
-  lessons: z.array(lessonSchema).optional(),
 })
 
 type FormSchema = z.infer<typeof formSchema>
@@ -59,13 +63,16 @@ type FormSchema = z.infer<typeof formSchema>
 export function Content() {
   const [image, setImage] = useState<File | null>(null)
 
+  const { mutate: createCourse, isPending } = useCreateCourse()
+
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      title: '',
       description: '',
-      topic: '',
-      lessons: [{ link: '', name: '' }],
+      subTitle: '',
+      slug: '',
+      lessons: [{ title: '', videoUrl: '' }],
     },
   })
 
@@ -76,14 +83,20 @@ export function Content() {
 
   const {
     formState: { isSubmitting },
+    control,
   } = form
 
-  function onSubmit(data: FormSchema) {
+  function onSubmit({ image, ...data }: FormSchema) {
+    console.log(image)
+
     const formData = {
       ...data,
     }
-    console.log(formData)
+
+    createCourse({ course: formData })
   }
+
+  const isLoading = isPending || isSubmitting
 
   return (
     <Card>
@@ -101,8 +114,8 @@ export function Content() {
           >
             <div className="col-span-1 space-y-6">
               <FormField
-                control={form.control}
-                name="name"
+                control={control}
+                name="title"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Nome</FormLabel>
@@ -115,7 +128,34 @@ export function Content() {
               />
 
               <FormField
-                control={form.control}
+                control={control}
+                name="slug"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Slug</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Slug do curso" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="subTitle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Subtítulo</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Subtítulo do curso" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={control}
                 name="description"
                 render={({ field }) => (
                   <FormItem>
@@ -132,26 +172,12 @@ export function Content() {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="topic"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tópico</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Tópico do curso" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
               <div className="col-span-2 space-y-2">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium">Aulas</h3>
                   <Button
                     type="button"
-                    onClick={() => append({ name: '', link: '' })}
+                    onClick={() => append({ title: '', videoUrl: '' })}
                     variant="secondary"
                   >
                     Adicionar Aula
@@ -161,8 +187,8 @@ export function Content() {
                 {fields.map((field, index) => (
                   <div key={field.id} className="flex items-end gap-4">
                     <FormField
-                      control={form.control}
-                      name={`lessons.${index}.name`}
+                      control={control}
+                      name={`lessons.${index}.title`}
                       render={({ field }) => (
                         <FormItem className="w-full">
                           <FormLabel>Nome da Aula</FormLabel>
@@ -174,8 +200,8 @@ export function Content() {
                       )}
                     />
                     <FormField
-                      control={form.control}
-                      name={`lessons.${index}.link`}
+                      control={control}
+                      name={`lessons.${index}.videoUrl`}
                       render={({ field }) => (
                         <FormItem className="w-full">
                           <FormLabel>Link da Aula</FormLabel>
@@ -258,7 +284,7 @@ export function Content() {
                   )}
 
                   <FormField
-                    control={form.control}
+                    control={control}
                     name="image"
                     render={({ field }) => (
                       <FormItem className="hidden">
@@ -283,7 +309,7 @@ export function Content() {
                   onClick={form.handleSubmit(onSubmit)}
                 >
                   Salvar
-                  {isSubmitting && (
+                  {isLoading && (
                     <LoaderCircle size={18} className="animate-spin" />
                   )}
                 </Button>

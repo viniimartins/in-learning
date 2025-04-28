@@ -2,6 +2,8 @@
 
 import { type PropsWithChildren } from 'react'
 
+import { Toaster } from '@/components/ui/sonner'
+
 import { ReactQueryProvider } from './react-query'
 import { ThemeProvider } from './theme-provider'
 
@@ -13,7 +15,10 @@ export function Providers({ children }: PropsWithChildren) {
       enableSystem
       disableTransitionOnChange
     >
-      <ReactQueryProvider>{children}</ReactQueryProvider>
+      <ReactQueryProvider>
+        {children}
+        <Toaster />
+      </ReactQueryProvider>
     </ThemeProvider>
   )
 }

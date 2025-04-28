@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import '@container/index'
 
+import fastifyCors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastifySwagger from '@fastify/swagger'
 import fastifySwaggerUI from '@fastify/swagger-ui'
@@ -46,6 +47,12 @@ app.register(fastifySwaggerUI, {
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
+})
+
+app.register(fastifyCors, {
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 })
 
 app.setErrorHandler(errorHandler)
