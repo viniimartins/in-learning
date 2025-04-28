@@ -8,7 +8,7 @@ interface ILesson {
 interface ICourse extends IBaseEntity {
   title: string
   description: string
-  subTitle: string
+  subtitle: string
   slug: string
   studentCount: number
   lessonds: ILesson[]
@@ -17,7 +17,7 @@ interface ICourse extends IBaseEntity {
 interface ICourseDTO {
   title: string
   description: string
-  subTitle: string
+  subtitle: string
   slug: string
   lessons: ILesson[]
 }

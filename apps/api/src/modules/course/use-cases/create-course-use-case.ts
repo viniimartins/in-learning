@@ -15,7 +15,7 @@ class CreateCourseUseCase implements ICreateCourseUseCase {
   ) { }
 
   async execute(data: ICreateCourse.Request): Promise<ICreateCourse.Response> {
-    const { description, title, instructorId, slug, subtitle, studentCount } =
+    const { description, title, instructorId, slug, subtitle } =
       data
 
 
@@ -25,7 +25,6 @@ class CreateCourseUseCase implements ICreateCourseUseCase {
       instructorId,
       slug,
       subtitle,
-      studentCount,
       lessons: data.lessons,
     })
 

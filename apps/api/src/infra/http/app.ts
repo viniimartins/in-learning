@@ -50,7 +50,7 @@ app.register(fastifyJwt, {
 })
 
 app.register(fastifyCors, {
-  origin: '*',
+  origin: env.NEXT_PUBLIC_APP_URL,
   methods: ['GET', 'POST', 'DELETE', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 })

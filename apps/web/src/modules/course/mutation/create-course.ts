@@ -1,7 +1,21 @@
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { createCourse } from '../../service/create-course-service'
+import { api } from '@/service/api'
+
+import type { ICourseDTO } from '../model'
+
+interface CreateCourseParams {
+  course: ICourseDTO
+}
+
+async function createCourse({ course }: CreateCourseParams) {
+  const { data } = await api.post('/courses', course)
+
+  return data
+}
+
+export { createCourse }
 
 function useCreateCourse() {
   return useMutation({

@@ -13,11 +13,9 @@ class CreateCourseController {
         description: z.string(),
         subtitle: z.string(),
         slug: z.string(),
-        studentCount: z.number(),
         lessons: z.array(
           z.object({
             title: z.string(),
-            description: z.string(),
             videoUrl: z.string(),
           }),
         ),
@@ -33,6 +31,7 @@ class CreateCourseController {
   static async handle(request: FastifyRequest, reply: FastifyReply) {
     const { sub } = request.user
 
+    console.log(sub)
     const { body: data } = {
       body: CreateCourseController.validator.request.body?.parse(request.body),
     }

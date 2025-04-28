@@ -43,7 +43,7 @@ const formSchema = z.object({
   description: z.string().min(2, {
     message: 'Descrição do curso deve conter pelo menos 2 caracteres.',
   }),
-  subTitle: z.string().min(2, {
+  subtitle: z.string().min(2, {
     message: 'Subtítulo do curso deve conter pelo menos 2 caracteres.',
   }),
   slug: z
@@ -70,7 +70,7 @@ export function Content() {
     defaultValues: {
       title: '',
       description: '',
-      subTitle: '',
+      subtitle: '',
       slug: '',
       lessons: [{ title: '', videoUrl: '' }],
     },
@@ -142,7 +142,7 @@ export function Content() {
               />
               <FormField
                 control={control}
-                name="subTitle"
+                name="subtitle"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Subtítulo</FormLabel>
