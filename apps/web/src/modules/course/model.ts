@@ -11,7 +11,13 @@ interface ICourse extends IBaseEntity {
   subtitle: string
   slug: string
   studentCount: number
-  lessonds: ILesson[]
+  lessons: ILesson[]
+}
+
+interface IInstructor extends IBaseEntity {
+  name: string
+  email: string
+  avatarUrl: string
 }
 
 interface ICourseDTO {
@@ -22,4 +28,8 @@ interface ICourseDTO {
   lessons: ILesson[]
 }
 
-export type { ICourse, ICourseDTO }
+interface ICourseWithInstructor extends ICourse {
+  instructor: IInstructor
+}
+
+export type { ICourse, ICourseDTO, ICourseWithInstructor }

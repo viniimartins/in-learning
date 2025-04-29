@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 import { z } from 'zod'
 
 class FindCourseByIdController {
-  static route = '/:id'
+  static route = '/:courseId'
 
   static validator = {
     request: {
@@ -12,28 +12,19 @@ class FindCourseByIdController {
         courseId: z.string(),
       }),
     },
-    response: {
-      200: z.object({
-        data: z.array(
-          z.object({
-            id: z.string(),
-            title: z.string(),
-            description: z.string(),
-            image: z.string(),
-            slug: z.string(),
-          }),
-        ),
-        meta: z.object({
-          pageIndex: z.number(),
-          perPage: z.number(),
-          total: z.number(),
-          totalPages: z.number(),
-        }),
-      }),
-      404: z.object({
-        message: z.string(),
-      }),
-    },
+    // response: {
+    //   200: z.object({
+    //     title: z.string(),
+    //     subtitle: z.string(),
+    //     description: z.string(),
+    //     slug: z.string(),
+    //     instructorId: z.string().uuid(),
+    //     studentCount: z.number(),
+    //   }),
+    //   404: z.object({
+    //     message: z.string(),
+    //   }),
+    // },
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {

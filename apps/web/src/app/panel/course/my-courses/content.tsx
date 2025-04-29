@@ -37,7 +37,11 @@ export default function Content() {
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
-        {courses?.data.map((course) => <CourseInstructor key={course.id} />)}
+        {courses?.data.map((course) => {
+          const { id } = course
+
+          return <CourseInstructor key={id} course={course} />
+        })}
       </div>
 
       {courses?.meta && (

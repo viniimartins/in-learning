@@ -29,7 +29,7 @@ export function useGetCourses(params: Paginated.Params) {
 
   useEffect(() => {
     if (isError) {
-      toast.error('Erro ao buscar os produtos')
+      toast.error('Erro ao buscar os cursos')
     }
   }, [isError])
 

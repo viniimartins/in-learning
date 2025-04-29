@@ -46,6 +46,10 @@ class PrismaCourseRepository
   }: IFindCourseById.Params): Promise<IFindCourseById.Response> {
     const course = await prisma.course.findUnique({
       where: { id },
+      include: {
+        lessons: true,
+        instructor: true,
+      },
     })
 
     return course
@@ -64,7 +68,6 @@ class PrismaCourseRepository
     isInstructor,
     instructorId,
   }: ISearchCourses.Params): Promise<ISearchCourses.Response> {
-
     const [courses, total] = await Promise.all([
       prisma.course.findMany({
         skip: (pageIndex - 1) * perPage,
@@ -74,7 +77,9 @@ class PrismaCourseRepository
             contains: search,
             mode: 'insensitive',
           },
-          instructorId: isInstructor ? instructorId : undefined,
+          ...(isInstructor
+            ? { instructorId }
+            : { instructorId: { not: instructorId } }),
         },
       }),
       prisma.course.count({
@@ -83,7 +88,9 @@ class PrismaCourseRepository
             contains: search,
             mode: 'insensitive',
           },
-          instructorId: isInstructor ? instructorId : undefined,
+          ...(isInstructor
+            ? { instructorId }
+            : { instructorId: { not: instructorId } }),
         },
       }),
     ])

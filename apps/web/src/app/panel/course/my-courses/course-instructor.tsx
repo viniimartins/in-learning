@@ -1,5 +1,6 @@
 import { Eye, MoreVertical, Pencil, Trash } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,8 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import type { ICourse } from '@/modules/course'
 
-export default function CourseInstructor() {
+interface Props {
+  course: ICourse
+}
+
+export default function CourseInstructor({ course }: Props) {
+  const { id, subtitle, title } = course
+
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -38,27 +46,33 @@ export default function CourseInstructor() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Eye className="mr-2 size-4" />
-                Ver detalhes
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Pencil className="mr-2 size-4" />
-                Editar
-              </DropdownMenuItem>
+              <Link href={`/panel/course/details/${id}`} className="w-full">
+                <DropdownMenuItem className="w-full">
+                  <Eye className="mr-2 size-4" />
+                  Ver detalhes
+                </DropdownMenuItem>
+              </Link>
+              <Link href={`/panel/course/${id}/edit`} className="w-full">
+                <DropdownMenuItem className="w-full">
+                  <Pencil className="mr-2 size-4" />
+                  Editar
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-destructive">
-                <Trash className="mr-2 size-4" />
-                Excluir
-              </DropdownMenuItem>
+              <Link href={`/excluir`} className="w-full">
+                <DropdownMenuItem className="text-destructive w-full">
+                  <Trash className="mr-2 size-4" />
+                  Excluir
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
-        <Badge variant="outline">Desenvolvimento</Badge>
+        <Badge variant="outline">{subtitle}</Badge>
 
-        <CardTitle className="text-lg">Curso React Native</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
       </CardContent>
     </Card>
   )
