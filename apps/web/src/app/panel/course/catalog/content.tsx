@@ -1,32 +1,32 @@
 'use client'
 
+import { Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
 import Pagination from '@/components/pagination'
+import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
-import CourseInstructor from './course-instructor'
+import CourseOverview from './course-overview'
 
 export default function Content() {
-  const [myCoursesTableParams, setMyCoursesTableParams] =
+  const [catalogTableParams, setCatalogTableParams] =
     useState<Paginated.Params>({
       pageIndex: 1,
       perPage: 10,
-      isInstructor: true,
     })
 
-  const { pageIndex, perPage, isInstructor } = myCoursesTableParams
+  const { pageIndex, perPage } = catalogTableParams
 
   const { data: courses } = useGetCourses({
     pageIndex,
     perPage,
-    isInstructor,
   })
 
-  const onChangeMyCoursesTableParams = useCallback(
+  const onChangeCatalogTableParams = useCallback(
     (updatedParams: Partial<Paginated.Params>) => {
-      return setMyCoursesTableParams((state) => ({
+      return setCatalogTableParams((state) => ({
         ...state,
         ...updatedParams,
       }))
@@ -36,14 +36,19 @@ export default function Content() {
 
   return (
     <>
+      <div className="relative w-full">
+        <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
+        <Input placeholder="Qual curso você procura?" className="w-80 pl-9" />
+      </div>
+
       <div className="grid grid-cols-3 gap-4">
-        {courses?.data.map((course) => <CourseInstructor key={course.id} />)}
+        {courses?.data.map((course) => <CourseOverview key={course.id} />)}
       </div>
 
       {courses?.meta && (
         <Pagination
           meta={courses.meta}
-          onChangeParams={onChangeMyCoursesTableParams}
+          onChangeParams={onChangeCatalogTableParams}
         />
       )}
     </>

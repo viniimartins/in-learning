@@ -25,7 +25,7 @@ export default function MyCoursesPage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>Lista de Desejos</BreadcrumbPage>
+            <BreadcrumbPage>Meus Cursos</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

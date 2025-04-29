@@ -6,14 +6,16 @@ namespace Paginated {
     isInstructor?: boolean
   }
 
+  export type Meta = {
+    pageIndex: number
+    perPage: number
+    total: number
+    totalPages: number
+  }
+
   export type Response<T> = {
     data: T[]
-    meta: {
-      pageIndex: number
-      perPage: number
-      total: number
-      totalPages: number
-    }
+    meta: Meta
   }
 }
 

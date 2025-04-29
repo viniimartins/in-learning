@@ -1,7 +1,5 @@
-import { Search } from 'lucide-react'
 import type { Metadata } from 'next'
 
-import Pagination from '@/components/pagination'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,9 +8,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { Input } from '@/components/ui/input'
 
-import CourseOverview from './course-overview'
+import Content from './content'
 
 export const metadata: Metadata = {
   title: 'Cursos',
@@ -33,20 +30,7 @@ export default function CourseCatalogPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex flex-col gap-8">
-        <div className="relative w-full">
-          <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
-          <Input placeholder="Qual curso você procura?" className="w-80 pl-9" />
-        </div>
-
-        <div className="grid grid-cols-3 gap-4">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <CourseOverview key={index} />
-          ))}
-        </div>
-
-        <Pagination />
-      </div>
+      <Content />
     </>
   )
 }
