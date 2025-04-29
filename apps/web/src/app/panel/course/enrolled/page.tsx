@@ -19,7 +19,7 @@ export default function EnrolledCoursePage() {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage>React Native</BreadcrumbPage>
+            <BreadcrumbPage>Cursos inscritos</BreadcrumbPage>
           </BreadcrumbItem>
         </BreadcrumbList>
       </Breadcrumb>

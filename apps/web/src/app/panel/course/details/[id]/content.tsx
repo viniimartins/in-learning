@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Play, PlusIcon, Users } from 'lucide-react'
+import { Heart, Pencil, Play, PlusIcon, Trash, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -19,20 +19,22 @@ export function Content() {
 
   const session = getSession()
 
-  const { data: course } = useGetCourseById({
+  const { data: course, queryKey } = useGetCourseById({
     course: {
       id,
     },
   })
 
-  const { mutate: enrolledCourse } = useEnrolledCourse()
+  const { mutate: enrolledCourse } = useEnrolledCourse({
+    queryKey,
+  })
 
   const isEnrolled =
     course?.studentCourses?.some(
       (studentCourse) => studentCourse.userId === session?.sub,
     ) ?? false
 
-  const isInstructor = session?.sub === course?.instructor.id
+  const isInstructor = session?.sub === course?.instructorId
 
   return (
     <div className="grid grid-cols-3 gap-8">
@@ -46,14 +48,14 @@ export function Content() {
             <Avatar className="size-10">
               <AvatarImage src={course?.instructor?.avatarUrl} />
               <AvatarFallback>
-                {course?.instructor?.name.slice(0, 2)}
+                {course?.instructor?.email.slice(0, 2)}
               </AvatarFallback>
             </Avatar>
 
             <div className="flex flex-col">
               <span className="text-foreground text-sm">Criado por:</span>
               <span className="text-lg font-semibold">
-                {course?.instructor?.name}
+                {course?.instructor?.name ?? course?.instructor?.email}
               </span>
             </div>
           </div>
@@ -132,6 +134,33 @@ export function Content() {
               <Button variant="outline" size="sm" className="w-full">
                 <Heart className="size-4" />
                 Adicionar ao favoritos
+              </Button>
+            </CardFooter>
+          </>
+        )}
+
+        {isInstructor && (
+          <>
+            <Separator />
+
+            <CardFooter className="flex flex-col gap-2">
+              <Link href={`/panel/course/edit/${id}`} className="w-full">
+                <Button variant="outline" size="sm" className="w-full">
+                  <PlusIcon className="size-4" />
+                  Adicionar mais aulas
+                </Button>
+              </Link>
+
+              <Link href={`/panel/course/edit/${id}`} className="w-full">
+                <Button variant="outline" size="sm" className="w-full">
+                  <Pencil className="size-4" />
+                  Editar curso
+                </Button>
+              </Link>
+
+              <Button variant="destructive" size="sm" className="w-full">
+                <Trash className="size-4" />
+                Excluir curso
               </Button>
             </CardFooter>
           </>

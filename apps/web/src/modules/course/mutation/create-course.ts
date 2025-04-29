@@ -1,6 +1,8 @@
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
+import type { QueryKeyProps } from '@/helpers/queryKeyProps'
+import { queryClient } from '@/lib/react-query'
 import { api } from '@/service/api'
 
 import type { ICourseDTO } from '../model'
@@ -15,11 +17,13 @@ async function create({ course }: Params) {
   return data
 }
 
-function useCreateCourse() {
+function useCreateCourse({ queryKey }: QueryKeyProps) {
   return useMutation({
     mutationKey: ['create-course'],
     mutationFn: create,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey })
+
       toast.success('Curso criado com sucesso')
     },
     onError: () => {

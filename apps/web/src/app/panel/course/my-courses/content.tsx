@@ -1,10 +1,12 @@
 'use client'
 
+import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
 import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
 import type { ICourse } from '@/modules/course'
 import { useGetCourses } from '@/modules/course/query/get-course'
@@ -39,16 +41,33 @@ export default function Content() {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-4">
-        {courses?.data.map((course) => {
-          const { id } = course
+      {courses && courses?.data.length > 0 && (
+        <>
+          <div className="relative w-full">
+            <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
+            <Input
+              placeholder="Qual curso você procura?"
+              className="w-80 pl-9"
+            />
+          </div>
 
-          return <CourseInstructor key={id} course={course} />
-        })}
-      </div>
+          <div className="grid grid-cols-3 gap-4">
+            {courses?.data.map((course) => {
+              const { id } = course
+
+              return <CourseInstructor key={id} course={course} />
+            })}
+          </div>
+
+          <Pagination
+            meta={courses.meta}
+            onChangeParams={onChangeMyCoursesTableParams}
+          />
+        </>
+      )}
 
       {!courses?.data.length && (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Você ainda não cadastrou nenhum curso na plataforma.
           </p>
@@ -57,13 +76,6 @@ export default function Content() {
             <Button>Cadastrar curso</Button>
           </Link>
         </div>
-      )}
-
-      {courses && courses?.data.length > 0 && (
-        <Pagination
-          meta={courses.meta}
-          onChangeParams={onChangeMyCoursesTableParams}
-        />
       )}
     </>
   )

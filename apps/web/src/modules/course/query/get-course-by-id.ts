@@ -6,7 +6,7 @@ import { toast } from 'sonner'
 
 import { api } from '@/service/api'
 
-import type { ICourse, ICourseWithInstructor } from '../model'
+import type { ICourse } from '../model'
 
 type Course = Pick<ICourse, 'id'>
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 async function get(courseId: Props['course']['id']) {
-  const { data } = await api.get<ICourseWithInstructor>(`/courses/${courseId}`)
+  const { data } = await api.get<ICourse>(`/courses/${courseId}`)
 
   return data
 }

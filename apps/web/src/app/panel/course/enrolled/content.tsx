@@ -40,19 +40,30 @@ export function Content() {
 
   return (
     <>
-      <div className="relative w-full">
-        <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
-        <Input placeholder="Qual curso você procura?" className="w-80 pl-9" />
-      </div>
+      {courses && courses?.data.length > 0 && (
+        <>
+          <div className="relative w-full">
+            <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
+            <Input
+              placeholder="Qual curso você procura?"
+              className="w-80 pl-9"
+            />
+          </div>
+          <div className="grid grid-cols-4 gap-4">
+            {courses?.data.map((course) => (
+              <CourseEnrolled key={course.id} course={course} />
+            ))}
+          </div>
 
-      <div className="grid grid-cols-4 gap-4">
-        {courses?.data.map((course) => (
-          <CourseEnrolled key={course.id} course={course} />
-        ))}
-      </div>
+          <Pagination
+            meta={courses.meta}
+            onChangeParams={onChangeEnrolledTableParams}
+          />
+        </>
+      )}
 
       {!courses?.data.length && (
-        <div className="flex flex-col items-center justify-center gap-4">
+        <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Você ainda não está inscrito em nenhum curso.
           </p>
@@ -61,13 +72,6 @@ export function Content() {
             <Button>Ver cursos</Button>
           </Link>
         </div>
-      )}
-
-      {courses && courses?.data.length > 0 && (
-        <Pagination
-          meta={courses.meta}
-          onChangeParams={onChangeEnrolledTableParams}
-        />
       )}
     </>
   )

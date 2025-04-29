@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle, Trash, Upload } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -26,6 +27,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useCreateCourse } from '@/modules/course'
+import { formatYoutubeUrl } from '@/utils/format-youtube-url'
 
 const lessonSchema = z.object({
   title: z.string().min(2, {
@@ -61,6 +63,8 @@ const formSchema = z.object({
 type FormSchema = z.infer<typeof formSchema>
 
 export function Content() {
+  const router = useRouter()
+
   const [image, setImage] = useState<File | null>(null)
 
   const { mutate: createCourse, isPending } = useCreateCourse()
@@ -91,9 +95,20 @@ export function Content() {
 
     const formData = {
       ...data,
+      lessons: data.lessons.map((lesson) => ({
+        title: lesson.title,
+        videoUrl: formatYoutubeUrl(lesson.videoUrl),
+      })),
     }
 
-    createCourse({ course: formData })
+    createCourse(
+      { course: formData },
+      {
+        onSuccess: () => {
+          router.push('/panel')
+        },
+      },
+    )
   }
 
   const isLoading = isPending || isSubmitting

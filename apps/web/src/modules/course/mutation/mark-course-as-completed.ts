@@ -12,25 +12,25 @@ type Course = Pick<ICourse, 'id'>
 interface Params {
   course: Course
 }
-async function register({ course }: Params) {
-  const { data } = await api.post(`/courses/${course.id}/enroll`)
+async function markCourseAsCompleted({ course }: Params) {
+  const { data } = await api.post(`/courses/${course.id}/completed`)
 
   return data
 }
 
-function useEnrolledCourse({ queryKey }: QueryKeyProps) {
+function useMarkCourseAsCompleted({ queryKey }: QueryKeyProps) {
   return useMutation({
-    mutationKey: ['enrolled-course'],
-    mutationFn: register,
+    mutationKey: ['mark-course-as-completed'],
+    mutationFn: markCourseAsCompleted,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey })
 
-      toast.success('Inscrição no curso realizada com sucesso')
+      toast.success('Aula assistida com sucesso')
     },
     onError: () => {
-      toast.error('Erro ao inscrever-se no curso')
+      toast.error('Erro ao marcar curso como assistido')
     },
   })
 }
 
-export { useEnrolledCourse }
+export { useMarkCourseAsCompleted }

@@ -10,15 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
-import type { ICourseWithStudentCourse } from '@/modules/course'
+import type { ICourse } from '@/modules/course'
 
 interface Props {
-  course: ICourseWithStudentCourse
+  course: ICourse
 }
 
 export default function CourseEnrolled({ course }: Props) {
-  const { studentCourses, title, id } = course
+  const { title, id } = course
 
   return (
     <Card className="pt-0">
@@ -37,22 +36,12 @@ export default function CourseEnrolled({ course }: Props) {
         <CardTitle className="text-lg">{title}</CardTitle>
       </CardContent>
       <CardFooter className="flex flex-col gap-4 border-t">
-        <div className="flex w-full items-center justify-between">
-          <Link href={`/panel/course/watch/${id}`} className="w-1/2">
-            <Button variant="outline" className="w-full">
-              <Play className="size-4" />
-              Assistir
-            </Button>
-          </Link>
-
-          <div className="flex w-1/2 items-center justify-center gap-2">
-            <span className="text-muted-foreground text-sm font-medium">
-              {studentCourses[0].progress}% Completo
-            </span>
-          </div>
-        </div>
-
-        <Progress value={studentCourses[0].progress} />
+        <Link href={`/panel/course/watch/${id}`} className="w-1/2">
+          <Button variant="outline" className="w-full">
+            <Play className="size-4" />
+            Assistir
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   )
