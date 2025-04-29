@@ -1,6 +1,5 @@
 import { Search } from 'lucide-react'
 
-import Pagination from '@/components/pagination'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -40,7 +39,7 @@ export default function EnrolledCoursePage() {
           ))}
         </div>
 
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </>
   )

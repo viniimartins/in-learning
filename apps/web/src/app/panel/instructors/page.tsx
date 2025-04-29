@@ -1,7 +1,6 @@
 import { Search } from 'lucide-react'
 import type { Metadata } from 'next'
 
-import Pagination from '@/components/pagination'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -48,7 +47,7 @@ export default function InstructorsPage() {
           ))}
         </div>
 
-        <Pagination />
+        {/* <Pagination /> */}
       </div>
     </>
   )
