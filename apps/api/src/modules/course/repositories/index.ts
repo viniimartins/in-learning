@@ -1,4 +1,6 @@
 export * from './create-course-repository'
 export * from './delete-course-repository'
+export * from './enroll-course-repository'
 export * from './find-course-by-id-repository'
+export * from './mark-course-as-completed-repository'
 export * from './search-courses-repository'

@@ -8,8 +8,6 @@ interface ILessonEntity {
 interface IStudentCourseEntity {
   courseId: string
   userId: string
-  progress: number
-  completed: boolean
 }
 interface ICourseEntity extends IBaseEntity {
   title: string

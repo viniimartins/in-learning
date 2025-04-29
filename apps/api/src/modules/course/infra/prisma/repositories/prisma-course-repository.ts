@@ -1,17 +1,19 @@
 /* eslint-disable prettier/prettier */
-
 import { prisma } from '@lib/prisma'
 import type {
   ICreateCourse,
   ICreateCourseRepository,
   IDeleteCourse,
   IDeleteCourseRepository,
+  IEnrollCourse,
+  IEnrollCourseRepository,
   IFindCourseById,
   IFindCourseByIdRepository,
+  IMarkCourseAsCompleted,
+  IMarkCourseAsCompletedRepository,
   ISearchCourses,
   ISearchCoursesRepository,
 } from '@modules/course/repositories'
-import type { IEnrollCourse, IEnrollCourseRepository } from '@modules/course/repositories/enroll-course-repository'
 
 class PrismaCourseRepository
   implements
@@ -19,6 +21,7 @@ class PrismaCourseRepository
   IDeleteCourseRepository,
   IEnrollCourseRepository,
   IFindCourseByIdRepository,
+  IMarkCourseAsCompletedRepository,
   ISearchCoursesRepository {
   async create({
     instructorId,
@@ -38,8 +41,10 @@ class PrismaCourseRepository
           },
         },
       },
+      include: {
+        lessons: true,
+      },
     })
-
     return course
   }
 
@@ -52,20 +57,20 @@ class PrismaCourseRepository
       include: {
         lessons: true,
         instructor: true,
-        studentCourses: {
-          where: {
-            userId,
-          }
-        }
+        courseProgress: {
+          where: { userId },
+        },
       },
     })
 
     return course
   }
 
-  async delete({ id }: IDeleteCourse.Params): Promise<IDeleteCourse.Response> {
+  async delete({
+    courseId,
+  }: IDeleteCourse.Params): Promise<IDeleteCourse.Response> {
     await prisma.course.delete({
-      where: { id },
+      where: { id: courseId },
     })
   }
 
@@ -88,12 +93,31 @@ class PrismaCourseRepository
             mode: 'insensitive',
           },
           ...(isInstructor && { instructorId }),
-          ...(isEnrolled && { studentCourses: { some: { userId } } }),
+          ...(isEnrolled && {
+            studentCourses: {
+              some: {
+                userId,
+              },
+            },
+          }),
+          ...(!isEnrolled &&
+            !isInstructor && {
+            NOT: {
+              instructorId,
+            },
+          }),
         },
         include: {
+          lessons: true,
           ...(isEnrolled && {
             studentCourses: true,
           }),
+          ...(isInstructor && {
+            instructor: true,
+          }),
+          courseProgress: {
+            where: { userId },
+          },
         },
       }),
       prisma.course.count({
@@ -104,6 +128,12 @@ class PrismaCourseRepository
           },
           ...(isInstructor && { instructorId }),
           ...(isEnrolled && { studentCourses: { some: { userId } } }),
+          ...(!isEnrolled &&
+            !isInstructor && {
+            NOT: {
+              instructorId,
+            },
+          }),
         },
       }),
     ])
@@ -123,14 +153,37 @@ class PrismaCourseRepository
     courseId,
     userId,
   }: IEnrollCourse.Params): Promise<IEnrollCourse.Response> {
-    const course = await prisma.studentCourse.create({
+    const studentCourse = await prisma.studentCourse.create({
       data: {
         userId,
         courseId,
       },
     })
 
-    return course
+    return studentCourse
+  }
+
+  async markCourseAsCompleted({
+    courseId,
+    userId,
+  }: IMarkCourseAsCompleted.Params): Promise<IMarkCourseAsCompleted.Response> {
+
+    await prisma.courseProgress.upsert({
+      where: {
+        userId_courseId: {
+          userId,
+          courseId,
+        },
+      },
+      update: {
+        completed: true,
+      },
+      create: {
+        userId,
+        courseId,
+        completed: true,
+      },
+    })
   }
 }
 

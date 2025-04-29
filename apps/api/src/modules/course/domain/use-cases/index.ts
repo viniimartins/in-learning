@@ -1,4 +1,6 @@
 export * from './create-course-use-case'
 export * from './delete-course-use-case'
+export * from './enroll-course-use-case'
 export * from './find-course-by-id-use-case'
+export * from './mark-course-as-completed-use-case'
 export * from './search-courses-use-case'

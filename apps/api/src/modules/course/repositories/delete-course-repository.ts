@@ -1,5 +1,5 @@
 namespace IDeleteCourse {
-  export type Params = { id: string }
+  export type Params = { courseId: string }
 
   export type Response = void
 }

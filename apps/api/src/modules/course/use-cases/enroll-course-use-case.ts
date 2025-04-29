@@ -1,9 +1,8 @@
 /* eslint-disable prettier/prettier */
+
 import { NotFoundError } from '@common/errors/not-found-error'
 import { ENROLL_COURSE_REPOSITORY_TOKEN } from '@modules/course/constants'
-import type {
-  IEnrollCourse,
-} from '@modules/course/domain/use-cases/enroll-course-use-case'
+import type { IEnrollCourse } from '@modules/course/domain/use-cases/enroll-course-use-case'
 import { inject, injectable } from 'tsyringe'
 
 import type { IEnrollCourseUseCase } from '../domain/use-cases/enroll-course-use-case'

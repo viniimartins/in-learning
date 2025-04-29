@@ -19,31 +19,52 @@ class SearchCoursesController {
         isEnrolled: z.coerce.boolean().optional().default(false),
       }),
     },
-    // response: {
-    //   200: z.object({
-    //     data: z.array(
-    //       z.object({
-    //         id: z.string().uuid(),
-
-    //         title: z.string(),
-    //         subtitle: z.string(),
-    //         description: z.string(),
-    //         slug: z.string(),
-    //         instructorId: z.string().uuid(),
-    //         studentCount: z.number(),
-
-    //         createdAt: z.date(),
-    //         updatedAt: z.date(),
-    //       }),
-    //     ),
-    //     meta: z.object({
-    //       pageIndex: z.number(),
-    //       perPage: z.number(),
-    //       total: z.number(),
-    //       totalPages: z.number(),
-    //     }),
-    //   }),
-    // },
+    response: {
+      // 200: z.object({
+      //   data: z.array(
+      //     z.object({
+      //       id: z.string().uuid(),
+      //       title: z.string(),
+      //       subtitle: z.string(),
+      //       description: z.string(),
+      //       slug: z.string(),
+      //       instructorId: z.string().uuid(),
+      //       studentCount: z.number(),
+      //       createdAt: z.date(),
+      //       updatedAt: z.date(),
+      //       lessons: z.array(
+      //         z.object({
+      //           id: z.string().uuid(),
+      //           title: z.string(),
+      //           videoUrl: z.string(),
+      //           courseId: z.string().uuid(),
+      //           createdAt: z.date(),
+      //           updatedAt: z.date(),
+      //           lessonProgress: z.array(z.any()).optional(),
+      //         }),
+      //       ),
+      //       studentCourses: z
+      //         .array(
+      //           z.object({
+      //             courseId: z.string().uuid(),
+      //             userId: z.string().uuid(),
+      //             createdAt: z.date(),
+      //             updatedAt: z.date(),
+      //           }),
+      //         )
+      //         .optional(),
+      //       progress: z.number(),
+      //       completed: z.boolean(),
+      //     }),
+      //   ),
+      //   meta: z.object({
+      //     pageIndex: z.number(),
+      //     perPage: z.number(),
+      //     total: z.number(),
+      //     totalPages: z.number(),
+      //   }),
+      // }),
+    },
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {

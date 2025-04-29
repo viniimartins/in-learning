@@ -1,6 +1,7 @@
 namespace IDeleteCourse {
   export type Request = {
-    id: string
+    courseId: string
+    userId: string
   }
 
   export type Response = void

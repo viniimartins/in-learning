@@ -15,7 +15,7 @@ class CreateCourseUseCase implements ICreateCourseUseCase {
   ) { }
 
   async execute(data: ICreateCourse.Request): Promise<ICreateCourse.Response> {
-    const { description, title, instructorId, slug, subtitle } =
+    const { description, title, instructorId, slug, subtitle, lessons } =
       data
 
     const createdCourse = await this.createCourseRepository.create({
@@ -24,7 +24,7 @@ class CreateCourseUseCase implements ICreateCourseUseCase {
       instructorId,
       slug,
       subtitle,
-      lessons: data.lessons,
+      lessons,
     })
 
     return createdCourse

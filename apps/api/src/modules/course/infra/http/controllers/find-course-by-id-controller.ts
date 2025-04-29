@@ -13,52 +13,43 @@ class FindCourseByIdController {
       }),
     },
     response: {
-      200: z.object({
-        id: z.string(),
-        title: z.string(),
-        subtitle: z.string(),
-        description: z.string(),
-        slug: z.string(),
-        instructorId: z.string(),
-        createdAt: z.date(),
-        updatedAt: z.date(),
-        studentCount: z.number(),
-        instructor: z
-          .object({
-            avatarUrl: z.string(),
-            createdAt: z.date(),
-            email: z.string(),
-            id: z.string(),
-            name: z.string(),
-            updatedAt: z.date(),
-          })
-          .optional(),
-        lessons: z
-          .array(
-            z.object({
-              assisted: z.boolean(),
-              courseId: z.string(),
-              createdAt: z.date(),
-              id: z.string(),
-              title: z.string(),
-              updatedAt: z.date(),
-              videoUrl: z.string(),
-            }),
-          )
-          .optional(),
-        studentCourses: z
-          .array(
-            z.object({
-              courseId: z.string(),
-              userId: z.string(),
-              progress: z.number(),
-              completed: z.boolean(),
-              createdAt: z.date(),
-              updatedAt: z.date(),
-            }),
-          )
-          .optional(),
-      }),
+      // 200: z.object({
+      //   id: z.string().uuid(),
+      //   title: z.string(),
+      //   subtitle: z.string(),
+      //   description: z.string(),
+      //   slug: z.string(),
+      //   studentCount: z.number(),
+      //   instructorId: z.string().uuid(),
+      //   createdAt: z.date(),
+      //   updatedAt: z.date(),
+      //   lessons: z.array(
+      //     z.object({
+      //       id: z.string().uuid(),
+      //       title: z.string(),
+      //       videoUrl: z.string(),
+      //       courseId: z.string().uuid(),
+      //       createdAt: z.date(),
+      //       updatedAt: z.date(),
+      //     }),
+      //   ),
+      //   instructor: z.object({
+      //     id: z.string().uuid(),
+      //     name: z.string().nullable(),
+      //     email: z.string(),
+      //     avatarUrl: z.string(),
+      //     createdAt: z.date(),
+      //     updatedAt: z.date(),
+      //   }),
+      //   studentCourses: z.array(
+      //     z.object({
+      //       courseId: z.string().uuid(),
+      //       userId: z.string().uuid(),
+      //       createdAt: z.date(),
+      //       updatedAt: z.date(),
+      //     }),
+      //   ),
+      // }),
       404: z.object({
         message: z.string(),
       }),

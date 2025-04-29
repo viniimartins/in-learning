@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+
 import { NotFoundError } from '@common/errors/not-found-error'
 import {
   DELETE_COURSE_REPOSITORY_TOKEN,
@@ -15,7 +16,7 @@ import type {
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-export class DeleteCourseUseCase implements IDeleteCourseUseCase {
+class DeleteCourseUseCase implements IDeleteCourseUseCase {
   constructor(
     @inject(DELETE_COURSE_REPOSITORY_TOKEN)
     private readonly deleteCourseRepository: IDeleteCourseRepository,
@@ -27,7 +28,8 @@ export class DeleteCourseUseCase implements IDeleteCourseUseCase {
     params: IDeleteCourse.Request,
   ): Promise<IDeleteCourse.Response> {
     const course = await this.findCourseByIdRepository.findById({
-      id: params.id,
+      courseId: params.courseId,
+      userId: params.userId,
     })
 
     if (!course) {
@@ -35,7 +37,9 @@ export class DeleteCourseUseCase implements IDeleteCourseUseCase {
     }
 
     await this.deleteCourseRepository.delete({
-      id: params.id,
+      courseId: params.courseId,
     })
   }
 }
+
+export { DeleteCourseUseCase }

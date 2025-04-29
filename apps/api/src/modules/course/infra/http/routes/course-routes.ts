@@ -7,6 +7,7 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 import { EnrollCourseController } from '../controllers/enroll-course-controller'
+import { MarkCourseAsCompletedController } from '../controllers/mark-course-as-completed-controller'
 
 const routes = (app: FastifyInstance) => {
   app.addHook('onRequest', requiredAuthentication)
@@ -79,6 +80,20 @@ const routes = (app: FastifyInstance) => {
       },
     },
     EnrollCourseController.handle,
+  )
+
+  app.withTypeProvider<ZodTypeProvider>().post(
+    MarkCourseAsCompletedController.route,
+    {
+      schema: {
+        tags: ['Courses'],
+        summary: 'Mark a course as completed',
+        security: [{ bearerAuth: [] }],
+        params: MarkCourseAsCompletedController.validator.request.params,
+        response: MarkCourseAsCompletedController.validator.response,
+      },
+    },
+    MarkCourseAsCompletedController.handle,
   )
 }
 
