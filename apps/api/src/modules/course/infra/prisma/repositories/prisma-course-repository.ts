@@ -61,22 +61,30 @@ class PrismaCourseRepository
     pageIndex,
     perPage,
     search,
+    isInstructor,
+    instructorId,
   }: ISearchCourses.Params): Promise<ISearchCourses.Response> {
+
     const [courses, total] = await Promise.all([
       prisma.course.findMany({
+        skip: (pageIndex - 1) * perPage,
+        take: perPage,
         where: {
           title: {
             contains: search,
+            mode: 'insensitive',
           },
-        },
-        skip: (pageIndex - 1) * perPage,
-        take: perPage,
-        orderBy: {
-          createdAt: 'desc',
+          instructorId: isInstructor ? instructorId : undefined,
         },
       }),
       prisma.course.count({
-        where: { title: { contains: search } },
+        where: {
+          title: {
+            contains: search,
+            mode: 'insensitive',
+          },
+          instructorId: isInstructor ? instructorId : undefined,
+        },
       }),
     ])
 

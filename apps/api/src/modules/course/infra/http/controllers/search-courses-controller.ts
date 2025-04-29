@@ -15,17 +15,24 @@ class SearchCoursesController {
           .string()
           .optional()
           .transform((value) => (value && value !== '' ? value : undefined)),
+        isInstructor: z.coerce.boolean().optional().default(false),
       }),
     },
     response: {
       200: z.object({
         data: z.array(
           z.object({
-            id: z.string(),
+            id: z.string().uuid(),
+
             title: z.string(),
+            subtitle: z.string(),
             description: z.string(),
-            image: z.string(),
             slug: z.string(),
+            instructorId: z.string().uuid(),
+            studentCount: z.number(),
+
+            createdAt: z.date(),
+            updatedAt: z.date(),
           }),
         ),
         meta: z.object({
@@ -39,10 +46,10 @@ class SearchCoursesController {
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
-    console.log(request.user)
+    const { sub } = request.user
 
     const {
-      query: { pageIndex, perPage, search },
+      query: { pageIndex, perPage, search, isInstructor },
     } = {
       query: SearchCoursesController.validator.request.querystring?.parse(
         request.query,
@@ -54,6 +61,8 @@ class SearchCoursesController {
       pageIndex,
       perPage,
       search,
+      isInstructor,
+      instructorId: sub,
     })
 
     return reply.status(200).send(found)

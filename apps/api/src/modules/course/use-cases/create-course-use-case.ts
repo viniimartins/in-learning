@@ -18,7 +18,6 @@ class CreateCourseUseCase implements ICreateCourseUseCase {
     const { description, title, instructorId, slug, subtitle } =
       data
 
-
     const createdCourse = await this.createCourseRepository.create({
       description,
       title,

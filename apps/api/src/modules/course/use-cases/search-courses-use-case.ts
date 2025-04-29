@@ -21,6 +21,8 @@ class SearchCoursesUseCase implements ISearchCoursesUseCase {
       pageIndex: params.pageIndex,
       perPage: params.perPage,
       search: params.search,
+      isInstructor: params.isInstructor,
+      instructorId: params.instructorId,
     })
 
     return {

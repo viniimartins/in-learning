@@ -31,7 +31,6 @@ class CreateCourseController {
   static async handle(request: FastifyRequest, reply: FastifyReply) {
     const { sub } = request.user
 
-    console.log(sub)
     const { body: data } = {
       body: CreateCourseController.validator.request.body?.parse(request.body),
     }

@@ -9,7 +9,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 
-import CourseInstructor from './course-instructor'
+import Content from './content'
 
 export const metadata: Metadata = {
   title: 'Meus Cursos',
@@ -30,11 +30,7 @@ export default function MyCoursesPage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="grid grid-cols-3 gap-4">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <CourseInstructor key={index} />
-        ))}
-      </div>
+      <Content />
     </>
   )
 }

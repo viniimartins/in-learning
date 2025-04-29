@@ -3,6 +3,7 @@ namespace Paginated {
     pageIndex: number
     perPage: number
     search?: string
+    isInstructor?: boolean
   }
 
   export type Response<T> = {
@@ -16,4 +17,4 @@ namespace Paginated {
   }
 }
 
-export { Paginated }
+export type { Paginated }
