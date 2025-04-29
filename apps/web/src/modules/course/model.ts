@@ -41,4 +41,13 @@ interface ICourseWithInstructor extends ICourse {
   studentCourses: IStudentCourse[]
 }
 
-export type { ICourse, ICourseDTO, ICourseWithInstructor }
+interface ICourseWithStudentCourse extends ICourse {
+  studentCourses: IStudentCourse[]
+}
+
+export type {
+  ICourse,
+  ICourseDTO,
+  ICourseWithInstructor,
+  ICourseWithStudentCourse,
+}

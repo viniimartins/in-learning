@@ -1,33 +1,36 @@
 'use client'
 
 import { Search } from 'lucide-react'
+import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
 import Pagination from '@/components/pagination'
+import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import type { ICourse } from '@/modules/course'
+import type { ICourseWithStudentCourse } from '@/modules/course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
-import CourseCatalog from './course-catalog'
+import CourseEnrolled from './course-enrolled'
 
-export default function Content() {
-  const [catalogTableParams, setCatalogTableParams] =
+export function Content() {
+  const [enrolledTableParams, setEnrolledTableParams] =
     useState<Paginated.Params>({
       pageIndex: 1,
       perPage: 10,
     })
 
-  const { pageIndex, perPage } = catalogTableParams
+  const { pageIndex, perPage } = enrolledTableParams
 
-  const { data: courses } = useGetCourses<ICourse>({
+  const { data: courses } = useGetCourses<ICourseWithStudentCourse>({
     pageIndex,
     perPage,
+    isEnrolled: true,
   })
 
-  const onChangeCatalogTableParams = useCallback(
+  const onChangeEnrolledTableParams = useCallback(
     (updatedParams: Partial<Paginated.Params>) => {
-      return setCatalogTableParams((state) => ({
+      return setEnrolledTableParams((state) => ({
         ...state,
         ...updatedParams,
       }))
@@ -44,22 +47,26 @@ export default function Content() {
 
       <div className="grid grid-cols-4 gap-4">
         {courses?.data.map((course) => (
-          <CourseCatalog key={course.id} course={course} />
+          <CourseEnrolled key={course.id} course={course} />
         ))}
       </div>
 
       {!courses?.data.length && (
         <div className="flex flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
-            Nenhum curso encontrado.
+            Você ainda não está inscrito em nenhum curso.
           </p>
+
+          <Link href="/panel/course/catalog">
+            <Button>Ver cursos</Button>
+          </Link>
         </div>
       )}
 
-      {courses?.meta && courses?.data.length > 0 && (
+      {courses && courses?.data.length > 0 && (
         <Pagination
           meta={courses.meta}
-          onChangeParams={onChangeCatalogTableParams}
+          onChangeParams={onChangeEnrolledTableParams}
         />
       )}
     </>

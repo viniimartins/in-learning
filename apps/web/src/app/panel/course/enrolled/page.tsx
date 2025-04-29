@@ -1,5 +1,3 @@
-import { Search } from 'lucide-react'
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,9 +6,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
-import { Input } from '@/components/ui/input'
 
-import CourseEnrolled from '../../course-enrolled'
+import { Content } from './content'
 
 export default function EnrolledCoursePage() {
   return (
@@ -27,20 +24,7 @@ export default function EnrolledCoursePage() {
         </BreadcrumbList>
       </Breadcrumb>
 
-      <div className="flex flex-col gap-8">
-        <div className="relative w-full">
-          <Search className="text-muted-foreground pointer-events-none absolute left-2 top-2.5 h-4 w-4" />
-          <Input placeholder="Qual curso você procura?" className="w-80 pl-9" />
-        </div>
-
-        <div className="grid grid-cols-4 gap-4">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <CourseEnrolled key={index} />
-          ))}
-        </div>
-
-        {/* <Pagination /> */}
-      </div>
+      <Content />
     </>
   )
 }

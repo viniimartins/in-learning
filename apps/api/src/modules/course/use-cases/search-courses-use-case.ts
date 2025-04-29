@@ -23,6 +23,8 @@ class SearchCoursesUseCase implements ISearchCoursesUseCase {
       search: params.search,
       isInstructor: params.isInstructor,
       instructorId: params.instructorId,
+      isEnrolled: params.isEnrolled,
+      userId: params.userId,
     })
 
     return {

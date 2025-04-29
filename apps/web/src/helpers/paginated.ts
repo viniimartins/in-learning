@@ -4,6 +4,7 @@ namespace Paginated {
     perPage: number
     search?: string
     isInstructor?: boolean
+    isEnrolled?: boolean
   }
 
   export type Meta = {

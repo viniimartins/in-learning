@@ -75,6 +75,8 @@ class PrismaCourseRepository
     search,
     isInstructor,
     instructorId,
+    isEnrolled,
+    userId,
   }: ISearchCourses.Params): Promise<ISearchCourses.Response> {
     const [courses, total] = await Promise.all([
       prisma.course.findMany({
@@ -85,9 +87,13 @@ class PrismaCourseRepository
             contains: search,
             mode: 'insensitive',
           },
-          ...(isInstructor
-            ? { instructorId }
-            : { instructorId: { not: instructorId } }),
+          ...(isInstructor && { instructorId }),
+          ...(isEnrolled && { studentCourses: { some: { userId } } }),
+        },
+        include: {
+          ...(isEnrolled && {
+            studentCourses: true,
+          }),
         },
       }),
       prisma.course.count({
@@ -96,9 +102,8 @@ class PrismaCourseRepository
             contains: search,
             mode: 'insensitive',
           },
-          ...(isInstructor
-            ? { instructorId }
-            : { instructorId: { not: instructorId } }),
+          ...(isInstructor && { instructorId }),
+          ...(isEnrolled && { studentCourses: { some: { userId } } }),
         },
       }),
     ])

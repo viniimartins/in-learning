@@ -1,13 +1,15 @@
 import { Paginated } from '@modules/common/helpers/paginated'
-import type { ICourseEntity } from '@modules/course/domain/entities/course-entity'
+import type { ICourseWithStudentCourseEntity } from '@modules/course/domain/entities/course-entity'
 
 namespace ISearchCourses {
   export type Request = Paginated.Params & {
-    isInstructor?: boolean
     instructorId?: string
+    isInstructor?: boolean
+    isEnrolled?: boolean
+    userId?: string
   }
 
-  export type Response = Paginated.Response<ICourseEntity>
+  export type Response = Paginated.Response<ICourseWithStudentCourseEntity>
 }
 
 interface ISearchCoursesUseCase {

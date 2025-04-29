@@ -5,6 +5,12 @@ interface ILessonEntity {
   videoUrl: string
 }
 
+interface IStudentCourseEntity {
+  courseId: string
+  userId: string
+  progress: number
+  completed: boolean
+}
 interface ICourseEntity extends IBaseEntity {
   title: string
   slug: string
@@ -13,11 +19,13 @@ interface ICourseEntity extends IBaseEntity {
   instructorId: string
 }
 
-interface IStudentCourseEntity {
-  courseId: string
-  userId: string
-  progress: number
-  completed: boolean
+interface ICourseWithStudentCourseEntity extends ICourseEntity {
+  studentCourses?: IStudentCourseEntity[]
 }
 
-export { ICourseEntity, ILessonEntity, IStudentCourseEntity }
+export {
+  ICourseEntity,
+  ICourseWithStudentCourseEntity,
+  ILessonEntity,
+  IStudentCourseEntity,
+}

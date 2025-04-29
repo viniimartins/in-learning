@@ -11,8 +11,15 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
+import type { ICourseWithStudentCourse } from '@/modules/course'
 
-export default function CourseEnrolled() {
+interface Props {
+  course: ICourseWithStudentCourse
+}
+
+export default function CourseEnrolled({ course }: Props) {
+  const { studentCourses, title, id } = course
+
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -27,11 +34,11 @@ export default function CourseEnrolled() {
         />
       </CardHeader>
       <CardContent>
-        <CardTitle className="text-lg">Curso React Native</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
       </CardContent>
       <CardFooter className="flex flex-col gap-4 border-t">
         <div className="flex w-full items-center justify-between">
-          <Link href="/panel/course/watch/1" className="w-1/2">
+          <Link href={`/panel/course/watch/${id}`} className="w-1/2">
             <Button variant="outline" className="w-full">
               <Play className="size-4" />
               Assistir
@@ -40,12 +47,12 @@ export default function CourseEnrolled() {
 
           <div className="flex w-1/2 items-center justify-center gap-2">
             <span className="text-muted-foreground text-sm font-medium">
-              7% Completo
+              {studentCourses[0].progress}% Completo
             </span>
           </div>
         </div>
 
-        <Progress value={71} />
+        <Progress value={studentCourses[0].progress} />
       </CardFooter>
     </Card>
   )
