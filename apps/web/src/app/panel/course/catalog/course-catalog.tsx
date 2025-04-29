@@ -11,8 +11,15 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import type { ICourse } from '@/modules/course/model'
 
-export default function CourseOverview() {
+interface Props {
+  course: ICourse
+}
+
+export default function CourseCatalog({ course }: Props) {
+  const { id, title, studentCount, slug } = course
+
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -37,20 +44,22 @@ export default function CourseOverview() {
         </div>
       </CardHeader>
       <CardContent className="space-y-2">
-        <Badge variant="outline">Desenvolvimento</Badge>
+        <Badge variant="outline">{slug}</Badge>
 
-        <CardTitle className="text-lg">Curso React Native</CardTitle>
+        <CardTitle className="text-lg">{title}</CardTitle>
       </CardContent>
       <CardFooter className="justify-between border-t">
         <div className="flex items-center gap-2">
-          <Link href="/panel/course/details/1">
+          <Link href={`/panel/course/details/${id}`}>
             <Button variant="link">Ver Detalhes</Button>
           </Link>
         </div>
 
         <Button variant="outline">
           <User className="size-4" />
-          <span className="text-muted-foreground font-semibold">400</span>
+          <span className="text-muted-foreground font-semibold">
+            {studentCount}
+          </span>
           Alunos
         </Button>
       </CardFooter>

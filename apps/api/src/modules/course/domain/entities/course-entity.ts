@@ -13,4 +13,11 @@ interface ICourseEntity extends IBaseEntity {
   instructorId: string
 }
 
-export { ICourseEntity, ILessonEntity }
+interface IStudentCourseEntity {
+  courseId: string
+  userId: string
+  progress: number
+  completed: boolean
+}
+
+export { ICourseEntity, ILessonEntity, IStudentCourseEntity }

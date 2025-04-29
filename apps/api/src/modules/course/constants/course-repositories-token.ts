@@ -2,6 +2,8 @@ const CREATE_COURSE_REPOSITORY_TOKEN = Symbol('CreateCourseRepository')
 
 const DELETE_COURSE_REPOSITORY_TOKEN = Symbol('DeleteCourseRepository')
 
+const ENROLL_COURSE_REPOSITORY_TOKEN = Symbol('EnrollCourseRepository')
+
 const FIND_COURSE_BY_ID_REPOSITORY_TOKEN = Symbol('FindCourseByIdRepository')
 
 const SEARCH_COURSES_REPOSITORY_TOKEN = Symbol('SearchCoursesRepository')
@@ -9,6 +11,7 @@ const SEARCH_COURSES_REPOSITORY_TOKEN = Symbol('SearchCoursesRepository')
 export {
   CREATE_COURSE_REPOSITORY_TOKEN,
   DELETE_COURSE_REPOSITORY_TOKEN,
+  ENROLL_COURSE_REPOSITORY_TOKEN,
   FIND_COURSE_BY_ID_REPOSITORY_TOKEN,
   SEARCH_COURSES_REPOSITORY_TOKEN,
 }

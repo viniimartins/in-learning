@@ -11,11 +11,13 @@ import type {
   ISearchCourses,
   ISearchCoursesRepository,
 } from '@modules/course/repositories'
+import type { IEnrollCourse, IEnrollCourseRepository } from '@modules/course/repositories/enroll-course-repository'
 
 class PrismaCourseRepository
   implements
   ICreateCourseRepository,
   IDeleteCourseRepository,
+  IEnrollCourseRepository,
   IFindCourseByIdRepository,
   ISearchCoursesRepository {
   async create({
@@ -42,13 +44,19 @@ class PrismaCourseRepository
   }
 
   async findById({
-    id,
+    courseId,
+    userId,
   }: IFindCourseById.Params): Promise<IFindCourseById.Response> {
     const course = await prisma.course.findUnique({
-      where: { id },
+      where: { id: courseId },
       include: {
         lessons: true,
         instructor: true,
+        studentCourses: {
+          where: {
+            userId,
+          }
+        }
       },
     })
 
@@ -104,6 +112,20 @@ class PrismaCourseRepository
         totalPages: Math.ceil(total / perPage),
       },
     }
+  }
+
+  async enroll({
+    courseId,
+    userId,
+  }: IEnrollCourse.Params): Promise<IEnrollCourse.Response> {
+    const course = await prisma.studentCourse.create({
+      data: {
+        userId,
+        courseId,
+      },
+    })
+
+    return course
   }
 }
 

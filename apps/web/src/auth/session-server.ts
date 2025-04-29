@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode'
 import { cookies } from 'next/headers'
 
-import type { IUser } from '@/app/panel/types'
+import type { ISession } from './model'
 
 export async function getSession() {
   const cookieStore = await cookies()
@@ -9,7 +9,7 @@ export async function getSession() {
 
   if (!token) return null
 
-  const decoded = jwtDecode<IUser>(token)
+  const decoded = jwtDecode<ISession>(token)
 
   return decoded
 }

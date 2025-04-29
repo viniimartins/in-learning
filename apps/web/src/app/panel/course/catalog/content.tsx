@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
-import CourseOverview from './course-overview'
+import CourseCatalog from './course-catalog'
 
 export default function Content() {
   const [catalogTableParams, setCatalogTableParams] =
@@ -42,7 +42,9 @@ export default function Content() {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {courses?.data.map((course) => <CourseOverview key={course.id} />)}
+        {courses?.data.map((course) => (
+          <CourseCatalog key={course.id} course={course} />
+        ))}
       </div>
 
       {courses?.meta && (

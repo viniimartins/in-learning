@@ -28,6 +28,8 @@ class FindCourseByIdController {
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
+    const { sub } = request.user
+
     const {
       params: { courseId },
     } = {
@@ -37,7 +39,10 @@ class FindCourseByIdController {
     }
 
     const findCourseByIdUseCase = container.resolve(FindCourseByIdUseCase)
-    const found = await findCourseByIdUseCase.execute({ id: courseId })
+    const found = await findCourseByIdUseCase.execute({
+      courseId,
+      userId: sub,
+    })
 
     return reply.status(200).send(found)
   }

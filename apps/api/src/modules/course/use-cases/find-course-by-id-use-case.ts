@@ -19,7 +19,8 @@ class FindCourseByIdUseCase implements IFindCourseByIdUseCase {
     params: IFindCourseById.Request,
   ): Promise<IFindCourseById.Response> {
     const foundCourse = await this.findCourseByIdRepository.findById({
-      id: params.id,
+      courseId: params.courseId,
+      userId: params.userId,
     })
 
     if (!foundCourse) {

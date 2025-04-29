@@ -4,6 +4,7 @@ import { Heart, Play, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import { getSession } from '@/auth/session-client'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -15,11 +16,15 @@ import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
 export function Content() {
   const { id } = useParams<{ id: string }>()
 
+  const session = getSession()
+
   const { data: course } = useGetCourseById({
     course: {
       id,
     },
   })
+
+  const isInstructor = session?.sub === course?.instructor.id
 
   return (
     <div className="grid grid-cols-3 gap-8">
@@ -92,21 +97,25 @@ export function Content() {
           </Badge>
         </CardContent>
 
-        <Separator />
+        {!isInstructor && (
+          <>
+            <Separator />
 
-        <CardFooter className="flex flex-col gap-2">
-          <Link href="/panel/course/watch/1" className="w-full">
-            <Button className="w-full">
-              <Play className="size-4 fill-current" />
-              Assistir
-            </Button>
-          </Link>
+            <CardFooter className="flex flex-col gap-2">
+              <Link href="/panel/course/watch/1" className="w-full">
+                <Button className="w-full">
+                  <Play className="size-4 fill-current" />
+                  Assistir
+                </Button>
+              </Link>
 
-          <Button variant="outline" size="sm" className="w-full">
-            <Heart className="size-4" />
-            Adicionar ao favoritos
-          </Button>
-        </CardFooter>
+              <Button variant="outline" size="sm" className="w-full">
+                <Heart className="size-4" />
+                Adicionar ao favoritos
+              </Button>
+            </CardFooter>
+          </>
+        )}
       </Card>
     </div>
   )

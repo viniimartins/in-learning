@@ -1,8 +1,9 @@
 import type { IBaseEntity } from '@/types/base-entity'
 
-interface ILesson {
+interface ILesson extends IBaseEntity {
   title: string
   videoUrl: string
+  assisted: boolean
 }
 
 interface ICourse extends IBaseEntity {
