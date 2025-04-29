@@ -1,6 +1,6 @@
 'use client'
 
-import { Heart, Play, Users } from 'lucide-react'
+import { Heart, Play, PlusIcon, Users } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useEnrolledCourse } from '@/modules/course/mutation/enrolled-course'
 import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
 
 export function Content() {
@@ -23,6 +24,13 @@ export function Content() {
       id,
     },
   })
+
+  const { mutate: enrolledCourse } = useEnrolledCourse()
+
+  const isEnrolled =
+    course?.studentCourses?.some(
+      (studentCourse) => studentCourse.userId === session?.sub,
+    ) ?? false
 
   const isInstructor = session?.sub === course?.instructor.id
 
@@ -102,12 +110,24 @@ export function Content() {
             <Separator />
 
             <CardFooter className="flex flex-col gap-2">
-              <Link href="/panel/course/watch/1" className="w-full">
-                <Button className="w-full">
-                  <Play className="size-4 fill-current" />
-                  Assistir
+              {isEnrolled && (
+                <Link href={`/panel/course/watch/${id}`} className="w-full">
+                  <Button className="w-full">
+                    <Play className="size-4 fill-current" />
+                    Assistir
+                  </Button>
+                </Link>
+              )}
+
+              {!isEnrolled && (
+                <Button
+                  className="w-full"
+                  onClick={() => enrolledCourse({ course: { id } })}
+                >
+                  <PlusIcon className="size-4" />
+                  Inscreva-se no curso
                 </Button>
-              </Link>
+              )}
 
               <Button variant="outline" size="sm" className="w-full">
                 <Heart className="size-4" />

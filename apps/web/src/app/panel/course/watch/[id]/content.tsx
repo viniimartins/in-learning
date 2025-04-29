@@ -24,6 +24,11 @@ export function Content() {
     },
   })
 
+  function getYoutubeEmbedUrl(url: string) {
+    const videoId = new URLSearchParams(new URL(url).search).get('v')
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : ''
+  }
+
   return (
     <div className="grid grid-cols-3 gap-8">
       <Card className="col-span-2 h-fit">
@@ -31,7 +36,11 @@ export function Content() {
           <iframe
             width="100%"
             height="400"
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+            src={
+              course?.lessons[0].videoUrl
+                ? getYoutubeEmbedUrl(course.lessons[0].videoUrl)
+                : ''
+            }
             title="Course video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
@@ -58,14 +67,16 @@ export function Content() {
 
         <CardContent className="pt-0">
           {course?.lessons.map((lesson, index) => {
+            const { assisted, title } = lesson
+
             const isLast = index === course.lessons.length - 1
 
             return (
               <div key={index}>
                 <div className="mb-3 flex items-center gap-2">
-                  <Checkbox />
+                  <Checkbox checked={assisted} />
 
-                  <span className="text-sm">{lesson.title}</span>
+                  <span className="text-sm">{title}</span>
                 </div>
 
                 {!isLast && <Separator />}
@@ -78,11 +89,11 @@ export function Content() {
 
         <CardFooter className="flex flex-col items-start gap-1">
           <span className="text-base font-medium">Progresso</span>
-          <Progress value={71} />
+          <Progress value={course?.studentCourses[0].progress} />
 
           <div className="ml-auto">
             <span className="text-muted-foreground text-sm font-medium">
-              7% Completo
+              {course?.studentCourses[0].progress}% Completo
             </span>
           </div>
         </CardFooter>

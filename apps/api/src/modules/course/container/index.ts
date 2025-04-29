@@ -1,6 +1,7 @@
 import {
   CREATE_COURSE_REPOSITORY_TOKEN,
   DELETE_COURSE_REPOSITORY_TOKEN,
+  ENROLL_COURSE_REPOSITORY_TOKEN,
   FIND_COURSE_BY_ID_REPOSITORY_TOKEN,
   SEARCH_COURSES_REPOSITORY_TOKEN,
 } from '@modules/course/constants'
@@ -12,6 +13,8 @@ import {
   ISearchCoursesRepository,
 } from '@modules/course/repositories'
 import { container } from 'tsyringe'
+
+import type { IEnrollCourseRepository } from '../repositories/enroll-course-repository'
 
 container.registerSingleton<ICreateCourseRepository>(
   CREATE_COURSE_REPOSITORY_TOKEN,
@@ -29,7 +32,7 @@ container.registerSingleton<IFindCourseByIdRepository>(
   FIND_COURSE_BY_ID_REPOSITORY_TOKEN,
   PrismaCourseRepository,
 )
-container.registerSingleton<IDeleteCourseRepository>(
-  DELETE_COURSE_REPOSITORY_TOKEN,
+container.registerSingleton<IEnrollCourseRepository>(
+  ENROLL_COURSE_REPOSITORY_TOKEN,
   PrismaCourseRepository,
 )

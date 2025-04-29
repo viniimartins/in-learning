@@ -12,6 +12,14 @@ class EnrollCourseController {
         courseId: z.string(),
       }),
     },
+    response: {
+      200: z.object({
+        courseId: z.string(),
+        userId: z.string(),
+        progress: z.number(),
+        completed: z.boolean(),
+      }),
+    },
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {

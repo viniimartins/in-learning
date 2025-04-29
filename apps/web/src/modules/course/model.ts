@@ -29,8 +29,16 @@ interface ICourseDTO {
   lessons: ILesson[]
 }
 
+interface IStudentCourse extends IBaseEntity {
+  courseId: string
+  userId: string
+  progress: number
+  completed: boolean
+}
+
 interface ICourseWithInstructor extends ICourse {
   instructor: IInstructor
+  studentCourses: IStudentCourse[]
 }
 
 export type { ICourse, ICourseDTO, ICourseWithInstructor }

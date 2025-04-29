@@ -6,6 +6,8 @@ import { SearchCoursesController } from '@modules/course/infra/http/controllers/
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
+import { EnrollCourseController } from '../controllers/enroll-course-controller'
+
 const routes = (app: FastifyInstance) => {
   app.addHook('onRequest', requiredAuthentication)
 
@@ -63,6 +65,20 @@ const routes = (app: FastifyInstance) => {
       },
     },
     SearchCoursesController.handle,
+  )
+
+  app.withTypeProvider<ZodTypeProvider>().post(
+    EnrollCourseController.route,
+    {
+      schema: {
+        tags: ['Courses'],
+        summary: 'Enroll a course',
+        security: [{ bearerAuth: [] }],
+        params: EnrollCourseController.validator.request.params,
+        response: EnrollCourseController.validator.response,
+      },
+    },
+    EnrollCourseController.handle,
   )
 }
 

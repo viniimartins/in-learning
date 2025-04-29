@@ -5,22 +5,20 @@ import { api } from '@/service/api'
 
 import type { ICourseDTO } from '../model'
 
-interface CreateCourseParams {
+interface Params {
   course: ICourseDTO
 }
 
-async function createCourse({ course }: CreateCourseParams) {
+async function create({ course }: Params) {
   const { data } = await api.post('/courses', course)
 
   return data
 }
 
-export { createCourse }
-
 function useCreateCourse() {
   return useMutation({
     mutationKey: ['create-course'],
-    mutationFn: createCourse,
+    mutationFn: create,
     onSuccess: () => {
       toast.success('Curso criado com sucesso')
     },
