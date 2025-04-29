@@ -27,6 +27,8 @@ export function Content() {
     queryKey,
   })
 
+  const isCourseCompleted = course?.courseProgress[0].completed
+
   useEffect(() => {
     if (course && !videoWatching.url && course.lessons.length > 0) {
       setVideoWatching({ url: course.lessons[0].videoUrl })
@@ -97,7 +99,7 @@ export function Content() {
         <Separator />
 
         <CardFooter>
-          {!course?.courseProgress[0].completed && (
+          {!isCourseCompleted && (
             <Button
               variant="outline"
               className="w-full"
@@ -108,13 +110,13 @@ export function Content() {
             </Button>
           )}
 
-          <Button variant="outline" size="sm" className="w-full" disabled>
-            {course?.courseProgress[0].completed && (
+          {isCourseCompleted && (
+            <Button variant="outline" size="sm" className="w-full" disabled>
               <span className="text-muted-foreground text-sm">
                 Curso assistido
               </span>
-            )}
-          </Button>
+            </Button>
+          )}
         </CardFooter>
       </Card>
     </div>

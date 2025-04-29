@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 
+import { getSession } from '@/auth/session-client'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -18,22 +19,16 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
-import type { ICourseWithStudentCourse } from '@/modules/course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
 import CourseEnrolled from './course/enrolled/course-enrolled'
 
 export function Content() {
-  const { data: courses } = useGetCourses<ICourseWithStudentCourse>({
+  const session = getSession()
+
+  const { data: courses } = useGetCourses({
     pageIndex: 1,
-    perPage: 10,
+    perPage: 5,
     isEnrolled: true,
   })
 
@@ -97,25 +92,27 @@ export function Content() {
         </Card>
       </div>
 
-      {courses && courses?.data.length > 0 && (
-        <div className="flex flex-col gap-8">
-          <span className="text-2xl font-medium">
-            Vamos começar a aprender, Vinicius
-          </span>
+      <div className="flex h-full flex-col gap-8">
+        <span className="text-2xl font-medium">
+          Vamos começar a aprender, {session?.name ?? session?.email}
+        </span>
 
-          <Carousel>
-            <CarouselContent>
-              <CarouselItem className="basis-1/4">
-                {courses?.data.map((course) => (
-                  <CourseEnrolled key={course.id} course={course} />
-                ))}
-              </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+        <div className="flex h-full flex-col justify-between">
+          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            {courses?.data.map((course) => (
+              <CourseEnrolled key={course.id} course={course} />
+            ))}
+          </div>
+
+          <div className="flex justify-center">
+            {courses && courses?.meta.total > 5 && (
+              <Link href="/panel/course/catalog">
+                <Button variant="outline">Ver todos</Button>
+              </Link>
+            )}
+          </div>
         </div>
-      )}
+      </div>
 
       {courses?.data.length === 0 && (
         <div className="flex flex-col items-center justify-center gap-6 rounded-lg border border-dashed p-10 text-center">

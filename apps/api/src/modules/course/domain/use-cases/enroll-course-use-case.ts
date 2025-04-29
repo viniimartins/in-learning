@@ -1,4 +1,4 @@
-import type { IStudentCourseEntity } from '@modules/course/domain/entities/course-entity'
+import type { ICourseEntity } from '../entities/course-entity'
 
 namespace IEnrollCourse {
   export type Request = {
@@ -6,7 +6,7 @@ namespace IEnrollCourse {
     userId: string
   }
 
-  export type Response = IStudentCourseEntity
+  export type Response = ICourseEntity
 }
 
 interface IEnrollCourseUseCase {

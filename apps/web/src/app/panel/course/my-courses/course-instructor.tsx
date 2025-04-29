@@ -69,10 +69,10 @@ export default function CourseInstructor({ course }: Props) {
           </DropdownMenu>
         </div>
       </CardHeader>
-      <CardContent className="space-y-2">
-        <Badge variant="outline">{subtitle}</Badge>
-
+      <CardContent className="flex justify-between">
         <CardTitle className="text-lg">{title}</CardTitle>
+
+        <Badge variant="outline">{subtitle}</Badge>
       </CardContent>
     </Card>
   )

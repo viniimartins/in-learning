@@ -21,6 +21,8 @@ class DeleteCourseController {
   }
 
   static async handle(request: FastifyRequest, reply: FastifyReply) {
+    const { sub } = request.user
+
     const {
       params: { courseId },
     } = {
@@ -31,7 +33,8 @@ class DeleteCourseController {
 
     const deleteCourseUseCase = container.resolve(DeleteCourseUseCase)
     await deleteCourseUseCase.execute({
-      id: courseId,
+      userId: sub,
+      courseId,
     })
 
     return reply.status(204).send()

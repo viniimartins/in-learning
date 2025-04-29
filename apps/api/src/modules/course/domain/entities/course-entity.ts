@@ -5,10 +5,6 @@ interface ILessonEntity {
   videoUrl: string
 }
 
-interface IStudentCourseEntity {
-  courseId: string
-  userId: string
-}
 interface ICourseEntity extends IBaseEntity {
   title: string
   slug: string
@@ -17,13 +13,4 @@ interface ICourseEntity extends IBaseEntity {
   instructorId: string
 }
 
-interface ICourseWithStudentCourseEntity extends ICourseEntity {
-  studentCourses?: IStudentCourseEntity[]
-}
-
-export {
-  ICourseEntity,
-  ICourseWithStudentCourseEntity,
-  ILessonEntity,
-  IStudentCourseEntity,
-}
+export { ICourseEntity, ILessonEntity }

@@ -29,11 +29,7 @@ export function Content() {
     queryKey,
   })
 
-  const isEnrolled =
-    course?.studentCourses?.some(
-      (studentCourse) => studentCourse.userId === session?.sub,
-    ) ?? false
-
+  const isEnrolled = course?.studentCourses.length !== 0
   const isInstructor = session?.sub === course?.instructorId
 
   return (
@@ -144,14 +140,14 @@ export function Content() {
             <Separator />
 
             <CardFooter className="flex flex-col gap-2">
-              <Link href={`/panel/course/edit/${id}`} className="w-full">
+              <Link href={`/panel/course/${id}/edit`} className="w-full">
                 <Button variant="outline" size="sm" className="w-full">
                   <PlusIcon className="size-4" />
                   Adicionar mais aulas
                 </Button>
               </Link>
 
-              <Link href={`/panel/course/edit/${id}`} className="w-full">
+              <Link href={`/panel/course/${id}/edit`} className="w-full">
                 <Button variant="outline" size="sm" className="w-full">
                   <Pencil className="size-4" />
                   Editar curso

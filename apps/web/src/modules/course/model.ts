@@ -19,6 +19,11 @@ interface IInstructor extends IBaseEntity {
   avatarUrl: string
 }
 
+interface IStudentCourse extends IBaseEntity {
+  userId: string
+  courseId: string
+}
+
 interface ICourse extends IBaseEntity {
   title: string
   description: string
@@ -29,6 +34,7 @@ interface ICourse extends IBaseEntity {
   lessons: ILesson[]
   courseProgress: ICourseProgress[]
   instructor: IInstructor
+  studentCourses: IStudentCourse[]
 }
 
 interface ICourseDTO {

@@ -60,6 +60,11 @@ class PrismaCourseRepository
         courseProgress: {
           where: { userId },
         },
+        studentCourses: {
+          where: {
+            userId,
+          },
+        },
       },
     })
 
@@ -94,17 +99,14 @@ class PrismaCourseRepository
           },
           ...(isInstructor && { instructorId }),
           ...(isEnrolled && {
-            studentCourses: {
-              some: {
-                userId,
-              },
-            },
+            studentCourses: { some: { userId } }
           }),
           ...(!isEnrolled &&
             !isInstructor && {
             NOT: {
               instructorId,
             },
+            studentCourses: { none: { userId } },
           }),
         },
         include: {
@@ -133,6 +135,7 @@ class PrismaCourseRepository
             NOT: {
               instructorId,
             },
+            studentCourses: { none: { userId } },
           }),
         },
       }),
@@ -153,14 +156,35 @@ class PrismaCourseRepository
     courseId,
     userId,
   }: IEnrollCourse.Params): Promise<IEnrollCourse.Response> {
-    const studentCourse = await prisma.studentCourse.create({
-      data: {
-        userId,
-        courseId,
-      },
-    })
 
-    return studentCourse
+    const course = await prisma.$transaction(async (tx) => {
+      await tx.studentCourse.create({
+        data: {
+          userId,
+          courseId,
+        },
+      });
+
+      await tx.courseProgress.create({
+        data: {
+          userId,
+          courseId,
+          completed: false,
+        },
+      });
+
+      return await tx.course.update({
+        where: { id: courseId },
+        data: {
+          studentCount: {
+            increment: 1,
+          },
+        },
+      });
+    });
+
+    return course;
+
   }
 
   async markCourseAsCompleted({
@@ -168,19 +192,14 @@ class PrismaCourseRepository
     userId,
   }: IMarkCourseAsCompleted.Params): Promise<IMarkCourseAsCompleted.Response> {
 
-    await prisma.courseProgress.upsert({
+    await prisma.courseProgress.update({
       where: {
         userId_courseId: {
           userId,
           courseId,
         },
       },
-      update: {
-        completed: true,
-      },
-      create: {
-        userId,
-        courseId,
+      data: {
         completed: true,
       },
     })

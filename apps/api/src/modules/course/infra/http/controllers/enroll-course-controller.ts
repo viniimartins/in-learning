@@ -14,10 +14,10 @@ class EnrollCourseController {
     },
     response: {
       200: z.object({
-        courseId: z.string(),
-        userId: z.string(),
-        progress: z.number(),
-        completed: z.boolean(),
+        id: z.string(),
+      }),
+      404: z.object({
+        message: z.string(),
       }),
     },
   }
@@ -34,12 +34,14 @@ class EnrollCourseController {
     }
 
     const enrollCourseUseCase = container.resolve(EnrollCourseUseCase)
-    const found = await enrollCourseUseCase.execute({
+    const enrolledCourse = await enrollCourseUseCase.execute({
       courseId,
       userId: sub,
     })
 
-    return reply.status(200).send(found)
+    return reply.status(200).send({
+      id: enrolledCourse.id,
+    })
   }
 }
 

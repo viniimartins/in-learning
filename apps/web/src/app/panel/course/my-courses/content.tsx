@@ -51,7 +51,7 @@ export default function Content() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-4 gap-4">
             {courses?.data.map((course) => {
               const { id } = course
 

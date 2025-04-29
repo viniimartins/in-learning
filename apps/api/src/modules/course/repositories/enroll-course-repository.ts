@@ -1,4 +1,4 @@
-import type { IStudentCourseEntity } from '@modules/course/domain/entities/course-entity'
+import type { ICourseEntity } from '../domain/entities/course-entity'
 
 namespace IEnrollCourse {
   export type Params = {
@@ -6,7 +6,7 @@ namespace IEnrollCourse {
     userId: string
   }
 
-  export type Response = IStudentCourseEntity | null
+  export type Response = ICourseEntity
 }
 
 interface IEnrollCourseRepository {
