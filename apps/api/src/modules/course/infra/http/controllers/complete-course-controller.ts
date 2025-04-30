@@ -1,9 +1,9 @@
-import { MarkCourseAsCompletedUseCase } from '@modules/course/use-cases/mark-course-as-completed-use-case'
+import { CompleteCourseUseCase } from '@modules/course/use-cases/complete-course-use-case'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { container } from 'tsyringe'
 import { z } from 'zod'
 
-class MarkCourseAsCompletedController {
+class CompleteCourseController {
   static route = '/:courseId/completed'
 
   static validator = {
@@ -21,15 +21,11 @@ class MarkCourseAsCompletedController {
     const { sub } = request.user
 
     const { courseId } =
-      MarkCourseAsCompletedController.validator.request.params.parse(
-        request.params,
-      )
+      CompleteCourseController.validator.request.params.parse(request.params)
 
-    const markCourseAsCompletedUseCase = container.resolve(
-      MarkCourseAsCompletedUseCase,
-    )
+    const completeCourseUseCase = container.resolve(CompleteCourseUseCase)
 
-    await markCourseAsCompletedUseCase.execute({
+    await completeCourseUseCase.execute({
       courseId,
       userId: sub,
     })
@@ -38,4 +34,4 @@ class MarkCourseAsCompletedController {
   }
 }
 
-export { MarkCourseAsCompletedController }
+export { CompleteCourseController }

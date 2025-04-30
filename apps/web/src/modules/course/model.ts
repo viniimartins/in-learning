@@ -7,7 +7,7 @@ interface ILesson extends IBaseEntity {
   videoUrl: string
 }
 
-interface ICourseProgress extends IBaseEntity {
+interface IProgress extends IBaseEntity {
   userId: string
   courseId: string
   completed: boolean
@@ -19,7 +19,7 @@ interface IInstructor extends IBaseEntity {
   avatarUrl: string
 }
 
-interface IStudentCourse extends IBaseEntity {
+interface IStudent extends IBaseEntity {
   userId: string
   courseId: string
 }
@@ -32,9 +32,9 @@ interface ICourse extends IBaseEntity {
   studentCount: number
   instructorId: string
   lessons: ILesson[]
-  courseProgress: ICourseProgress[]
+  progress: IProgress[]
   instructor: IInstructor
-  studentCourses: IStudentCourse[]
+  students: IStudent[]
 }
 
 interface ICourseDTO {

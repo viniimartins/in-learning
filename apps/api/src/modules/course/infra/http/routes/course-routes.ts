@@ -7,7 +7,7 @@ import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 
 import { EnrollCourseController } from '../controllers/enroll-course-controller'
-import { MarkCourseAsCompletedController } from '../controllers/mark-course-as-completed-controller'
+import { MarkCourseAsCompletedController } from '../controllers/complete-course-controller'
 
 const routes = (app: FastifyInstance) => {
   app.addHook('onRequest', requiredAuthentication)

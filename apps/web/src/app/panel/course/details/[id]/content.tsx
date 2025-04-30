@@ -29,7 +29,7 @@ export function Content() {
     queryKey,
   })
 
-  const isEnrolled = course?.studentCourses.length !== 0
+  const isEnrolled = course?.students.length !== 0
   const isInstructor = session?.sub === course?.instructorId
 
   return (

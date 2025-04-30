@@ -27,7 +27,7 @@ export function Content() {
     queryKey,
   })
 
-  const isCourseCompleted = course?.courseProgress[0].completed
+  const isCourseCompleted = course && course.progress[0].completed
 
   useEffect(() => {
     if (course && !videoWatching.url && course.lessons.length > 0) {

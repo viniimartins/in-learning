@@ -20,50 +20,48 @@ class SearchCoursesController {
       }),
     },
     response: {
-      // 200: z.object({
-      //   data: z.array(
-      //     z.object({
-      //       id: z.string().uuid(),
-      //       title: z.string(),
-      //       subtitle: z.string(),
-      //       description: z.string(),
-      //       slug: z.string(),
-      //       instructorId: z.string().uuid(),
-      //       studentCount: z.number(),
-      //       createdAt: z.date(),
-      //       updatedAt: z.date(),
-      //       lessons: z.array(
-      //         z.object({
-      //           id: z.string().uuid(),
-      //           title: z.string(),
-      //           videoUrl: z.string(),
-      //           courseId: z.string().uuid(),
-      //           createdAt: z.date(),
-      //           updatedAt: z.date(),
-      //           lessonProgress: z.array(z.any()).optional(),
-      //         }),
-      //       ),
-      //       studentCourses: z
-      //         .array(
-      //           z.object({
-      //             courseId: z.string().uuid(),
-      //             userId: z.string().uuid(),
-      //             createdAt: z.date(),
-      //             updatedAt: z.date(),
-      //           }),
-      //         )
-      //         .optional(),
-      //       progress: z.number(),
-      //       completed: z.boolean(),
-      //     }),
-      //   ),
-      //   meta: z.object({
-      //     pageIndex: z.number(),
-      //     perPage: z.number(),
-      //     total: z.number(),
-      //     totalPages: z.number(),
-      //   }),
-      // }),
+      200: z.object({
+        data: z.array(
+          z.object({
+            id: z.string().uuid(),
+            title: z.string(),
+            subtitle: z.string(),
+            description: z.string(),
+            slug: z.string(),
+            studentCount: z.number(),
+            instructorId: z.string().uuid(),
+            createdAt: z.date(),
+            updatedAt: z.date(),
+            lessons: z.array(
+              z.object({
+                id: z.string().uuid(),
+                title: z.string(),
+                videoUrl: z.string(),
+                courseId: z.string().uuid(),
+                createdAt: z.date(),
+                updatedAt: z.date(),
+              }),
+            ),
+            instructor: z
+              .object({
+                id: z.string().uuid(),
+                name: z.string().nullable(),
+                email: z.string(),
+                avatarUrl: z.string(),
+                createdAt: z.date(),
+                updatedAt: z.date(),
+              })
+              .optional(),
+            progress: z.array(z.any()).optional(),
+          }),
+        ),
+        meta: z.object({
+          pageIndex: z.number(),
+          perPage: z.number(),
+          total: z.number(),
+          totalPages: z.number(),
+        }),
+      }),
     },
   }
 

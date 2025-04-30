@@ -16,7 +16,7 @@ import {
 import { container } from 'tsyringe'
 
 import type { IEnrollCourseRepository } from '../repositories/enroll-course-repository'
-import type { IMarkCourseAsCompletedRepository } from '../repositories/mark-course-as-completed-repository'
+import type { IMarkCourseAsCompletedRepository } from '../repositories/complete-course-repository'
 
 container.registerSingleton<ICreateCourseRepository>(
   CREATE_COURSE_REPOSITORY_TOKEN,

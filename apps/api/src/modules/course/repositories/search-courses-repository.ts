@@ -1,5 +1,6 @@
 import type { Paginated } from '@modules/common/helpers/paginated'
-import type { ICourseWithStudentCourseEntity } from '@modules/course/domain/entities/course-entity'
+
+import type { ICourseEntity } from '../domain/entities/course-entity'
 
 namespace ISearchCourses {
   export type Params = Paginated.Params & {
@@ -9,7 +10,7 @@ namespace ISearchCourses {
     userId?: string
   }
 
-  export type Response = Paginated.Response<ICourseWithStudentCourseEntity>
+  export type Response = Paginated.Response<ICourseEntity>
 }
 
 interface ISearchCoursesRepository {
