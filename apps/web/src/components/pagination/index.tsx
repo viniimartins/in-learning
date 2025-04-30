@@ -58,6 +58,7 @@ export default function Pagination({ meta, onChangeParams }: PaginationProps) {
           <Button
             variant="outline"
             className="hidden h-8 w-8 p-0 lg:flex"
+            onClick={() => onChangeParams({ pageIndex: 1 })}
             disabled={meta.pageIndex === 1}
           >
             <span className="sr-only">Ir para primeira página</span>
@@ -68,6 +69,7 @@ export default function Pagination({ meta, onChangeParams }: PaginationProps) {
             className="size-8"
             size="icon"
             disabled={meta.pageIndex === 1}
+            onClick={() => onChangeParams({ pageIndex: meta.pageIndex - 1 })}
           >
             <span className="sr-only">Ir para página anterior</span>
             <ChevronLeft className="h-4 w-4" />
@@ -76,6 +78,7 @@ export default function Pagination({ meta, onChangeParams }: PaginationProps) {
             variant="outline"
             className="size-8"
             size="icon"
+            onClick={() => onChangeParams({ pageIndex: meta.pageIndex + 1 })}
             disabled={meta.pageIndex === meta.totalPages}
           >
             <span className="sr-only">Ir para próxima página</span>
@@ -86,6 +89,7 @@ export default function Pagination({ meta, onChangeParams }: PaginationProps) {
             className="hidden size-8 lg:flex"
             size="icon"
             disabled={meta.pageIndex === meta.totalPages}
+            onClick={() => onChangeParams({ pageIndex: meta.totalPages })}
           >
             <span className="sr-only">Ir para última página</span>
             <ChevronsRight className="h-4 w-4" />

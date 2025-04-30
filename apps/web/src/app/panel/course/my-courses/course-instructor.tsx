@@ -16,9 +16,13 @@ import type { ICourse } from '@/modules/course'
 
 interface Props {
   course: ICourse
+  handleDeleteCourse: () => void
 }
 
-export default function CourseInstructor({ course }: Props) {
+export default function CourseInstructor({
+  course,
+  handleDeleteCourse,
+}: Props) {
   const { id, subtitle, title } = course
 
   return (
@@ -59,12 +63,13 @@ export default function CourseInstructor({ course }: Props) {
                 </DropdownMenuItem>
               </Link>
               <DropdownMenuSeparator />
-              <Link href={`/excluir`} className="w-full">
-                <DropdownMenuItem className="text-destructive w-full">
-                  <Trash className="mr-2 size-4" />
-                  Excluir
-                </DropdownMenuItem>
-              </Link>
+              <DropdownMenuItem
+                className="text-destructive w-full"
+                onClick={handleDeleteCourse}
+              >
+                <Trash className="mr-2 size-4" />
+                Excluir
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

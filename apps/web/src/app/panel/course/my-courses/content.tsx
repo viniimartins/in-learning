@@ -8,7 +8,7 @@ import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import type { ICourse } from '@/modules/course'
+import { useDeleteCourse } from '@/modules/course/mutation/delete-course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
 import CourseInstructor from './course-instructor'
@@ -23,10 +23,14 @@ export default function Content() {
 
   const { pageIndex, perPage, isInstructor } = myCoursesTableParams
 
-  const { data: courses } = useGetCourses<ICourse>({
+  const { data: courses, queryKey } = useGetCourses({
     pageIndex,
     perPage,
     isInstructor,
+  })
+
+  const { mutate: deleteCourse } = useDeleteCourse({
+    queryKey,
   })
 
   const onChangeMyCoursesTableParams = useCallback(
@@ -55,7 +59,13 @@ export default function Content() {
             {courses?.data.map((course) => {
               const { id } = course
 
-              return <CourseInstructor key={id} course={course} />
+              return (
+                <CourseInstructor
+                  key={id}
+                  course={course}
+                  handleDeleteCourse={() => deleteCourse({ course: { id } })}
+                />
+              )
             })}
           </div>
 

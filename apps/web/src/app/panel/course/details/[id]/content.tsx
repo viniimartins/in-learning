@@ -2,7 +2,7 @@
 
 import { Heart, Pencil, Play, PlusIcon, Trash, Users } from 'lucide-react'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 import { getSession } from '@/auth/session-client'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -11,10 +11,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useDeleteCourse } from '@/modules/course/mutation/delete-course'
 import { useEnrolledCourse } from '@/modules/course/mutation/enrolled-course'
 import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
 
 export function Content() {
+  const router = useRouter()
   const { id } = useParams<{ id: string }>()
 
   const session = getSession()
@@ -28,6 +30,21 @@ export function Content() {
   const { mutate: enrolledCourse } = useEnrolledCourse({
     queryKey,
   })
+
+  const { mutate: deleteCourse } = useDeleteCourse({
+    queryKey,
+  })
+
+  function handleDeleteCourse() {
+    deleteCourse(
+      { course: { id } },
+      {
+        onSuccess: () => {
+          router.push('/panel/course')
+        },
+      },
+    )
+  }
 
   const isEnrolled = course?.students.length !== 0
   const isInstructor = session?.sub === course?.instructorId
@@ -154,7 +171,12 @@ export function Content() {
                 </Button>
               </Link>
 
-              <Button variant="destructive" size="sm" className="w-full">
+              <Button
+                variant="destructive"
+                size="sm"
+                className="w-full"
+                onClick={handleDeleteCourse}
+              >
                 <Trash className="size-4" />
                 Excluir curso
               </Button>

@@ -4,7 +4,7 @@ import { container } from 'tsyringe'
 import { z } from 'zod'
 
 class DeleteCourseController {
-  static route = '/:id'
+  static route = '/:courseId'
 
   static validator = {
     request: {
@@ -13,7 +13,7 @@ class DeleteCourseController {
       }),
     },
     response: {
-      204: z.null(),
+      200: z.null(),
       404: z.object({
         message: z.string(),
       }),
@@ -37,7 +37,7 @@ class DeleteCourseController {
       courseId,
     })
 
-    return reply.status(204).send()
+    return reply.status(200).send()
   }
 }
 

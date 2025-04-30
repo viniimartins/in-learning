@@ -8,7 +8,6 @@ import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import type { ICourseWithStudentCourse } from '@/modules/course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
 import CourseEnrolled from './course-enrolled'
@@ -22,7 +21,7 @@ export function Content() {
 
   const { pageIndex, perPage } = enrolledTableParams
 
-  const { data: courses } = useGetCourses<ICourseWithStudentCourse>({
+  const { data: courses } = useGetCourses({
     pageIndex,
     perPage,
     isEnrolled: true,

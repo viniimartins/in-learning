@@ -1,4 +1,4 @@
-import { Play } from 'lucide-react'
+import { Play, Trophy } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -20,6 +20,8 @@ interface Props {
 export default function CourseEnrolled({ course }: Props) {
   const { title, id, subtitle } = course
 
+  const isCourseCompleted = course.progress[0].completed
+
   return (
     <Card className="pt-0">
       <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -39,12 +41,22 @@ export default function CourseEnrolled({ course }: Props) {
         <Badge variant="outline">{subtitle}</Badge>
       </CardContent>
       <CardFooter className="flex flex-col gap-4 border-t">
-        <Link href={`/panel/course/watch/${id}`} className="w-full">
-          <Button variant="outline" className="w-full">
-            <Play className="size-4" />
-            Assistir
-          </Button>
-        </Link>
+        {!isCourseCompleted && (
+          <Link href={`/panel/course/watch/${id}`} className="w-full">
+            <Button variant="outline" className="w-full">
+              <Play className="size-4" />
+              Assistir
+            </Button>
+          </Link>
+        )}
+        {isCourseCompleted && (
+          <Link href={`/panel/course/certificate/${id}`} className="w-full">
+            <Button variant="outline" className="w-full">
+              <Trophy className="size-4" />
+              Visualizar Certificado
+            </Button>
+          </Link>
+        )}
       </CardFooter>
     </Card>
   )

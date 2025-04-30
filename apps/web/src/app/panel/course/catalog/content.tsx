@@ -6,7 +6,6 @@ import { useCallback, useState } from 'react'
 import Pagination from '@/components/pagination'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import type { ICourse } from '@/modules/course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
 import CourseCatalog from './course-catalog'
@@ -20,7 +19,7 @@ export default function Content() {
 
   const { pageIndex, perPage } = catalogTableParams
 
-  const { data: courses } = useGetCourses<ICourse>({
+  const { data: courses } = useGetCourses({
     pageIndex,
     perPage,
   })

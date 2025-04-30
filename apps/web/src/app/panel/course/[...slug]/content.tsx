@@ -105,7 +105,7 @@ export function Content() {
       { course: formData },
       {
         onSuccess: () => {
-          // router.push('/panel')
+          router.push('/panel')
         },
       },
     )

@@ -67,7 +67,7 @@ model Lesson {
   title    String
   videoUrl String @map("video_url")
 
-  course   Course @relation(fields: [courseId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId String @map("course_id")
 
   createdAt DateTime @default(now()) @map("created_at")
