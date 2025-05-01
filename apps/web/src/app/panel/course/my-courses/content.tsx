@@ -27,7 +27,7 @@ export default function Content() {
   const {
     data: courses,
     queryKey,
-    isLoading,
+    isLoading: isCoursesLoading,
   } = useGetCourses({
     pageIndex,
     perPage,
@@ -81,7 +81,7 @@ export default function Content() {
         </>
       )}
 
-      {!courses?.data.length && !isLoading && (
+      {!courses?.data.length && !isCoursesLoading && (
         <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Você ainda não cadastrou nenhum curso na plataforma.
@@ -93,7 +93,7 @@ export default function Content() {
         </div>
       )}
 
-      {isLoading && <Loading />}
+      {isCoursesLoading && <Loading />}
     </>
   )
 }

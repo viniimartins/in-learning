@@ -62,7 +62,8 @@ type FormSchema = z.infer<typeof formSchema>
 export function Content() {
   const router = useRouter()
 
-  const { mutate: createCourse, isPending } = useCreateCourse()
+  const { mutate: createCourse, isPending: isCreateCoursePending } =
+    useCreateCourse()
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -104,7 +105,7 @@ export function Content() {
     )
   }
 
-  const isLoading = isPending || isSubmitting
+  const isLoading = isCreateCoursePending || isSubmitting
 
   return (
     <Card>
