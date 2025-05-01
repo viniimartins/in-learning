@@ -4,6 +4,7 @@ import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
+import { Loading } from '@/components/loading'
 import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -11,7 +12,7 @@ import type { Paginated } from '@/helpers/paginated'
 import { useDeleteCourse } from '@/modules/course/mutation/delete-course'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
-import CourseInstructor from './course-instructor'
+import { CourseInstructor } from './course-instructor'
 
 export default function Content() {
   const [myCoursesTableParams, setMyCoursesTableParams] =
@@ -23,7 +24,11 @@ export default function Content() {
 
   const { pageIndex, perPage, isInstructor } = myCoursesTableParams
 
-  const { data: courses, queryKey } = useGetCourses({
+  const {
+    data: courses,
+    queryKey,
+    isLoading,
+  } = useGetCourses({
     pageIndex,
     perPage,
     isInstructor,
@@ -76,7 +81,7 @@ export default function Content() {
         </>
       )}
 
-      {!courses?.data.length && (
+      {!courses?.data.length && !isLoading && (
         <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Você ainda não cadastrou nenhum curso na plataforma.
@@ -87,6 +92,8 @@ export default function Content() {
           </Link>
         </div>
       )}
+
+      {isLoading && <Loading />}
     </>
   )
 }
