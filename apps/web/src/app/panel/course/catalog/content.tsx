@@ -3,6 +3,7 @@
 import { Search } from 'lucide-react'
 import { useCallback, useState } from 'react'
 
+import { Loading } from '@/components/loading'
 import Pagination from '@/components/pagination'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
@@ -19,7 +20,7 @@ export default function Content() {
 
   const { pageIndex, perPage } = catalogTableParams
 
-  const { data: courses } = useGetCourses({
+  const { data: courses, isLoading } = useGetCourses({
     pageIndex,
     perPage,
   })
@@ -59,13 +60,15 @@ export default function Content() {
         </>
       )}
 
-      {!courses?.data.length && (
+      {!courses?.data.length && !isLoading && (
         <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Nenhum curso encontrado.
           </p>
         </div>
       )}
+
+      {isLoading && <Loading />}
     </>
   )
 }

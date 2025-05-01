@@ -24,7 +24,7 @@ export function CourseInstructor({ course, handleDeleteCourse }: Props) {
   return (
     <Card>
       <CardHeader className="flex items-center justify-between">
-        <CardTitle className="text-lg">{title}</CardTitle>
+        <CardTitle className="truncate text-lg">{title}</CardTitle>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
