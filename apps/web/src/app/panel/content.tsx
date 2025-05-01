@@ -50,7 +50,7 @@ export function Content() {
       </div>
 
       {courses?.data.length === 0 && (
-        <div className="dark:bg-muted-foreground/10 flex  flex-col items-center justify-center gap-6 rounded-lg border p-10 text-center">
+        <div className="dark:bg-muted-foreground/10 flex flex-col items-center justify-center gap-6 rounded-lg border p-10 text-center">
           <div className="flex flex-col items-center gap-2">
             <BookOpen className="text-muted-foreground size-16" />
             <h3 className="text-2xl font-medium">

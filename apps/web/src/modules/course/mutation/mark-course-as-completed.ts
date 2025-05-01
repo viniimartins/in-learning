@@ -25,10 +25,10 @@ function useMarkCourseAsCompleted({ queryKey }: QueryKeyProps) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey })
 
-      toast.success('Curso assistido com sucesso')
+      toast.success('Curso concluído com sucesso')
     },
     onError: () => {
-      toast.error('Erro ao marcar curso como assistido')
+      toast.error('Erro ao concluir curso')
     },
   })
 }

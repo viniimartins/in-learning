@@ -56,6 +56,10 @@ export function Content() {
                   allowFullScreen
                 />
               )}
+
+              {!videoWatching.url && (
+                <div className="h-100 bg-muted-foreground/10 flex items-center justify-center border" />
+              )}
             </CardContent>
 
             <Separator />
@@ -70,7 +74,9 @@ export function Content() {
           <Card className="col-span-1 h-fit">
             <CardHeader className="flex items-center justify-between gap-2">
               <Link href="/panel/course/details/1">
-                <CardTitle className="text-xl">{course?.title}</CardTitle>
+                <CardTitle className="truncate text-xl">
+                  {course?.title}
+                </CardTitle>
               </Link>
 
               <span className="text-muted-foreground text-sm">
@@ -115,7 +121,7 @@ export function Content() {
                   size="sm"
                   onClick={() => markCourseAsCompleted({ course: { id } })}
                 >
-                  Marcar curso como assistido
+                  Marcar curso como concluído
                 </Button>
               )}
 
