@@ -1,5 +1,4 @@
 import { Eye, MoreVertical, Pencil, Trash } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
@@ -26,18 +25,8 @@ export default function CourseInstructor({
   const { id, subtitle, title } = course
 
   return (
-    <Card className="pt-0">
-      <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
-        <Image
-          src={`https://picsum.photos/seed/1/300/200`}
-          alt={`Curso ${1 + 1}`}
-          priority
-          quality={100}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-
+    <Card>
+      <CardHeader className="relative">
         <div className="absolute right-2 top-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

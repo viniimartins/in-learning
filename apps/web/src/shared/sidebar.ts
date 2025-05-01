@@ -34,10 +34,6 @@ export const panel: SidebarItem[] = [
         url: '/panel/course/catalog',
       },
       {
-        title: 'Desejos',
-        url: '/panel/course/wishlist',
-      },
-      {
         title: 'Inscritos',
         url: '/panel/course/enrolled',
       },

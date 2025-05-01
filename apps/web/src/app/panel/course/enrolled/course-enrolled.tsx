@@ -1,16 +1,9 @@
 import { Play, Trophy } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 import type { ICourse } from '@/modules/course'
 
 interface Props {
@@ -23,18 +16,7 @@ export default function CourseEnrolled({ course }: Props) {
   const isCourseCompleted = course.progress[0].completed
 
   return (
-    <Card className="pt-0">
-      <CardHeader className="relative aspect-video overflow-hidden rounded-t-lg">
-        <Image
-          src={`https://picsum.photos/seed/1/300/200`}
-          alt={`Curso ${1 + 1}`}
-          priority
-          quality={100}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </CardHeader>
+    <Card>
       <CardContent className="flex justify-between">
         <CardTitle className="text-lg">{title}</CardTitle>
 

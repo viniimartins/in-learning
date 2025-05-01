@@ -1,29 +1,11 @@
 import { Book, Users } from 'lucide-react'
-import Image from 'next/image'
 
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 
 export default function Instructor() {
   return (
-    <Card className="pt-0">
-      <CardHeader className="relative aspect-square overflow-hidden rounded-t-lg">
-        <Image
-          src={`https://picsum.photos/seed/1/300/200`}
-          alt={`Curso ${1 + 1}`}
-          priority
-          quality={100}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </CardHeader>
+    <Card>
       <CardContent>
         <CardTitle className="text-center text-lg">
           Vinicius Martins Ribeiro

@@ -1,10 +1,8 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { LoaderCircle, Trash, Upload } from 'lucide-react'
-import Image from 'next/image'
+import { LoaderCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -57,15 +55,12 @@ const formSchema = z.object({
       message: 'Tópico do curso deve ser apenas uma palavra.',
     }),
   lessons: z.array(lessonSchema),
-  image: z.array(z.instanceof(File)).min(1, 'Envie pelo menos uma imagem'),
 })
 
 type FormSchema = z.infer<typeof formSchema>
 
 export function Content() {
   const router = useRouter()
-
-  const [image, setImage] = useState<File | null>(null)
 
   const { mutate: createCourse, isPending } = useCreateCourse()
 
@@ -90,9 +85,7 @@ export function Content() {
     control,
   } = form
 
-  function onSubmit({ image, ...data }: FormSchema) {
-    console.log(image)
-
+  function onSubmit(data: FormSchema) {
     const formData = {
       ...data,
       lessons: data.lessons.map((lesson) => ({
@@ -135,7 +128,7 @@ export function Content() {
                   <FormItem>
                     <FormLabel>Nome</FormLabel>
                     <FormControl>
-                      <Input placeholder="Nome do curso" {...field} />
+                      <Input placeholder="Digite o nome do curso" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -147,9 +140,9 @@ export function Content() {
                 name="slug"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Slug</FormLabel>
+                    <FormLabel>Tag</FormLabel>
                     <FormControl>
-                      <Input placeholder="Slug do curso" {...field} />
+                      <Input placeholder="Digite o TAG do curso" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -162,7 +155,10 @@ export function Content() {
                   <FormItem>
                     <FormLabel>Subtítulo</FormLabel>
                     <FormControl>
-                      <Input placeholder="Subtítulo do curso" {...field} />
+                      <Input
+                        placeholder="Digite um breve subtítulo para o curso"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -177,7 +173,7 @@ export function Content() {
                     <FormLabel>Descrição</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder="Descrição do curso"
+                        placeholder="Digite uma descrição detalhada do curso"
                         className="h-32"
                         {...field}
                       />
@@ -186,7 +182,9 @@ export function Content() {
                   </FormItem>
                 )}
               />
+            </div>
 
+            <div className="col-span-1 flex flex-col gap-4">
               <div className="col-span-2 space-y-2">
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-medium">Aulas</h3>
@@ -208,7 +206,10 @@ export function Content() {
                         <FormItem className="w-full">
                           <FormLabel>Nome da Aula</FormLabel>
                           <FormControl>
-                            <Input placeholder="Nome da aula" {...field} />
+                            <Input
+                              placeholder="Digite o título desta aula"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -221,7 +222,10 @@ export function Content() {
                         <FormItem className="w-full">
                           <FormLabel>Link da Aula</FormLabel>
                           <FormControl>
-                            <Input placeholder="Link da aula" {...field} />
+                            <Input
+                              placeholder="Digite o link do vídeo da aula"
+                              {...field}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -238,84 +242,6 @@ export function Content() {
                   </div>
                 ))}
               </div>
-            </div>
-
-            <div className="col-span-1 flex flex-col">
-              <Card className="flex gap-2 rounded-none border-none p-0">
-                <CardHeader className="p-0">
-                  <CardTitle>Imagem do Curso</CardTitle>
-                  <CardDescription className="hidden" />
-                </CardHeader>
-                <CardContent className="dark:bg-muted-foreground/10 relative flex h-[20rem] items-center justify-center border bg-neutral-100 p-0">
-                  {image && (
-                    <div className="relative h-full w-full">
-                      <Image
-                        src={URL.createObjectURL(image)}
-                        alt={'Curso Image'}
-                        fill
-                        quality={100}
-                        priority
-                        className="p-2"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-
-                      <div className="absolute right-5 top-5">
-                        <Button
-                          className="rounded-full"
-                          size="icon"
-                          onClick={() => setImage(null)}
-                          type="button"
-                        >
-                          <Trash className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-
-                  {!image && (
-                    <label className="flex h-full w-full cursor-pointer flex-col items-center justify-center">
-                      <div className="flex flex-col items-center gap-2">
-                        <Upload className="text-muted-foreground size-6" />
-                        <span className="text-muted-foreground text-sm">
-                          Clique para selecionar a imagem do curso
-                        </span>
-                      </div>
-
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(event) => {
-                          const file = event.target.files?.[0]
-                          if (file) {
-                            setImage(file)
-                            form.setValue('image', [file], {
-                              shouldValidate: true,
-                            })
-                          }
-                        }}
-                      />
-                    </label>
-                  )}
-
-                  <FormField
-                    control={control}
-                    name="image"
-                    render={({ field }) => (
-                      <FormItem className="hidden">
-                        <FormControl>
-                          <Input
-                            type="hidden"
-                            {...field}
-                            value={field.value?.toString() || ''}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </CardContent>
-              </Card>
 
               <div className="mt-auto">
                 <Button
