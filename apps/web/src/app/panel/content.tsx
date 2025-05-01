@@ -4,7 +4,9 @@ import { BookOpen, PlusIcon } from 'lucide-react'
 import Link from 'next/link'
 
 import { getSession } from '@/auth/session-client'
+import { Loading } from '@/components/loading'
 import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { useGetCourses } from '@/modules/course/query/get-course'
 
 import CourseEnrolled from './course/enrolled/course-enrolled'
@@ -12,7 +14,7 @@ import CourseEnrolled from './course/enrolled/course-enrolled'
 export function Content() {
   const session = getSession()
 
-  const { data: courses } = useGetCourses({
+  const { data: courses, isLoading: isCoursesLoading } = useGetCourses({
     pageIndex: 1,
     perPage: 5,
     isEnrolled: true,
@@ -21,9 +23,14 @@ export function Content() {
   return (
     <>
       <div className="flex h-full flex-col gap-8">
-        <span className="text-2xl font-medium">
-          Vamos começar a aprender, {session?.name ?? session?.email}
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="text-2xl font-medium">
+            Vamos começar a aprender,{' '}
+            {!isCoursesLoading && (session?.name || session?.email)}
+          </span>
+
+          {isCoursesLoading && <Skeleton className="h-6 w-60" />}
+        </div>
 
         <div className="flex h-full flex-col justify-between">
           <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
@@ -68,6 +75,8 @@ export function Content() {
           </div>
         </div>
       )}
+
+      {isCoursesLoading && <Loading />}
     </>
   )
 }

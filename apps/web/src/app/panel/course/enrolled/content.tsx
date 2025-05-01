@@ -4,6 +4,7 @@ import { Search } from 'lucide-react'
 import Link from 'next/link'
 import { useCallback, useState } from 'react'
 
+import { Loading } from '@/components/loading'
 import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,7 +22,7 @@ export function Content() {
 
   const { pageIndex, perPage } = enrolledTableParams
 
-  const { data: courses } = useGetCourses({
+  const { data: courses, isLoading: isCoursesLoading } = useGetCourses({
     pageIndex,
     perPage,
     isEnrolled: true,
@@ -61,7 +62,7 @@ export function Content() {
         </>
       )}
 
-      {!courses?.data.length && (
+      {!courses?.data.length && !isCoursesLoading && (
         <div className="flex h-full flex-col items-center justify-center gap-4">
           <p className="text-muted-foreground text-sm">
             Você ainda não está inscrito em nenhum curso.
@@ -72,6 +73,8 @@ export function Content() {
           </Link>
         </div>
       )}
+
+      {isCoursesLoading && <Loading />}
     </>
   )
 }

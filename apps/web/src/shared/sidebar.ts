@@ -1,9 +1,4 @@
-import {
-  Book,
-  LayoutDashboardIcon,
-  type LucideIcon,
-  UserRound,
-} from 'lucide-react'
+import { Book, LayoutDashboardIcon, type LucideIcon } from 'lucide-react'
 
 interface SidebarItem {
   title: string
@@ -42,10 +37,5 @@ export const panel: SidebarItem[] = [
         url: '/panel/course/my-courses',
       },
     ],
-  },
-  {
-    title: 'Instrutores',
-    url: '/panel/instructors',
-    icon: UserRound,
   },
 ]
