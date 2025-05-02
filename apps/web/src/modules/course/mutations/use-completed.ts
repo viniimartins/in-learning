@@ -12,16 +12,16 @@ type Course = Pick<ICourse, 'id'>
 interface Params {
   course: Course
 }
-async function markCourseAsCompleted({ course }: Params) {
+async function completed({ course }: Params) {
   const { data } = await api.post(`/courses/${course.id}/completed`)
 
   return data
 }
 
-function useMarkCourseAsCompleted({ queryKey }: QueryKeyProps) {
+function useCompletedCourse({ queryKey }: QueryKeyProps) {
   return useMutation({
-    mutationKey: ['mark-course-as-completed'],
-    mutationFn: markCourseAsCompleted,
+    mutationKey: ['completed-course'],
+    mutationFn: completed,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey })
 
@@ -33,4 +33,4 @@ function useMarkCourseAsCompleted({ queryKey }: QueryKeyProps) {
   })
 }
 
-export { useMarkCourseAsCompleted }
+export { useCompletedCourse }

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
 import { Button } from '@/components/ui/button'
-import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
+import { useGetCourseById } from '@/modules/course/query/use-get-by-id'
 import { formatDate } from '@/utils/formatDate'
 
 export function Content() {

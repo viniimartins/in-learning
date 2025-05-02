@@ -7,7 +7,7 @@ import { Loading } from '@/components/loading'
 import Pagination from '@/components/pagination'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import { useGetCourses } from '@/modules/course/query/get-course'
+import { useGetCourses } from '@/modules/course/query/use-get'
 
 import CourseCatalog from './course-catalog'
 

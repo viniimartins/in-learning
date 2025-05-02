@@ -7,7 +7,7 @@ import { getSession } from '@/auth/session-client'
 import { Loading } from '@/components/loading'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useGetCourses } from '@/modules/course/query/get-course'
+import { useGetCourses } from '@/modules/course/query/use-get'
 
 import CourseEnrolled from './course/enrolled/course-enrolled'
 

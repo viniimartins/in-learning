@@ -26,6 +26,7 @@ export function useGetCourseById({ course }: Props) {
   const query = useQuery({
     queryKey,
     queryFn: () => get(course.id),
+    enabled: !!course.id,
   })
 
   const { isError } = query

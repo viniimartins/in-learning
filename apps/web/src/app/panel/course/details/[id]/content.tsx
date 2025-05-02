@@ -20,9 +20,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useDeleteCourse } from '@/modules/course/mutation/delete-course'
-import { useEnrolledCourse } from '@/modules/course/mutation/enrolled-course'
-import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
+import { useDeleteCourse } from '@/modules/course/mutations/delete-course'
+import { useEnrolledCourse } from '@/modules/course/mutations/use-register'
+import { useGetCourseById } from '@/modules/course/query/use-get-by-id'
 
 export function Content() {
   const router = useRouter()

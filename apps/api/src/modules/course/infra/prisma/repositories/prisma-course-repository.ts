@@ -13,6 +13,8 @@ import type {
   IFindCourseByIdRepository,
   ISearchCourses,
   ISearchCoursesRepository,
+  IUpdateCourse,
+  IUpdateCourseRepository,
 } from '@modules/course/repositories'
 
 class PrismaCourseRepository
@@ -21,6 +23,7 @@ class PrismaCourseRepository
   IDeleteCourseRepository,
   IEnrollCourseRepository,
   IFindCourseByIdRepository,
+  IUpdateCourseRepository,
   ICompleteCourseRepository,
   ISearchCoursesRepository {
   async create({
@@ -77,6 +80,28 @@ class PrismaCourseRepository
     await prisma.course.delete({
       where: { id: courseId },
     })
+  }
+
+  async update({
+    courseId,
+    ...data
+  }: IUpdateCourse.Params): Promise<IUpdateCourse.Response> {
+    const course = await prisma.course.update({
+      where: { id: courseId },
+      data: {
+        ...data,
+        lessons: {
+          createMany: {
+            data: data.lessons,
+          },
+        },
+      },
+      include: {
+        lessons: true,
+      },
+    })
+
+    return course
   }
 
   async search({

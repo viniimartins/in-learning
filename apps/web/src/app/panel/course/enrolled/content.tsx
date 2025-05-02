@@ -9,7 +9,7 @@ import Pagination from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import type { Paginated } from '@/helpers/paginated'
-import { useGetCourses } from '@/modules/course/query/get-course'
+import { useGetCourses } from '@/modules/course/query/use-get'
 
 import CourseEnrolled from './course-enrolled'
 

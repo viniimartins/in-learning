@@ -5,6 +5,7 @@ import {
   ENROLL_COURSE_REPOSITORY_TOKEN,
   FIND_COURSE_BY_ID_REPOSITORY_TOKEN,
   SEARCH_COURSES_REPOSITORY_TOKEN,
+  UPDATE_COURSE_REPOSITORY_TOKEN,
 } from '@modules/course/constants'
 import { PrismaCourseRepository } from '@modules/course/infra/prisma/repositories/prisma-course-repository'
 import {
@@ -12,6 +13,7 @@ import {
   IDeleteCourseRepository,
   IFindCourseByIdRepository,
   ISearchCoursesRepository,
+  type IUpdateCourseRepository,
 } from '@modules/course/repositories'
 import { container } from 'tsyringe'
 
@@ -26,6 +28,12 @@ container.registerSingleton<IDeleteCourseRepository>(
   DELETE_COURSE_REPOSITORY_TOKEN,
   PrismaCourseRepository,
 )
+
+container.registerSingleton<IUpdateCourseRepository>(
+  UPDATE_COURSE_REPOSITORY_TOKEN,
+  PrismaCourseRepository,
+)
+
 container.registerSingleton<ISearchCoursesRepository>(
   SEARCH_COURSES_REPOSITORY_TOKEN,
   PrismaCourseRepository,

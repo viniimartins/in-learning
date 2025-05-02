@@ -3,9 +3,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { LoaderCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { Loading } from '@/components/loading'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -24,7 +26,11 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { useCreateCourse } from '@/modules/course'
+import {
+  useCreateCourse,
+  useGetCourseById,
+  useUpdateCourse,
+} from '@/modules/course'
 import { formatYoutubeUrl } from '@/utils/format-youtube-url'
 
 const lessonSchema = z.object({
@@ -59,11 +65,27 @@ const formSchema = z.object({
 
 type FormSchema = z.infer<typeof formSchema>
 
-export function Content() {
+interface Props {
+  courseId: string | null
+  isEditing: boolean
+}
+
+export function Content(props: Props) {
+  const { courseId, isEditing } = props
+
   const router = useRouter()
+
+  const { data: course, isLoading: isLoadingCourse } = useGetCourseById({
+    course: {
+      id: courseId!,
+    },
+  })
 
   const { mutate: createCourse, isPending: isCreateCoursePending } =
     useCreateCourse()
+
+  const { mutate: updateCourse, isPending: isUpdateCoursePending } =
+    useUpdateCourse()
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -84,6 +106,7 @@ export function Content() {
   const {
     formState: { isSubmitting },
     control,
+    reset,
   } = form
 
   function onSubmit(data: FormSchema) {
@@ -95,171 +118,214 @@ export function Content() {
       })),
     }
 
-    createCourse(
-      { course: formData },
-      {
-        onSuccess: () => {
-          router.push('/panel')
+    if (!isEditing) {
+      createCourse(
+        { course: formData },
+        {
+          onSuccess: () => {
+            router.push('/panel')
+          },
         },
-      },
-    )
+      )
+    }
+
+    if (isEditing) {
+      updateCourse(
+        { course: formData, id: courseId! },
+        {
+          onSuccess: () => {
+            router.push('/panel')
+          },
+        },
+      )
+    }
   }
 
-  const isLoading = isCreateCoursePending || isSubmitting
+  const isLoading = isLoadingCourse
+
+  const isSaving =
+    isCreateCoursePending || isUpdateCoursePending || isSubmitting
+
+  useEffect(() => {
+    if (isEditing && course) {
+      reset({
+        title: course.title,
+        description: course.description,
+        subtitle: course.subtitle,
+        slug: course.slug,
+        lessons: course.lessons.map((lesson) => ({
+          title: lesson.title,
+          videoUrl: lesson.videoUrl,
+        })),
+      })
+    }
+  }, [course, isEditing])
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Cadastrar Curso</CardTitle>
-        <CardDescription>
-          Preencha os campos abaixo para cadastrar um novo curso.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="grid grid-cols-2 gap-6"
-          >
-            <div className="col-span-1 space-y-6">
-              <FormField
-                control={control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Nome</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Digite o nome do curso" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+    <>
+      {!isLoading && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Cadastrar Curso</CardTitle>
+            <CardDescription>
+              Preencha os campos abaixo para cadastrar um novo curso.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="grid grid-cols-2 gap-6"
+              >
+                <div className="col-span-1 space-y-6">
+                  <FormField
+                    control={control}
+                    name="title"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Nome</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Digite o nome do curso"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={control}
-                name="slug"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tag</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Digite o TAG do curso" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="subtitle"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Subtítulo</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="Digite um breve subtítulo para o curso"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                  <FormField
+                    control={control}
+                    name="slug"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Tag</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Digite o TAG do curso"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={control}
+                    name="subtitle"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Subtítulo</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Digite um breve subtítulo para o curso"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              <FormField
-                control={control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Descrição</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Digite uma descrição detalhada do curso"
-                        className="h-32"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="col-span-1 flex flex-col gap-4">
-              <div className="col-span-2 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-medium">Aulas</h3>
-                  <Button
-                    type="button"
-                    onClick={() => append({ title: '', videoUrl: '' })}
-                    variant="secondary"
-                  >
-                    Adicionar Aula
-                  </Button>
+                  <FormField
+                    control={control}
+                    name="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Descrição</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Digite uma descrição detalhada do curso"
+                            className="h-32"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </div>
 
-                {fields.map((field, index) => (
-                  <div key={field.id} className="flex items-end gap-4">
-                    <FormField
-                      control={control}
-                      name={`lessons.${index}.title`}
-                      render={({ field }) => (
-                        <FormItem className="w-full">
-                          <FormLabel>Nome da Aula</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Digite o título desta aula"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={control}
-                      name={`lessons.${index}.videoUrl`}
-                      render={({ field }) => (
-                        <FormItem className="w-full">
-                          <FormLabel>Link da Aula</FormLabel>
-                          <FormControl>
-                            <Input
-                              placeholder="Digite o link do vídeo da aula"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                <div className="col-span-1 flex flex-col gap-4">
+                  <div className="col-span-2 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-lg font-medium">Aulas</h3>
+                      <Button
+                        type="button"
+                        onClick={() => append({ title: '', videoUrl: '' })}
+                        variant="secondary"
+                      >
+                        Adicionar Aula
+                      </Button>
+                    </div>
 
+                    {fields.map((field, index) => (
+                      <div key={field.id} className="flex items-end gap-4">
+                        <FormField
+                          control={control}
+                          name={`lessons.${index}.title`}
+                          render={({ field }) => (
+                            <FormItem className="w-full">
+                              <FormLabel>Nome da Aula</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Digite o título desta aula"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={control}
+                          name={`lessons.${index}.videoUrl`}
+                          render={({ field }) => (
+                            <FormItem className="w-full">
+                              <FormLabel>Link da Aula</FormLabel>
+                              <FormControl>
+                                <Input
+                                  placeholder="Digite o link do vídeo da aula"
+                                  {...field}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          onClick={() => remove(index)}
+                        >
+                          Remover
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto">
                     <Button
-                      type="button"
-                      variant="destructive"
-                      onClick={() => remove(index)}
+                      type="submit"
+                      className="flex w-full gap-2"
+                      onClick={form.handleSubmit(onSubmit)}
                     >
-                      Remover
+                      Salvar
+                      {isSaving && (
+                        <LoaderCircle size={18} className="animate-spin" />
+                      )}
                     </Button>
                   </div>
-                ))}
-              </div>
+                </div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      )}
 
-              <div className="mt-auto">
-                <Button
-                  type="submit"
-                  className="flex w-full gap-2"
-                  onClick={form.handleSubmit(onSubmit)}
-                >
-                  Salvar
-                  {isLoading && (
-                    <LoaderCircle size={18} className="animate-spin" />
-                  )}
-                </Button>
-              </div>
-            </div>
-          </form>
-        </Form>
-      </CardContent>
-    </Card>
+      {isLoading && <Loading />}
+    </>
   )
 }

@@ -14,8 +14,8 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
-import { useMarkCourseAsCompleted } from '@/modules/course/mutation/mark-course-as-completed'
-import { useGetCourseById } from '@/modules/course/query/get-course-by-id'
+import { useCompletedCourse } from '@/modules/course'
+import { useGetCourseById } from '@/modules/course/query/use-get-by-id'
 
 export function Content() {
   const { id } = useParams<{ id: string }>()
@@ -28,7 +28,7 @@ export function Content() {
     isLoading: isCourseLoading,
   } = useGetCourseById({ course: { id } })
 
-  const { mutate: markCourseAsCompleted } = useMarkCourseAsCompleted({
+  const { mutate: completeCourse } = useCompletedCourse({
     queryKey,
   })
 
@@ -119,7 +119,7 @@ export function Content() {
                   variant="outline"
                   className="w-full"
                   size="sm"
-                  onClick={() => markCourseAsCompleted({ course: { id } })}
+                  onClick={() => completeCourse({ course: { id } })}
                 >
                   Marcar curso como concluído
                 </Button>
