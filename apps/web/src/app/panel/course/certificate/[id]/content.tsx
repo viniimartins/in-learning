@@ -4,6 +4,14 @@ import { Download, Printer } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb'
 import { Button } from '@/components/ui/button'
 import { useGetCourseById } from '@/modules/course/query/use-get-by-id'
 import { formatDate } from '@/utils/formatDate'
@@ -21,6 +29,24 @@ export function Content() {
 
   return (
     <>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/panel">Painel</BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbLink href="/panel/course/catalog">
+              Certificado
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{course?.title}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+
       {isCourseCompleted && (
         <div className="flex flex-col items-center justify-center">
           <div className="bg-background relative w-full max-w-4xl rounded-lg border-8 p-8 shadow-lg">
