@@ -4,6 +4,7 @@ import { Download, Printer } from 'lucide-react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 
+import { getSession } from '@/auth/session-client'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -18,6 +19,8 @@ import { formatDate } from '@/utils/formatDate'
 
 export function Content() {
   const { id } = useParams<{ id: string }>()
+
+  const session = getSession()
 
   const { data: course } = useGetCourseById({
     course: {
@@ -62,7 +65,7 @@ export function Content() {
               </p>
 
               <h2 className="mb-8 border-b-2 px-8 pb-2 text-2xl font-bold">
-                {course?.instructor?.name || 'Aluno'}
+                {session?.name || session?.email}
               </h2>
 
               <p className="text-muted-foreground mb-8 max-w-2xl text-lg">
