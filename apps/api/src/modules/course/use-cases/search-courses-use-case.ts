@@ -3,8 +3,8 @@ import { SEARCH_COURSES_REPOSITORY_TOKEN } from '@modules/course/constants'
 import type {
   ISearchCourses,
   ISearchCoursesUseCase,
-} from '@modules/course/domain/use-cases/search-courses-use-case'
-import type { ISearchCoursesRepository } from '@modules/course/repositories/search-courses-repository'
+} from '@modules/course/domain/use-cases'
+import type { ISearchCoursesRepository } from '@modules/course/repositories'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()

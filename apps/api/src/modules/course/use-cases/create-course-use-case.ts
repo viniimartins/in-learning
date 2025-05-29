@@ -3,8 +3,8 @@ import { CREATE_COURSE_REPOSITORY_TOKEN } from '@modules/course/constants'
 import type {
   ICreateCourse,
   ICreateCourseUseCase,
-} from '@modules/course/domain/use-cases/create-course-use-case'
-import type { ICreateCourseRepository } from '@modules/course/repositories/create-course-repository'
+} from '@modules/course/domain/use-cases'
+import type { ICreateCourseRepository } from '@modules/course/repositories'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()

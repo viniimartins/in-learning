@@ -9,6 +9,7 @@ interface ICourseEntity extends IBaseEntity {
   title: string
   slug: string
   subtitle: string
+  instructorId: string
   description: string
   lessons: ILessonEntity[]
 }

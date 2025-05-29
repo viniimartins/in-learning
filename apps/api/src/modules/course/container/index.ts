@@ -1,3 +1,7 @@
+import type {
+  ICompleteCourseRepository,
+  IEnrollCourseRepository,
+} from '@modules/course//repositories'
 import {
   COMPLETE_COURSE_REPOSITORY_TOKEN,
   CREATE_COURSE_REPOSITORY_TOKEN,
@@ -16,9 +20,6 @@ import {
   type IUpdateCourseRepository,
 } from '@modules/course/repositories'
 import { container } from 'tsyringe'
-
-import type { ICompleteCourseRepository } from '../repositories/complete-course-repository'
-import type { IEnrollCourseRepository } from '../repositories/enroll-course-repository'
 
 container.registerSingleton<ICreateCourseRepository>(
   CREATE_COURSE_REPOSITORY_TOKEN,

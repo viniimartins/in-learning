@@ -4,8 +4,8 @@ import { FIND_COURSE_BY_ID_REPOSITORY_TOKEN } from '@modules/course/constants'
 import type {
   IFindCourseById,
   IFindCourseByIdUseCase,
-} from '@modules/course/domain/use-cases/find-course-by-id-use-case'
-import type { IFindCourseByIdRepository } from '@modules/course/repositories/find-course-by-id-repository'
+} from '@modules/course/domain/use-cases'
+import type { IFindCourseByIdRepository } from '@modules/course/repositories'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
