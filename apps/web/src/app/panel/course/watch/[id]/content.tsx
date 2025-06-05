@@ -93,7 +93,7 @@ export function Content() {
 
           <Card className="col-span-1 h-fit">
             <CardHeader className="flex items-center justify-between gap-2">
-              <Link href="/panel/course/details/1">
+              <Link href="/panel/course/details/1" className="w-60 truncate">
                 <CardTitle className="truncate text-xl">
                   {course?.title}
                 </CardTitle>

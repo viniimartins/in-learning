@@ -49,7 +49,7 @@ export default function CourseEnrolled({ course }: Props) {
           <Link href={`/panel/course/certificate/${id}`} className="w-full">
             <Button variant="outline" className="w-full">
               <Trophy className="size-4" />
-              Visualizar Certificado
+              Certificado
             </Button>
           </Link>
         )}

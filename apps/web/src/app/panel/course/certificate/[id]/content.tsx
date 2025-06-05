@@ -69,7 +69,7 @@ export function Content() {
               </h2>
 
               <p className="text-muted-foreground mb-8 max-w-2xl text-lg">
-                concluiu com sucesso o curso{' '}
+                Concluiu com sucesso o curso{' '}
                 <span className="text-primary font-semibold">
                   {course?.title}
                 </span>
