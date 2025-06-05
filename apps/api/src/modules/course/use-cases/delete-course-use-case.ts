@@ -8,7 +8,7 @@ import {
 import type {
   IDeleteCourse,
   IDeleteCourseUseCase,
-} from '@modules/course/domain/use-cases/delete-course-use-case'
+} from '@modules/course/domain/use-cases'
 import type {
   IDeleteCourseRepository,
   IFindCourseByIdRepository,

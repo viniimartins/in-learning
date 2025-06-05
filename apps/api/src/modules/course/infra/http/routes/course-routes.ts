@@ -1,14 +1,13 @@
 import { requiredAuthentication } from '@middlewares/required-authentication'
+import { CompleteCourseController } from '@modules/course/infra/http/controllers/complete-course-controller'
 import { CreateCourseController } from '@modules/course/infra/http/controllers/create-course-controller'
 import { DeleteCourseController } from '@modules/course/infra/http/controllers/delete-course-controller'
+import { EnrollCourseController } from '@modules/course/infra/http/controllers/enroll-course-controller'
 import { FindCourseByIdController } from '@modules/course/infra/http/controllers/find-course-by-id-controller'
 import { SearchCoursesController } from '@modules/course/infra/http/controllers/search-courses-controller'
+import { UpdateCourseController } from '@modules/course/infra/http/controllers/update-course-controller'
 import type { FastifyInstance } from 'fastify'
 import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-
-import { CompleteCourseController } from '../controllers/complete-course-controller'
-import { EnrollCourseController } from '../controllers/enroll-course-controller'
-import { UpdateCourseController } from '../controllers/update-course-controller'
 
 const routes = (app: FastifyInstance) => {
   app.addHook('onRequest', requiredAuthentication)
